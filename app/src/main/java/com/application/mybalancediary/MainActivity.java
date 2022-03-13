@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button resendCode;
     Button resetPassLocal;
     Button logout;
+    Button change_profile;
     FirebaseUser user;
     StorageReference storageReference;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
         logout=findViewById(R.id.button);
+        change_profile=findViewById(R.id.changeProfile);
 
         if(!user.isEmailVerified()){
             verifyMsg.setVisibility(View.VISIBLE);
@@ -134,6 +136,15 @@ public class MainActivity extends AppCompatActivity {
                 passwordResetDialog.create().show();
 
             }
+        });
+        change_profile.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),EditProfile.class));
+                finish();
+            }
+
         });
         logout.setOnClickListener(new View.OnClickListener()
          {

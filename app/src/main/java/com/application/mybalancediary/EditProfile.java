@@ -40,8 +40,6 @@ public class EditProfile extends AppCompatActivity {
         Intent data = getIntent();
         final String fullName = data.getStringExtra("fullName");
         String email = data.getStringExtra("email");
-        String phone = data.getStringExtra("phone");
-
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         user = fAuth.getCurrentUser();
@@ -91,7 +89,7 @@ public class EditProfile extends AppCompatActivity {
         profileEmail.setText(email);
         profileFullName.setText(fullName);
 
-        Log.d(TAG, "onCreate: " + fullName + " " + email + " " + phone);
+        Log.d(TAG, "onCreate: " + fullName + " " + email + " " );
     }
 
     }
