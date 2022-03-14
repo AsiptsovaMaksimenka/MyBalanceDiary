@@ -17,7 +17,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +39,7 @@ public class EditProfile extends AppCompatActivity {
         Intent data = getIntent();
         final String fullName = data.getStringExtra("fullName");
         String email = data.getStringExtra("email");
+
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         user = fAuth.getCurrentUser();
@@ -89,7 +89,7 @@ public class EditProfile extends AppCompatActivity {
         profileEmail.setText(email);
         profileFullName.setText(fullName);
 
-        Log.d(TAG, "onCreate: " + fullName + " " + email + " " );
+        Log.d(TAG, "onCreate: " + fullName + " " + email );
     }
 
-    }
+}

@@ -29,7 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import javax.annotation.Nullable;
 
 public class MainActivity extends AppCompatActivity {
-    TextView fullName,email,verifyMsg;
+    TextView fullName,verifyMsg;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fullName = findViewById(R.id.profileName);
-        email    = findViewById(R.id.profileEmail);
         resetPassLocal = findViewById(R.id.resetPasswordLocal);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         verifyMsg = findViewById(R.id.verifyMsg);
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
-        logout=findViewById(R.id.button);
+        logout=findViewById(R.id.logout);
         change_profile=findViewById(R.id.changeProfile);
 
         if(!user.isEmailVerified()){
@@ -87,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if(documentSnapshot.exists()){
                     fullName.setText(documentSnapshot.getString("fName"));
-                    email.setText(documentSnapshot.getString("email"));
 
                 }else {
                     Log.d("tag", "onEvent: Document do not exists");
@@ -147,14 +145,14 @@ public class MainActivity extends AppCompatActivity {
 
         });
         logout.setOnClickListener(new View.OnClickListener()
-         {
+        {
             @Override
             public void onClick(View v) {
-                        FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                 finish();
             }
 
-            });
+        });
     }
 }

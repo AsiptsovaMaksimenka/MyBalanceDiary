@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -22,9 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
+import android.widget.ArrayAdapter;
+
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -39,41 +41,54 @@ public class RegisterActivity extends AppCompatActivity {
     int position;
     String genderMF;
     String userID;
+    Spinner spinnerWorkoutFreq, spinnerGoals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mFullName   = findViewById(R.id.fullName);
+        mFullName   = findViewById(R.id.fullname);
         mEmail      = findViewById(R.id.Email);
         mPassword   = findViewById(R.id.password);
-        mRegisterBtn= findViewById(R.id.registerBtn);
+        mRegisterBtn= findViewById(R.id.register);
         mLoginBtn   = findViewById(R.id.createText);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.loading);
         mHeight   = findViewById(R.id.heightInput);
         mWeight   = findViewById(R.id.weightInput);
         mAge   = findViewById(R.id.ageInput);
         genderGroup = findViewById(R.id.genderGroup);
+        spinnerWorkoutFreq=findViewById(R.id.WorkoutFreq);
+        spinnerGoals= findViewById(R.id.spinnerGoals);
+        ArrayAdapter<CharSequence> adapterWorkoutFreq = ArrayAdapter.createFromResource(this,
+                R.array.workfreqarray, R.layout.spinner_item);
+        adapterWorkoutFreq.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter<CharSequence> adapterGoals = ArrayAdapter.createFromResource(this,
+                R.array.goalsarray, R.layout.spinner_item);
+        adapterGoals.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerWorkoutFreq.setAdapter(adapterWorkoutFreq);
+        spinnerGoals.setAdapter(adapterGoals);
         genderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            position = genderGroup.indexOfChild(findViewById(checkedId));
-            if (position == 0) {
-                Log.d("Gender is ", "Male");
-                genderMF="Male";
-            } else {
-                Log.d("Gender is ", "Female");
-                genderMF="Female";
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                position = genderGroup.indexOfChild(findViewById(checkedId));
+                if (position == 0) {
+                    Log.d("Gender is ", "Male");
+                    genderMF="Male";
+                } else {
+                    Log.d("Gender is ", "Female");
+                    genderMF="Female";
+                }
             }
-        }
         });
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
         }
+
 
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +165,9 @@ public class RegisterActivity extends AppCompatActivity {
                             user.put("height",height);
                             user.put("age",age);
                             user.put("gender",gender);
+                            user.put("Workout", spinnerWorkoutFreq);
+                            user.put("Goals", spinnerGoals);
+
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

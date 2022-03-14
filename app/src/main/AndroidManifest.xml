@@ -12,25 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBalanceDiary">
         <activity
-            android:name=".StartPageActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".GoogleSignIn"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".EditProfile"
+            android:name=".User"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
