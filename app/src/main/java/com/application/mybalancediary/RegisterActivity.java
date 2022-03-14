@@ -2,6 +2,7 @@ package com.application.mybalancediary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,12 +27,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 import android.widget.ArrayAdapter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mFullName,mEmail,mPassword,mHeight,mWeight,mAge;
+    EditText mFullName, mEmail, mPassword, mHeight, mWeight, mAge;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
@@ -48,20 +54,20 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mFullName   = findViewById(R.id.fullname);
-        mEmail      = findViewById(R.id.Email);
-        mPassword   = findViewById(R.id.password);
-        mRegisterBtn= findViewById(R.id.register);
-        mLoginBtn   = findViewById(R.id.createText);
+        mFullName = findViewById(R.id.fullname);
+        mEmail = findViewById(R.id.Email);
+        mPassword = findViewById(R.id.password);
+        mRegisterBtn = findViewById(R.id.register);
+        mLoginBtn = findViewById(R.id.createText);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.loading);
-        mHeight   = findViewById(R.id.heightInput);
-        mWeight   = findViewById(R.id.weightInput);
-        mAge   = findViewById(R.id.ageInput);
+        mHeight = findViewById(R.id.heightInput);
+        mWeight = findViewById(R.id.weightInput);
+        mAge = findViewById(R.id.ageInput);
         genderGroup = findViewById(R.id.genderGroup);
-        spinnerWorkoutFreq=findViewById(R.id.WorkoutFreq);
-        spinnerGoals= findViewById(R.id.spinnerGoals);
+        spinnerWorkoutFreq = findViewById(R.id.WorkoutFreq);
+        spinnerGoals = findViewById(R.id.spinnerGoals);
         ArrayAdapter<CharSequence> adapterWorkoutFreq = ArrayAdapter.createFromResource(this,
                 R.array.workfreqarray, R.layout.spinner_item);
         adapterWorkoutFreq.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -77,18 +83,17 @@ public class RegisterActivity extends AppCompatActivity {
                 position = genderGroup.indexOfChild(findViewById(checkedId));
                 if (position == 0) {
                     Log.d("Gender is ", "Male");
-                    genderMF="Male";
+                    genderMF = "Male";
                 } else {
                     Log.d("Gender is ", "Female");
-                    genderMF="Female";
+                    genderMF = "Female";
                 }
             }
         });
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        if (fAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
-
 
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,49 +102,67 @@ public class RegisterActivity extends AppCompatActivity {
                 final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
                 final String fullName = mFullName.getText().toString();
-                final String height=mHeight.getText().toString();
-                final String weight=mWeight.getText().toString();
-                final String age=mAge.getText().toString();
-                final String gender=genderMF;
+                final String height = mHeight.getText().toString();
+                final String weight = mWeight.getText().toString();
+                final String age = mAge.getText().toString();
+                final String gender = genderMF;
 
 
-                if(TextUtils.isEmpty(age)){
+                if (TextUtils.isEmpty(age)) {
                     mAge.setError("Age is Required.");
                     return;
                 }
+                if (Integer.parseInt(age) < 13 || Integer.parseInt(age) > 115) {
+                    mAge.setError("Age must me greater then 13");
+                    return;
+                }
 
-                if(TextUtils.isEmpty(weight)){
+                if (TextUtils.isEmpty(weight)) {
                     mWeight.setError("Weight is Required.");
                     return;
                 }
-                if(TextUtils.isEmpty(height)){
+                if (Integer.parseInt(weight) < 25 || Integer.parseInt(weight) > 180 ) {
+                    mAge.setError("Weight must me greater then 25");
+                    return;
+                }
+                if (TextUtils.isEmpty(height)) {
                     mHeight.setError("Height is Required.");
                     return;
                 }
+                if (Integer.parseInt(height) < 100 || Integer.parseInt(height) > 230) {
+                    mAge.setError("Height must me greater then 100");
+                    return;
 
-
-                if(TextUtils.isEmpty(email)){
+                }
+                if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is Required.");
                     return;
                 }
+                if(!isValid(email))
+                {
+                    mEmail.setError("Email isnt real.");
+                    return;
+                }
 
-                if(TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     mPassword.setError("Password is Required.");
                     return;
                 }
-
-                if(password.length() < 6){
-                    mPassword.setError("Password Must be >= 6 Characters");
+                if (password.length() > 8 && upperCase(password) && lowerCase(password) && numberCase(password) && specialCase(password)) {
+                    System.out.println("Password accepted");
+                } else {
+                    mPassword.setError("Password Must be >= 8 characters,have upper,lower letters,number and special character");
                     return;
                 }
+
 
                 progressBar.setVisibility(View.VISIBLE);
 
 
-                fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
 
 
                             FirebaseUser fuser = fAuth.getCurrentUser();
@@ -158,20 +181,20 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
-                            Map<String,Object> user = new HashMap<>();
-                            user.put("fName",fullName);
-                            user.put("email",email);
-                            user.put("weight",weight);
-                            user.put("height",height);
-                            user.put("age",age);
-                            user.put("gender",gender);
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("fName", fullName);
+                            user.put("email", email);
+                            user.put("weight", weight);
+                            user.put("height", height);
+                            user.put("age", age);
+                            user.put("gender", gender);
                             user.put("Workout", spinnerWorkoutFreq);
                             user.put("Goals", spinnerGoals);
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -179,9 +202,9 @@ public class RegisterActivity extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-                        }else {
+                        } else {
                             Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
@@ -191,14 +214,82 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
-
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 
 
     }
+
+    private boolean upperCase(String str) {
+        char ch;
+        for (int i = 0; i < str.length(); i++) {
+            ch = str.charAt(i);
+            if (Character.isUpperCase(ch)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean lowerCase(String str) {
+        char ch;
+        for (int i = 0; i < str.length(); i++) {
+            ch = str.charAt(i);
+            if (Character.isLowerCase(ch)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean numberCase(String str) {
+        char ch;
+        for (int i = 0; i < str.length(); i++) {
+            ch = str.charAt(i);
+            if (Character.isDigit(ch)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean specialCase(String str) {
+        char ch;
+        char ph;
+        String specialChars = "/0*!@$^&*()\"{}_[]|\\?<>,.";
+        for (int i = 0; i < str.length(); i++) {
+            ch = str.charAt(i);
+            for (int j = 0; j < specialChars.length(); j++) {
+                ph = specialChars.charAt(j);
+                if (ch == ph) {
+                    return true;
+                }
+
+            }
+
+        }
+        return false;
+    }
+
+    public boolean isValid(String email)
+    {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
+
+
 }
