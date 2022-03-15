@@ -1,7 +1,11 @@
-Skład grupy: Yanina Asiptsova, Anastasiya Maksimenka 
+Skład grupy: Yanina Asiptsova, Anastasiya Maksimenka
+
 Rodzaj aplikacji: mobilna(Android) 
+
 Języki programowania i użyte technologie: Java, Firebase 
+
 API Food : Nutritionix
+
 Logowanie:E-mail, Google
 
 Aplikacja mobilna “MyBalanceDiary”, która służy do śledzenia danych dotyczących kondycji fizycznej z możliwościami:
