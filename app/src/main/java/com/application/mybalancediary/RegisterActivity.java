@@ -108,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 if (Integer.parseInt(age) < 13 || Integer.parseInt(age) > 115) {
-                    mAge.setError("Age must me greater then 13");
+                    mAge.setError("Age must me greater then 13 and lesser then 115");
                     return;
                 }
 
@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 if (Integer.parseInt(weight) < 25 || Integer.parseInt(weight) > 180 ) {
-                    mAge.setError("Weight must me greater then 25");
+                    mAge.setError("Weight must me greater then 25 and lesser then 180");
                     return;
                 }
                 if (TextUtils.isEmpty(height)) {
@@ -125,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 if (Integer.parseInt(height) < 100 || Integer.parseInt(height) > 230) {
-                    mAge.setError("Height must me greater then 100");
+                    mAge.setError("Height must me greater then 100 and lesser then 230");
                     return;
 
                 }
@@ -159,7 +159,6 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-
                             FirebaseUser fuser = fAuth.getCurrentUser();
                             fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -177,14 +176,12 @@ public class RegisterActivity extends AppCompatActivity {
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String, Object> user = new HashMap<>();
-                            user.put("fName", fullName);
+                            user.put("name", fullName);
                             user.put("email", email);
                             user.put("weight", weight);
                             user.put("height", height);
                             user.put("age", age);
                             user.put("gender", gender);
-                            user.put("Workout", spinnerWorkoutFreq);
-                            user.put("Goals", spinnerGoals);
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
