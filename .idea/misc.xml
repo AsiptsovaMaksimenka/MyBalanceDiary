@@ -5,11 +5,13 @@
       <map>
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable-v24/ic_menu_gallery.xml" value="0.2595" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.2595" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable/calendar.xml" value="0.2595" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable/dashboard.xml" value="0.201" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable/exit.xml" value="0.2595" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable/home.xml" value="0.201" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable/info.xml" value="0.201" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable/main.xml" value="0.1375" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable/profile.xml" value="0.2595" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout-w1240dp/app_bar_main.xml" value="0.33197278911564626" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout-w1240dp/content_main.xml" value="0.33197278911564626" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout-w600dp/content_main.xml" value="0.43963963963963965" />
@@ -35,6 +37,7 @@
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/content_navigation.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/fr1.xml" value="0.15546218487394958" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/fragment_calendar.xml" value="0.21981981981981982" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/fragment_dashboard.xml" value="0.21981981981981982" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/fragment_diary.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/fragment_exit.xml" value="0.21981981981981982" />
