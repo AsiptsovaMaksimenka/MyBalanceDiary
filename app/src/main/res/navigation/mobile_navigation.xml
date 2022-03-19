@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/Profile"
+        android:id="@+id/nav_profile"
         android:name="com.application.mybalancediary.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
@@ -23,7 +23,7 @@
         android:label="Calendar"
         tools:layout="@layout/fragment_calendar" />
     <fragment
-        android:id="@+id/exitFragment"
+        android:id="@+id/logout"
         android:name="com.application.mybalancediary.ui.exit.ExitFragment"
         android:label="fragment_exit"
         tools:layout="@layout/fragment_exit" />

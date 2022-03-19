@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mFullName, mEmail, mPassword, mHeight, mWeight, mAge;
+    EditText mFullName, mEmail, mPassword, mHeight, mWeight, mAge,etConfirm;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
@@ -60,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         mHeight = findViewById(R.id.heightInput);
         mWeight = findViewById(R.id.weightInput);
         mAge = findViewById(R.id.ageInput);
+        etConfirm = findViewById(R.id.etConfirmPassword);
         genderGroup = findViewById(R.id.genderGroup);
         spinnerWorkoutFreq = findViewById(R.id.WorkoutFreq);
         spinnerGoals = findViewById(R.id.spinnerGoals);
@@ -101,8 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                 final String weight = mWeight.getText().toString();
                 final String age = mAge.getText().toString();
                 final String gender = genderMF;
-
-
+                String Confirm = etConfirm.getText().toString().trim();
                 if (TextUtils.isEmpty(age)) {
                     mAge.setError("Age is Required.");
                     return;
@@ -149,6 +149,15 @@ public class RegisterActivity extends AppCompatActivity {
                     mPassword.setError("Password Must be >= 8 characters,have upper,lower letters,number and special character");
                     return;
                 }
+                if (TextUtils.isEmpty(Confirm)) {
+                    etConfirm.setError("Confirm Password is Required.");
+                    return;
+                }
+                if(mPassword.getText().toString().equals(etConfirm.getText().toString())) {
+                    etConfirm.setError("Password & Confirm Password must be same");
+                    return;
+                }
+
 
 
                 progressBar.setVisibility(View.VISIBLE);

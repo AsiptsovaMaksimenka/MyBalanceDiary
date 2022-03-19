@@ -18,9 +18,10 @@
         android:layout_height="900dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintHorizontal_bias="0.261"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.505">
 
 
         <TextView
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="608dp"
+            android:layout_marginBottom="636dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="Full name"
@@ -93,6 +94,21 @@
 
 
         <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="393dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="252dp"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password" />
+
+        <EditText
             android:id="@+id/weightInput"
             android:layout_width="261dp"
             android:layout_height="38dp"
@@ -107,7 +123,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword" />
 
         <TextView
             android:id="@+id/kg"
@@ -115,12 +131,13 @@
             android:layout_height="22dp"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_marginStart="279dp"
-            android:layout_marginTop="392dp"
+            android:layout_marginTop="444dp"
             android:layout_marginEnd="126dp"
             android:layout_weight="0.2"
             android:gravity="center"
             android:text="kg"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,10 +152,10 @@
             android:text="Register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.382"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerGoals"
-            app:layout_constraintVertical_bias="0.71" />
+            app:layout_constraintVertical_bias="0.471" />
 
         <EditText
             android:id="@+id/heightInput"
@@ -162,10 +179,10 @@
             android:layout_width="32dp"
             android:layout_height="23dp"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginStart="280dp"
-            android:layout_marginTop="447dp"
-            android:layout_marginEnd="123dp"
-            android:layout_marginBottom="430dp"
+            android:layout_marginStart="279dp"
+            android:layout_marginTop="490dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginBottom="387dp"
             android:layout_weight="0.2"
             android:gravity="center"
             android:text="cm"
@@ -204,8 +221,9 @@
 
             <RadioButton
                 android:id="@+id/maleRadio"
-                android:layout_width="141dp"
+                android:layout_width="204dp"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:text="Male"
                 android:textSize="14sp"
@@ -220,6 +238,7 @@
                 android:id="@+id/femaleRadio"
                 android:layout_width="139dp"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:text="Female"
                 android:textSize="14sp"
@@ -230,17 +249,17 @@
 
         </RadioGroup>
 
+
         <TextView
             android:id="@+id/createText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:text="Already Registered ? Login Here"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.336"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register" />
-
 
         <ProgressBar
             android:id="@+id/loading"
