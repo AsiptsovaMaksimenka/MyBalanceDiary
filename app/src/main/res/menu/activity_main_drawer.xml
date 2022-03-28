@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_profile"
@@ -18,9 +18,14 @@
             android:title="Calendar" />
 
         <item
-            android:id="@+id/logout"
-            android:title="LogOut"
-            android:icon="@drawable/exit"/>
+            android:id="@+id/settings"
+            android:title="Settings"
+            android:icon="@drawable/ic_baseline_settings_24"/>
+
+        <item
+            android:id="@+id/weight_track"
+            android:title="Weight Track"
+            android:icon="@drawable/ic_baseline_settings_24"/>
 
     </group>
 </menu>

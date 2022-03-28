@@ -23,8 +23,14 @@
         android:label="Calendar"
         tools:layout="@layout/fragment_calendar" />
     <fragment
-        android:id="@+id/logout"
-        android:name="com.application.mybalancediary.ui.exit.ExitFragment"
+        android:id="@+id/settings"
+        android:name="com.application.mybalancediary.ui.settings.SettingsFragment"
         android:label="fragment_exit"
-        tools:layout="@layout/fragment_exit" />
+        tools:layout="@layout/fragment_settings" />
+
+   <fragment
+    android:id="@+id/weight_track"
+    android:name="com.application.mybalancediary.ui.weight.WeightFragment"
+    android:label="fragment_weight_track"
+    tools:layout="@layout/fragment_weight_track" />
 </navigation>

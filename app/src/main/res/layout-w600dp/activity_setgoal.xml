@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="20dp"
+        android:text="Set Goal"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="90dp"
+        android:textSize="20sp" />
+
+
+    <EditText
+        android:id="@+id/et1"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_marginStart="208dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="7dp"
+        android:layout_toEndOf="@+id/textView2"
+        android:inputType="phone"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="21dp"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et2"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="142dp"
+        android:layout_toEndOf="@id/textView3"
+        android:inputType="phone"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/setgoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et2"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="244dp"
+        android:layout_marginRight="37dp"
+        android:text="Set"
+        android:textColor="@color/white" />
+
+
+
+</RelativeLayout>

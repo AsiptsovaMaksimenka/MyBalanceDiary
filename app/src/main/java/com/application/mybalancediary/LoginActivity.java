@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 
@@ -40,15 +47,24 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleApiClient googleApiClient;
     Button signInButton;
     public static final int SIGN_IN_CODE = 777;
-
+    public static float calRef = 0f;
+    public static float user_fat = 0f;
+    public static float user_carbs = 0f;
+    public static float user_protein = 0f;
+    public static String USER_NAME = "";
+    public static String USER_EMAIL = "";
+    public static float mSeries2 = 0f;
+    private static final String TAG = "LoginActivity";
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        for (String provider : AuthUI.SUPPORTED_PROVIDERS) {
+            Log.v(this.getClass().getName(), provider);
+        }
         setContentView(R.layout.activity_login);
 
         mEmail = findViewById(R.id.Email);
@@ -78,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         firebaseAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -199,10 +216,132 @@ public class LoginActivity extends AppCompatActivity {
             handleSignInResult(result);
         }
     }
+    private void startUpTasks() {
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+
+        //  If the activity has never started before...
+        if (isFirstRun) {
+            //  Launch app intro
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                    .putBoolean("isFirstRun", false).commit();
+
+            initializeUserInfo();
+        } else {
+            getUserInfo();
+            Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+            LoginActivity.this.startActivity(myIntent);
+        }
+    }
+    private void initializeUserInfo() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String userId = user.getUid();
+
+        DatabaseReference usersRef = mDatabase.child("Users");
+        DatabaseReference caloriesRef = mDatabase.child("Calories");
+
+        User newUser = new User("", "", 0, "", 0, 0);
+        usersRef.child(userId).setValue(newUser);
+
+        Calories calories = new Calories(0, 0, 0, 0);
+        caloriesRef.child(userId).setValue(calories);
+    }
+    private DatabaseReference getUsersRef(String ref) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String userId = user.getUid();
+        return mDatabase.child("Users").child(userId).child(ref);
+    }
+    private DatabaseReference getCaloriesRef(String ref) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String userId = user.getUid();
+        return mDatabase.child("Calories").child(userId).child(ref);
+    }
+    private void getUserInfo() {
+
+        getUsersRef("caloriegoal").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mSeries2 = Float.parseFloat(String.valueOf(dataSnapshot.getValue()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
+        getUsersRef("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                USER_NAME = (String.valueOf(dataSnapshot.getValue()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
+        getCaloriesRef("totalcalories").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                calRef = Float.parseFloat(String.valueOf(dataSnapshot.getValue()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
+        getCaloriesRef("totalfat").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user_fat = Float.parseFloat(String.valueOf(dataSnapshot.getValue()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
+        getCaloriesRef("totalcarbs").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user_carbs = Float.parseFloat(String.valueOf(dataSnapshot.getValue()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+
+        getCaloriesRef("totalprotein").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user_protein = Float.parseFloat(String.valueOf(dataSnapshot.getValue()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+    }
+    private void updateInfo() {
+        FirebaseUser user =firebaseAuth.getCurrentUser();
+        if (user != null) {
+            USER_EMAIL = user.getEmail();
+        }
+    }
+
 
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             firebaseAuthWithGoogle(result.getSignInAccount());
+            updateInfo();
         } else {
             Toast.makeText(this, R.string.login_failed, Toast.LENGTH_SHORT).show();
         }
@@ -242,4 +381,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
