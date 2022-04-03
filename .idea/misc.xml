@@ -91,6 +91,8 @@
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/w_track.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/weigth_track.xml" value="0.143" />
+        <entry key="app/src/main/res/layout/calendar_cell.xml" value="0.10764944275582573" />
+        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.335" />
       </map>
     </option>

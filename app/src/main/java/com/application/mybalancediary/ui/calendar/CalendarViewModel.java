@@ -1,19 +1,28 @@
 package com.application.mybalancediary.ui.calendar;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import android.view.View;
+import android.widget.TextView;
 
-public class CalendarViewModel extends ViewModel {
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-    private final MutableLiveData<String> mText;
+import com.application.mybalancediary.R;
 
-    public CalendarViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is calendar fragment");
+public class CalendarViewModel extends RecyclerView.ViewHolder {
+
+    public final TextView daysOfMonth;
+    private final CalendarFragment.OnItemListener onItemListener;
+
+    public CalendarViewModel(@NonNull View itemView, TextView daysOfMonth, CalendarFragment.OnItemListener onItemListener) {
+        super(itemView);
+        daysOfMonth=itemView.findViewById(R.id.cellDayText);
+        this.daysOfMonth = daysOfMonth;
+        itemView.setOnClickListener((View.OnClickListener) this);
+        this.onItemListener = onItemListener;
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void onClick(View view)
+    {
+        onItemListener.onItemClick((getAdapterPosition()), (String) daysOfMonth.getText());
     }
 }
