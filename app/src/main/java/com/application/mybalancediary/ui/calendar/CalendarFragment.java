@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.mybalancediary.R;
+
 import java.util.ArrayList;
 
 class CalendarFragment extends RecyclerView.Adapter {
@@ -27,7 +29,7 @@ class CalendarFragment extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.calendar_cell, parent, false);
+        View view = inflater.inflate(com.application.mybalancediary.R.layout.calendar_cell,parent,false);
         ViewGroup.LayoutParams layoutParams=view.getLayoutParams();
         layoutParams.height=(int)(parent.getHeight()*0.166666666);
         return new CalendarViewModel(view, (TextView) onItemListener, onItemListener);
@@ -35,7 +37,12 @@ class CalendarFragment extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        holder.dayOfMonth.setText(daysOfMonth.get(position));
+
+    }
+
+
+    public void onBindViewHolder(@NonNull CalendarViewModel holder, int position) {
+        holder.daysOfMonth.setText(daysOfMonth.get(position));
     }
 
     @Override
