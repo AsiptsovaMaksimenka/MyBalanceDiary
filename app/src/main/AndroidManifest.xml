@@ -52,7 +52,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.profile.EditProfileActivity"
+            android:name=".ui.settings.EditProfileActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

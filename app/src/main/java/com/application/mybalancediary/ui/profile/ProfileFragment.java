@@ -30,8 +30,6 @@ public class ProfileFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference storageReference;
-    Button edit_profile;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,17 +41,10 @@ public class ProfileFragment extends Fragment {
         final TextView weight = root.findViewById(R.id.weight);
         final TextView height = root.findViewById(R.id.height);
         final TextView calories = root.findViewById(R.id.calories);
-        edit_profile = root.findViewById(R.id.edit_profile);
         final TextView edit_goal = root.findViewById(R.id.goals);
         final TextView edit_workout = root.findViewById(R.id.Workout);
 
-        edit_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
