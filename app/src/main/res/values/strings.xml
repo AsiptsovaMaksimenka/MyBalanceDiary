@@ -81,6 +81,12 @@
     <string name="fdxf">fdxf</string>
     <string name="back"><![CDATA[<]]></string>
     <string name="forward"><![CDATA[>]]></string>
+    <string name="password_login">Password</string>
+    <string name="email_login">Email</string>
+    <string name="new_here_create_account">New Here ? Create Account</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="sign_in_with_google">Sign in with google</string>
+    <string name="login">Login</string>
 
 
 </resources>

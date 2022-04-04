@@ -3,10 +3,13 @@ package com.application.mybalancediary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView mCreateBtn, forgotTextLink;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
+    ImageView ShowHidePWD;
     private GoogleApiClient googleApiClient;
     Button signInButton;
     public static final int SIGN_IN_CODE = 777;
@@ -55,6 +59,20 @@ public class LoginActivity extends AppCompatActivity {
         mCreateBtn = findViewById(R.id.createText);
         forgotTextLink = findViewById(R.id.forgotPassword);
         signInButton = findViewById(R.id.btn_googleLogin);
+        ShowHidePWD=findViewById(R.id.show_hide_pwd);
+        ShowHidePWD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mPassword.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance()))
+                {
+                    mPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                else
+                {
+                    mPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("1008459252405-t0jbvgp83tsf7qjig4k4gef16u9spm0o.apps.googleusercontent.com")

@@ -3,12 +3,15 @@ package com.application.mybalancediary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -45,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
     Float carbs;
     String workout,goals;
     Spinner spinnerWorkoutFreq, spinnerGoals;
+    ImageView ShowHidePWD,ShowHidePWDConfirm;
     private DatabaseReference mDatabase;
 
     private DatabaseReference getUsersRef(String ref) {
@@ -82,6 +86,35 @@ public class RegisterActivity extends AppCompatActivity {
         spinnerGoals = findViewById(R.id.spinnerGoals);
         fAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        ShowHidePWD=findViewById(R.id.show_hide_pwd);
+        ShowHidePWD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mPassword.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance()))
+                {
+                    mPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                else
+                {
+                    mPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });
+        ShowHidePWDConfirm=findViewById(R.id.show_hide_pwd_confirm);
+        ShowHidePWDConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(etConfirm .getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance()))
+                {
+                    etConfirm .setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                else
+                {
+                    etConfirm .setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });
+
         ArrayAdapter<CharSequence> adapterWorkoutFreq = ArrayAdapter.createFromResource(this,
                 R.array.workfreqarray, R.layout.spinner_item);
         adapterWorkoutFreq.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -173,7 +206,7 @@ public class RegisterActivity extends AppCompatActivity {
                 etConfirm.setError("Confirm Password is Required.");
                 return;
             }
-            if(mPassword.getText().toString().equals(etConfirm.getText().toString())) {
+            if(!mPassword.getText().toString().equals(etConfirm.getText().toString())) {
                 etConfirm.setError("Password & Confirm Password must be same");
                 return;
             }

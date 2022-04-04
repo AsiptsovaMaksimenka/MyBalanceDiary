@@ -37,7 +37,7 @@
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_google_sign_in.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_history.xml" value="0.21981981981981982" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_home_fragment.xml" value="0.21981981981981982" />
-        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_logout.xml" value="0.21981981981981982" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_main.xml" value="0.3051948051948052" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_main2.xml" value="0.25416666666666665" />
@@ -45,7 +45,7 @@
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_recycler_frag_change_main.xml" value="0.1288888888888889" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_recyclerview_activity.xml" value="0.20863616930312098" />
-        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_register.xml" value="0.4" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_second.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_settings.xml" value="0.21981981981981982" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/layout/activity_sign_in_other.xml" value="0.25416666666666665" />
@@ -91,6 +91,8 @@
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/menu/menu_actionview.xml" value="0.2" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/menu/menu_main.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/menu/menu_navigation.xml" value="0.1" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/mipmap-anydpi-v26/cat.xml" value="0.113" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/mipmap-anydpi-v26/cat_round.xml" value="0.113" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/xml/root_preferences.xml" value="0.264" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/calendar.xml" value="0.143" />

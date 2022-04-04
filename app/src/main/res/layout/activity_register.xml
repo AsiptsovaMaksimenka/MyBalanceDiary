@@ -23,11 +23,11 @@
 
     <EditText
         android:id="@+id/fullname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="310dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="624dp"
+        android:layout_marginBottom="640dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/full_name"
@@ -36,15 +36,15 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
 
         />
 
     <EditText
         android:id="@+id/Email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="308dp"
+        android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="608dp"
@@ -59,14 +59,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullname"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="312dp"
+        android:layout_height="36dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:autofillHints=""
         android:ems="10"
@@ -79,19 +80,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Email" />
 
+    <ImageView
+        android:id="@+id/show_hide_pwd"
+        android:layout_width="36dp"
+        android:layout_height="29dp"
+        android:layout_below="@id/Email"
+        android:layout_marginBottom="572dp"
+        android:background="@drawable/hide_show"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintLeft_toRightOf="@+id/password"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etConfirmPassword"
-        android:layout_width="389dp"
-        android:layout_height="39dp"
+        android:layout_width="310dp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:autofillHints=""
+        android:padding="10dp"
         android:ems="10"
         android:hint="@string/confirm_password"
         android:inputType="textPassword"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <ImageView
+        android:id="@+id/show_hide_pwd_confirm"
+        android:layout_width="36dp"
+        android:layout_height="29dp"
+        android:layout_below="@id/Email"
+        android:layout_marginBottom="532dp"
+        android:background="@drawable/hide_show"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintLeft_toRightOf="@+id/etConfirmPassword"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/weightInput"
@@ -101,6 +128,7 @@
         android:layout_marginEnd="16dp"
         android:autofillHints=""
         android:ems="10"
+        android:padding="10dp"
         android:hint="@string/weight_kg"
         android:inputType="number"
         android:textSize="14sp"
@@ -119,6 +147,7 @@
         android:ems="10"
         android:hint="@string/height_cm_"
         android:inputType="number"
+        android:padding="10dp"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weightInput" />
