@@ -6,8 +6,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
 
-
-
 public class Breakfast extends AppCompatActivity {
 
   //  private DatabaseReference mDatabase;
