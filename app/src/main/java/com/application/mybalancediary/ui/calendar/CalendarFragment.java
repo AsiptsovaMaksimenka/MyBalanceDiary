@@ -1,52 +1,28 @@
 package com.application.mybalancediary.ui.calendar;
 
 
-import android.view.LayoutInflater;
+import android.os.Bundle;
 import android.view.View;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.TextView;
+
+import java.util.Calendar;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
+import androidx.fragment.app.Fragment;
 
-class CalendarFragment extends RecyclerView.Adapter {
+import com.application.mybalancediary.R;
 
-    private final ArrayList<String> daysOfMonth;
-    private final OnItemListener onItemListener;
+public class CalendarFragment extends Fragment  {
 
-    public CalendarFragment(ArrayList<String> daysOfMonth, OnItemListener onItemListener) {
 
-        this.daysOfMonth = daysOfMonth;
-        this.onItemListener = onItemListener;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        final View root = inflater.inflate(R.layout.fragment_calendar, container, false);
+        final CalendarView calendar =root.findViewById(R.id.scrollCalendar);
+        calendar.setDate(System.currentTimeMillis(),false,true);
+
+        return root;
     }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(com.application.mybalancediary.R.layout.calendar_cell,parent,false);
-        ViewGroup.LayoutParams layoutParams=view.getLayoutParams();
-        layoutParams.height=(int)(parent.getHeight()*0.166666666);
-        return new CalendarViewModel(view, (TextView) onItemListener, onItemListener);
     }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-    }
-
-
-    public void onBindViewHolder(@NonNull CalendarViewModel holder, int position) {
-        holder.daysOfMonth.setText(daysOfMonth.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return daysOfMonth.size();
-    }
-
-    public interface  OnItemListener
-    {
-        void onItemClick(int position, String dayText);
-    }
-}

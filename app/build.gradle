@@ -66,6 +66,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:20.1.2'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
 
 
 }
