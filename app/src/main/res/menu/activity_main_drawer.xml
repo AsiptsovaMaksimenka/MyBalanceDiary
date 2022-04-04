@@ -18,13 +18,13 @@
             android:title="Calendar" />
 
         <item
-            android:id="@+id/settings"
-            android:title="Settings"
-            android:icon="@drawable/ic_baseline_settings_24"/>
-
-        <item
             android:id="@+id/weight_track"
             android:title="Weight Track"
+            android:icon="@drawable/w_track"/>
+
+        <item
+            android:id="@+id/settings"
+            android:title="Settings"
             android:icon="@drawable/ic_baseline_settings_24"/>
 
     </group>
