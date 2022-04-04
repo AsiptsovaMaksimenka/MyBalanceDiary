@@ -6,7 +6,6 @@ public class Calories {
     public float totalcarbs;
     public float totalprotein;
     public Calories() {
-
     }
 
     public Calories(float totalcalories, float totalfat, float totalcarbs, float totalprotein) {

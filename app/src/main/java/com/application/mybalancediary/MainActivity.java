@@ -1,9 +1,7 @@
 package com.application.mybalancediary;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -19,11 +17,11 @@ import com.application.mybalancediary.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.application.mybalancediary.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
         DrawerLayout drawer = binding.drawerLayout;

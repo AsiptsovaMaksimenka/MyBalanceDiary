@@ -18,6 +18,7 @@ import java.net.UnknownHostException;
 
 public class HTTPUtility {
 
+
     public static Bitmap downloadImageusingHTTPGetRequest(String urlString) {
         Bitmap image = null, line;
 
@@ -52,6 +53,7 @@ public class HTTPUtility {
         }
         return bitmap;
     }
+
 
     public static String downloadJSONusingHTTPGetRequest(String urlString) {
         String jsonString = null;
@@ -92,6 +94,7 @@ public class HTTPUtility {
         }
         return jsonString;
     }
+
     public static String loadJSONFromAsset(Context context, String fileName) {
         String json = null, line;
         try {
@@ -112,6 +115,7 @@ public class HTTPUtility {
         }
         return json;
     }
+
     public static void sendHttPostRequest(String urlString, JSONObject json) {
         HttpURLConnection httpConnection = null;
         try {

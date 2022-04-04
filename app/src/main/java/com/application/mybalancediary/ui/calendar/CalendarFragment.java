@@ -1,37 +1,52 @@
 package com.application.mybalancediary.ui.calendar;
 
-import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
 
-import com.application.mybalancediary.databinding.FragmentCalendarBinding;
+class CalendarFragment extends RecyclerView.Adapter {
 
-public class CalendarFragment extends Fragment {
+    private final ArrayList<String> daysOfMonth;
+    private final OnItemListener onItemListener;
 
-    private FragmentCalendarBinding binding;
+    public CalendarFragment(ArrayList<String> daysOfMonth, OnItemListener onItemListener) {
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        CalendarViewModel calendarViewModel =
-                new ViewModelProvider(this).get(CalendarViewModel.class);
+        this.daysOfMonth = daysOfMonth;
+        this.onItemListener = onItemListener;
+    }
 
-        binding = FragmentCalendarBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textCalendar;
-        calendarViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(com.application.mybalancediary.R.layout.calendar_cell,parent,false);
+        ViewGroup.LayoutParams layoutParams=view.getLayoutParams();
+        layoutParams.height=(int)(parent.getHeight()*0.166666666);
+        return new CalendarViewModel(view, (TextView) onItemListener, onItemListener);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+
+    public void onBindViewHolder(@NonNull CalendarViewModel holder, int position) {
+        holder.daysOfMonth.setText(daysOfMonth.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return daysOfMonth.size();
+    }
+
+    public interface  OnItemListener
+    {
+        void onItemClick(int position, String dayText);
     }
 }

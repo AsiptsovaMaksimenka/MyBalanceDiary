@@ -30,13 +30,15 @@ public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecy
     public static float totalcarbs = 0f;
     public static float totalprotein = 0f;
     public static int count = 0;
-    private List<Map<String, ?>> mDataset;
-    private Context mContext;
+    private final List<Map<String, ?>> mDataset;
+    private final Context mContext;
+
 
     public Food_MyRecyclerViewAdapter(Context myContext, List<Map<String, ?>> myDataset) {
         mContext = myContext;
         mDataset = myDataset;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int ViewType) {
         View v;
@@ -50,23 +52,20 @@ public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecy
         Map<String, ?> food = mDataset.get(position);
         holder.bindMovieData((food));
     }
-
     @Override
     public int getItemCount() {
         return mDataset.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView vTitle;
         public TextView vType;
         public TextView vCal;
         public Button vAdd;
-
         public RelativeLayout mRelativeLayout;
         public PopupWindow mPopupWindow;
 
-        private FirebaseAuth mAuth;
+        private final FirebaseAuth mAuth;
         private DatabaseReference mDatabase;
 
         public ViewHolder(View v) {
@@ -75,7 +74,6 @@ public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecy
             vType = v.findViewById(R.id.type);
             vCal = v.findViewById(R.id.calories);
             vAdd = v.findViewById(R.id.addfood);
-            //mRelativeLayout = (RelativeLayout) v.findViewById(R.id.recyclr_frag_pop);
             mAuth = FirebaseAuth.getInstance();
             mDatabase = FirebaseDatabase.getInstance().getReference();
         }

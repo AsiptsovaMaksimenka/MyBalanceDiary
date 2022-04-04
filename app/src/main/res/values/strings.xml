@@ -54,4 +54,33 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="goal">Goal:</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="full_name">Full name</string>
+    <string name="my_balance_diary">My Balance Diary</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="lifestyle">Lifestyle:</string>
+    <string name="weight">Weight</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="height">Height</string>
+    <string name="register">Register</string>
+    <string name="age">Age</string>
+    <string name="already_registered_login_here">Already Registered ? Login Here</string>
+    <string name="weight_kg">Weight,kg</string>
+    <string name="height_cm_">Height,cm</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="create_a_new_account">Create A New Account</string>
+    <string name="search">Search</string>
+    <string name="voice">Voice</string>
+    <string name="card_view">Card View</string>
+    <string name="add">ADD</string>
+    <string name="calories">Calories</string>
+    <string name="fdxf">fdxf</string>
+    <string name="back"><![CDATA[<]]></string>
+    <string name="forward"><![CDATA[>]]></string>
+
+
 </resources>

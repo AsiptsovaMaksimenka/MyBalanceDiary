@@ -3,17 +3,16 @@ package com.application.mybalancediary;
 public class User {
     public String name;
     public String gender;
-    public int age;
+    public String age;
     public String height;
-    public float weight;
-    public int caloriegoal;
-
+    public String weight;
+    public String caloriegoal;
 
     public User() {
 
     }
 
-    public User(String name, String gender, int age, String height, float weight, int caloriegoal) {
+    public User(String name, String gender, String age, String height, String  weight, String caloriegoal) {
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -21,4 +20,7 @@ public class User {
         this.weight = weight;
         this.caloriegoal = caloriegoal;
     }
+
+
+
 }

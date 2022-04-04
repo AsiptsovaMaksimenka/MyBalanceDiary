@@ -2,11 +2,10 @@ package com.application.mybalancediary;
 
 import android.os.Bundle;
 
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,8 +16,6 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Food_RecyclerFrag_Main extends AppCompatActivity {
-    private Toolbar mToolbar;
-    private ActionBar mActionBar;
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -30,8 +27,9 @@ public class Food_RecyclerFrag_Main extends AppCompatActivity {
 
     private DatabaseReference getCaloriesRef(String ref) {
         FirebaseUser user = mAuth.getCurrentUser();
+        assert user != null;
         String userId = user.getUid();
-        return mDatabase.child("Calories").child(userId).child(ref);
+        return mDatabase.child("calories").child(userId).child(ref);
     }
 
     @Override
@@ -41,59 +39,60 @@ public class Food_RecyclerFrag_Main extends AppCompatActivity {
         if(savedInstanceState == null)
         {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.rcfrag_main, com.application.mybalancediary.Food_RecyclerView_Main.newInstance()).commit();
+                    .replace(R.id.rcfrag_main, Food_RecyclerView_Main.newInstance()).commit();
         }
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mToolbar = findViewById(R.id.recycler_toolbar);
+        Toolbar mToolbar = findViewById(R.id.recycler_toolbar);
         setSupportActionBar(mToolbar);
-        mActionBar = getSupportActionBar();
+        ActionBar mActionBar = getSupportActionBar();
+        assert mActionBar != null;
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
 
        getCaloriesRef("totalcalories").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 calRef1 = Float.parseFloat(String.valueOf(dataSnapshot.getValue()));
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
 
         getCaloriesRef("totalfat").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user_fat1 = Float.parseFloat(String.valueOf(dataSnapshot.getValue()));
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
 
         getCaloriesRef("totalcarbs").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user_carbs1 = Float.parseFloat(String.valueOf(dataSnapshot.getValue()));
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
 
         getCaloriesRef("totalprotein").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user_protein1 = Float.parseFloat(String.valueOf(dataSnapshot.getValue()));
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
 

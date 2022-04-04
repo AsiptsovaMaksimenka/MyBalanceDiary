@@ -28,7 +28,7 @@ public class FoodDataJson {
     }
 
     public void downloadFoodDataJson(String json_url) throws JSONException {
-        foodList.clear();
+        foodList.clear(); // clear the list for each new request
 
         String foodJson = HTTPUtility.downloadJSONusingHTTPGetRequest(json_url);
 
