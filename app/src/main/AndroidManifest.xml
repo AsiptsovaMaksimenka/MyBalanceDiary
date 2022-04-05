@@ -34,6 +34,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SettingsMenu"
+            android:exported="true"
+            android:label="Settings Menu"
+            android:theme="@style/Theme.MyBalanceDiary.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".RegisterActivity"
             android:exported="true">
             <intent-filter>
@@ -52,7 +63,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.settings.EditProfileActivity"
+            android:name=".ui.watertracker.EditProfileActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

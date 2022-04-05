@@ -18,8 +18,6 @@ import org.json.JSONException;
 import java.lang.ref.WeakReference;
 import java.util.Objects;
 
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
-import jp.wasabeef.recyclerview.animators.ScaleInBottomAnimator;
 
 
 public class Food_RecyclerView_Main extends Fragment {
@@ -53,22 +51,10 @@ public class Food_RecyclerView_Main extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_recyclerview_activity, container, false);
         RecyclerView mRecyclerView = rootView.findViewById(R.id.cardList);
-        mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerViewAdapter = new Food_MyRecyclerViewAdapter(getActivity(), foodData.foodList);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
-        mRecyclerView.setItemAnimator(new ScaleInBottomAnimator());
-        Objects.requireNonNull(mRecyclerView.getItemAnimator()).setAddDuration(100);
-        mRecyclerView.getItemAnimator().setRemoveDuration(1000);
-        mRecyclerView.getItemAnimator().setMoveDuration(100);
-        mRecyclerView.getItemAnimator().setChangeDuration(100);
-        ScaleInBottomAnimator animator = new ScaleInBottomAnimator();
-        mRecyclerView.setItemAnimator(animator);
-        mRecyclerView.setAdapter(new ScaleInAnimationAdapter(mRecyclerViewAdapter));
-        ScaleInAnimationAdapter alphaAdapter = new ScaleInAnimationAdapter(mRecyclerViewAdapter);
-        alphaAdapter.setDuration(500);
-        mRecyclerView.setAdapter(alphaAdapter);
         return rootView;
     }
 

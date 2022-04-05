@@ -23,10 +23,10 @@
         android:label="Calendar"
         tools:layout="@layout/fragment_calendar" />
     <fragment
-        android:id="@+id/settings"
-        android:name="com.application.mybalancediary.ui.settings.SettingsFragment"
-        android:label="fragment_exit"
-        tools:layout="@layout/fragment_settings" />
+        android:id="@+id/water_tracker"
+        android:name="com.application.mybalancediary.ui.watertracker.WaterTracker"
+        android:label="fragment_water_tracker"
+        tools:layout="@layout/fragment_water_tracker" />
 
    <fragment
     android:id="@+id/weight_track"

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.application.mybalancediary.R;
 import com.application.mybalancediary.databinding.FragmentProfileBinding;
 
 public class WeightFragment extends Fragment {
@@ -18,18 +19,7 @@ public class WeightFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        WeightViewModel weightViewModel =
-                new ViewModelProvider(this).get(WeightViewModel.class);
-
-        binding = FragmentProfileBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
+        final View root = inflater.inflate(R.layout.fragment_weight_track, container, false);
         return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 }

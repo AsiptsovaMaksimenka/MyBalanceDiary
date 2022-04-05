@@ -11,21 +11,21 @@
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/profile"
-            android:title="Profile" />
+            android:title="@string/profile" />
         <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/calendar"
-            android:title="Calendar" />
+            android:title="@string/calendar" />
 
         <item
             android:id="@+id/weight_track"
-            android:title="Weight Track"
+            android:title="@string/weight_track"
             android:icon="@drawable/w_track"/>
 
         <item
-            android:id="@+id/settings"
-            android:title="Settings"
-            android:icon="@drawable/ic_baseline_settings_24"/>
+            android:id="@+id/water_tracker"
+            android:title="@string/water_tracker"
+            android:icon="@drawable/water"/>
 
     </group>
 </menu>

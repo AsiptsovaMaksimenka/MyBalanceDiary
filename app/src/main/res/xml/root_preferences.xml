@@ -1,35 +1,81 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <PreferenceCategory app:title="@string/messages_header">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Settings">
+    <PreferenceCategory
+        android:title="Cycle Details">
 
         <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+            android:inputType="number"
+            android:key="cycle_length"
+            android:title="Cycle Length"
+            android:summary="The length of your cycles"
+            android:dialogTitle="Cycle Length"/>
 
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:inputType="number"
+            android:key="period_length"
+            android:title="Period Length"
+            android:summary="The length of your periods"
+            android:dialogTitle="Period Length"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory
+        android:title="Tracking Options">
 
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+    <SwitchPreference
+        android:key="period_tracking"
+        android:title="Period"
+        android:summary="Track your period"/>
+    <SwitchPreference
+        android:key="water_tracking"
+        android:title="Water Tracker"
+        android:summary="Track your hydration"/>
+    </PreferenceCategory>
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+    <PreferenceCategory
+        android:title="User">
+    <EditTextPreference
+        android:inputType="text"
+        android:key="user_name"
+        android:title="Username"
+        android:summary="Change username"
+        android:dialogTitle="username"/>
+    <EditTextPreference
+        android:inputType="number"
+        android:key="weight_kg"
+        android:title="Weight"
+        android:summary="Change weight"
+        android:dialogTitle="weight"/>
+    <EditTextPreference
+        android:inputType="number"
+        android:key="height_kg"
+        android:title="Height"
+        android:summary="Change height"
+        android:dialogTitle="height"/>
+    <EditTextPreference
+        android:inputType="date"
+        android:key="age"
+        android:title="Age"
+        android:summary="Change age"
+        android:dialogTitle="age"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Other">
+    <EditTextPreference
+        android:inputType="textPassword"
+        android:key="change_password"
+        android:title="Password"
+        android:summary="Change password"
+        android:dialogTitle="password"/>
 
+    <Preference
+        android:key="logout"
+        android:title="Logout"
+        android:dialogTitle="logout"/>
+    <Preference
+        android:key="delete_account"
+        android:title="Delete account"
+        android:dialogTitle="account"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
