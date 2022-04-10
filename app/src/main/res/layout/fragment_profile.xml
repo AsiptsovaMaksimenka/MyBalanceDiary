@@ -20,7 +20,8 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="45dp"
-                android:background="@drawable/cat"/>
+                android:background="@drawable/cat"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/user_name"

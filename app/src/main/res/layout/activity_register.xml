@@ -15,14 +15,14 @@
         android:text="@string/create_a_new_account"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fullname"
+        app:layout_constraintBottom_toTopOf="@+id/fullName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.812" />
 
     <EditText
-        android:id="@+id/fullname"
+        android:id="@+id/fullName"
         android:layout_width="310dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullname"
+        app:layout_constraintTop_toBottomOf="@+id/fullName"
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -91,7 +91,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.885"
         app:layout_constraintLeft_toRightOf="@+id/password"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/show_pass" />
 
     <EditText
         android:id="@+id/etConfirmPassword"
@@ -118,7 +119,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.885"
         app:layout_constraintLeft_toRightOf="@+id/etConfirmPassword"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/hide_confirm" />
 
     <EditText
         android:id="@+id/weightInput"
@@ -176,14 +178,14 @@
         android:layout_marginEnd="16dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/age"
-        android:inputType="number"
+        android:hint="@string/birth_date"
         android:padding="10dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heightInput" />
+        app:layout_constraintTop_toBottomOf="@+id/heightInput"
+        android:inputType="date" />
 
     <TextView
         android:id="@+id/createText"
@@ -280,5 +282,7 @@
             android:textSize="14sp" />
 
     </RadioGroup>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

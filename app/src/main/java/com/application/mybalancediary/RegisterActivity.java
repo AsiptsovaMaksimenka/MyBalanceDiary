@@ -1,5 +1,6 @@
 package com.application.mybalancediary;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -24,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import android.widget.ArrayAdapter;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -31,26 +35,14 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mFullName, mEmail, mPassword, mHeight, mWeight, mAge,etConfirm;
-    Button mRegisterBtn;
-    TextView mLoginBtn;
     FirebaseAuth fAuth;
-    ProgressBar progressBar;
     FirebaseFirestore fStore;
-    RadioGroup genderGroup;
     int position;
-    String genderMF;
-    String userID;
-    Float bmi;
-    Float bmr;
-    Float fats;
-    Float proteins;
-    Float carbs;
-    String workout,goals;
-    Spinner spinnerWorkoutFreq, spinnerGoals;
+    String genderMF,userID,workout,goals;
+    Float bmi,bmr,fats,proteins,carbs;
     ImageView ShowHidePWD,ShowHidePWDConfirm;
     private DatabaseReference mDatabase;
-
+    private DatePickerDialog datePickerDialog;
     private DatabaseReference getUsersRef(String ref) {
         FirebaseUser user = fAuth.getCurrentUser();
         assert user != null;
@@ -69,49 +61,57 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        mFullName = findViewById(R.id.fullname);
-        mEmail = findViewById(R.id.Email);
-        mPassword = findViewById(R.id.password);
-        mRegisterBtn = findViewById(R.id.register);
-        mLoginBtn = findViewById(R.id.createText);
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        progressBar = findViewById(R.id.loading);
-        mHeight = findViewById(R.id.heightInput);
-        mWeight = findViewById(R.id.weightInput);
-        mAge = findViewById(R.id.ageInput);
-        etConfirm = findViewById(R.id.etConfirmPassword);
-        genderGroup = findViewById(R.id.genderGroup);
-        spinnerWorkoutFreq = findViewById(R.id.WorkoutFreq);
-        spinnerGoals = findViewById(R.id.spinnerGoals);
-        fAuth = FirebaseAuth.getInstance();
+      final EditText mFullName = findViewById(R.id.fullName);
+      final EditText mEmail = findViewById(R.id.Email);
+      final EditText mPassword = findViewById(R.id.password);
+      final Button mRegisterBtn = findViewById(R.id.register);
+      final TextView mLoginBtn = findViewById(R.id.createText);
+      fAuth = FirebaseAuth.getInstance();
+      fStore = FirebaseFirestore.getInstance();
+      final  ProgressBar progressBar = findViewById(R.id.loading);
+      final EditText mHeight = findViewById(R.id.heightInput);
+      final EditText mWeight = findViewById(R.id.weightInput);
+      final EditText mAge = findViewById(R.id.ageInput);
+      final  EditText  etConfirm = findViewById(R.id.etConfirmPassword);
+      final RadioGroup  genderGroup = findViewById(R.id.genderGroup);
+      final Spinner spinnerWorkoutFreq = findViewById(R.id.WorkoutFreq);
+      final Spinner spinnerGoals = findViewById(R.id.spinnerGoals);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         ShowHidePWD=findViewById(R.id.show_hide_pwd);
         ShowHidePWD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(mPassword.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance()))
-                {
                     mPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
                 else
-                {
                     mPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
             }
         });
+        mAge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int m_Year = calendar.get(Calendar.YEAR);
+                int m_Month = calendar.get(Calendar.MONTH);
+                int m_Day = calendar.get(Calendar.DAY_OF_MONTH);
+                    datePickerDialog = new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        mAge.setText(dayOfMonth + "." + (monthOfYear + 1) + "-" + year);
+                    }
+                }, m_Year, m_Month, m_Day);
+                datePickerDialog.show();
+            }
+        });
+
         ShowHidePWDConfirm=findViewById(R.id.show_hide_pwd_confirm);
         ShowHidePWDConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(etConfirm .getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance()))
-                {
                     etConfirm .setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
                 else
-                {
                     etConfirm .setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }
             }
         });
 
@@ -157,14 +157,11 @@ public class RegisterActivity extends AppCompatActivity {
             final String fullName = mFullName.getText().toString();
             final String height = mHeight.getText().toString();
             final String weight = mWeight.getText().toString();
-            final String age = mAge.getText().toString();
+            String[] ageRes=String.valueOf(mAge.getText()).split("-");
+            final String age=String.valueOf(getAge(Integer.valueOf(ageRes[2]),Integer.valueOf(ageRes[1]),Integer.valueOf(ageRes[0])));
             String Confirm = etConfirm.getText().toString();
             if (TextUtils.isEmpty(age)) {
                 mAge.setError("Age is Required.");
-                return;
-            }
-            if (Integer.parseInt(age) < 13 || Integer.parseInt(age) > 115) {
-                mAge.setError("Age must me greater then 13 and lesser then 115");
                 return;
             }
             if (TextUtils.isEmpty(weight)) {
@@ -256,7 +253,7 @@ public class RegisterActivity extends AppCompatActivity {
                     FirebaseUser fuser = fAuth.getCurrentUser();
                     fuser.sendEmailVerification().addOnSuccessListener(aVoid -> Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Log.d(TAG, "onFailure: Email not sent " + e.getMessage()));
                     Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-                    userID = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+                    userID = fuser.getUid();
                     getUsersRef("name").setValue(fullName);
                     getUsersRef("email").setValue(email);
                     getUsersRef("height").setValue(height);
@@ -337,5 +334,18 @@ public class RegisterActivity extends AppCompatActivity {
         if (email == null)
             return false;
         return pat.matcher(email).matches();
+    }
+
+    public int getAge(int Year, int Month, int Day) {
+        Date now = new Date();
+        int nowMonth = now.getMonth()+1;
+        int nowYear = now.getYear()+1900;
+        int result = nowYear - Year;
+        if (Month > nowMonth)
+            result--;
+        else if (Month == nowMonth)
+            if (Day > now.getDate())
+                result--;
+        return result;
     }
 }

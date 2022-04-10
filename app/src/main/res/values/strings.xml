@@ -91,6 +91,11 @@
     <string name="weight_track">Weight Track</string>
     <string name="calendar">Calendar</string>
     <string name="profile">Profile</string>
+    <string name="submit_here">Submit Here</string>
+    <string name="hide_confirm">hide_confirm</string>
+    <string name="show_pass">show_pass</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="submit_here_delete">Submit here</string>
 
 
 </resources>

@@ -54,7 +54,7 @@
         android:dialogTitle="height"/>
     <EditTextPreference
         android:inputType="date"
-        android:key="age"
+        android:key="birth_date"
         android:title="Age"
         android:summary="Change age"
         android:dialogTitle="age"/>
@@ -67,15 +67,18 @@
         android:title="Password"
         android:summary="Change password"
         android:dialogTitle="password"/>
-
-    <Preference
-        android:key="logout"
-        android:title="Logout"
-        android:dialogTitle="logout"/>
     <Preference
         android:key="delete_account"
         android:title="Delete account"
-        android:dialogTitle="account"/>
+        android:dialogTitle="account"
+        android:enabled="true"
+        android:selectable="true">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="com.application.mybalancediary"
+            android:targetClass="com.application.mybalancediary.DeleteUser"
+            />
+    </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>
