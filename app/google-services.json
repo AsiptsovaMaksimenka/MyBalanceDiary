@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "1008459252405",
-    "project_id": "mybalancediary-ca5ea",
-    "storage_bucket": "mybalancediary-ca5ea.appspot.com"
+    "project_number": "448390049730",
+    "project_id": "mybalancediary-c789b",
+    "storage_bucket": "mybalancediary-c789b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1008459252405:android:8ee00ba94b1feeb10cb4fc",
+        "mobilesdk_app_id": "1:448390049730:android:3f6fd0d0a5712a8e02f05b",
         "android_client_info": {
           "package_name": "com.application.mybalancediary"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1008459252405-a0c7g3em4al8epi5mm0ndmvd5qlbd15b.apps.googleusercontent.com",
+          "client_id": "448390049730-at93te9t6kdkgb5dk34ifq8tsqmpo5dm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.application.mybalancediary",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "1008459252405-t0jbvgp83tsf7qjig4k4gef16u9spm0o.apps.googleusercontent.com",
+          "client_id": "448390049730-ihe6rf7pmkflph9qj4ue7ckbqq826fl0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD8uZWmJRngHy8YlALlpfYoexRx2fK99C0"
+          "current_key": "AIzaSyDgT2RmaKGeNBVklSGosQMCnbd6G3G88CA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1008459252405-t0jbvgp83tsf7qjig4k4gef16u9spm0o.apps.googleusercontent.com",
+              "client_id": "448390049730-ihe6rf7pmkflph9qj4ue7ckbqq826fl0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
