@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.application.mybalancediary.Breakfast;
+import com.application.mybalancediary.Breakfast_Items;
 import com.application.mybalancediary.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -43,11 +44,20 @@ public class HomeFragment extends Fragment {
         final TextView carbs_edit=root.findViewById(R.id.textView8);
         final TextView carbs_total=root.findViewById(R.id.textView10);
         final TextView total_calories=root.findViewById(R.id.textView2);
+        final MaterialButton breakfast_items= root.findViewById(R.id.breakfast_items);
         final CircularProgressIndicator cal_summary=root.findViewById(R.id.circularProgressIndicator);
         final LinearProgressIndicator proteins_progress=root.findViewById(R.id.linearProgressIndicator);
         final LinearProgressIndicator fats_progress=root.findViewById(R.id.linearProgressIndicator2);
         final LinearProgressIndicator carbs_progress=root.findViewById(R.id.linearProgressIndicator3);
         final MaterialButton breakfast= root.findViewById(R.id.breakfast);
+        final TextView breakfast_cal=root.findViewById(R.id.breakfast_cal);
+        final TextView breakfast_prot=root.findViewById(R.id.brek_prot);
+        final TextView breakfast_fats=root.findViewById(R.id.br_fats);
+        final TextView breakfast_carbs=root.findViewById(R.id.br_carbs);
+        final TextView cal_per_day=root.findViewById(R.id.textView);
+
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -76,9 +86,19 @@ public class HomeFragment extends Fragment {
                     String proteins = "of " + ds.child("proteins").getValue();
                     String carbs = "of " + ds.child("carbs").getValue();
                     String fats = "of " + ds.child("fats").getValue();
+                    String br_cal=String.valueOf(ds.child("total").getValue());
+                    String breakfast_protein=String.valueOf(ds.child("totalprotein").getValue());
+                    String breakfast_fat=String.valueOf(ds.child("totalfats").getValue());
+                    String breakfast_carb=String.valueOf(ds.child("totalcarbs").getValue());
+                    String cal_per_breakfast=String.valueOf(ds.child("total").getValue());
                     proteins_total.setText(proteins);
                     fats_total.setText(fats);
                     carbs_total.setText(carbs);
+                    breakfast_cal.setText(br_cal);
+                    breakfast_prot.setText(breakfast_protein);
+                    breakfast_fats.setText(breakfast_fat);
+                    breakfast_carbs.setText(breakfast_carb);
+                    cal_per_day.setText(cal_per_breakfast);
                 }
             }
             @Override
@@ -125,6 +145,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Breakfast.class);
+                startActivity(intent);
+            }
+        });
+        breakfast_items.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Breakfast_Items.class);
                 startActivity(intent);
             }
         });

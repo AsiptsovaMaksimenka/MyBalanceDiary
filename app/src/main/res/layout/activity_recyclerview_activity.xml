@@ -7,8 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rcmain"
-        >
+        android:id="@+id/rcmain">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -19,14 +18,20 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="70dp" />
 
-
-
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/vsfb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="right|bottom"
+                android:layout_marginEnd="27dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="21dp"
+                android:src="@drawable/voice"
+                android:visibility="visible" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="891dp" />
     </FrameLayout>
 
 

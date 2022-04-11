@@ -1,7 +1,6 @@
 package com.application.mybalancediary;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +21,28 @@ import org.json.JSONArray;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 
-public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecyclerViewAdapter.ViewHolder> {
-    public static float caloriecount = 0f;
-    public static float totalfat = 0f;
-    public static float totalcarbs = 0f;
-    public static float totalprotein = 0f;
+public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecyclerViewAdapter.ViewHolder> { float caloriecount = 0f;
+    float totalfat = 0f;
+    float totalcarbs = 0f;
+    float totalprotein = 0f;
+    public static String name="";
     public static int count = 0;
     private final List<Map<String, ?>> mDataset;
     private final Context mContext;
+    public static Vector<String> nameBreakfast = new Vector<String>(50);
+    public static Vector<Float> calories_breakfast = new Vector<Float>(50);
+    public static Vector<Float> proteins_breakfast  = new Vector<Float>(50);
+    public static Vector<Float> fats_breakfast  = new Vector<Float>(50);
+    public static Vector<Float>  carbs_breakfast  = new Vector<Float>(50);
 
+    public static final Integer zero=0;
+    public static Float total_cal =zero.floatValue();
+    public static Float total_proteins =zero.floatValue();
+    public static Float total_fats =zero.floatValue();
+    public static  Float total_carb =zero.floatValue();
 
     public Food_MyRecyclerViewAdapter(Context myContext, List<Map<String, ?>> myDataset) {
         mContext = myContext;
@@ -46,7 +56,6 @@ public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecy
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Map<String, ?> food = mDataset.get(position);
@@ -59,7 +68,6 @@ public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView vTitle;
-        public TextView vType;
         public TextView vCal;
         public Button vAdd;
         public RelativeLayout mRelativeLayout;
@@ -71,7 +79,6 @@ public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecy
         public ViewHolder(View v) {
             super(v);
             vTitle = v.findViewById(R.id.title);
-            vType = v.findViewById(R.id.type);
             vCal = v.findViewById(R.id.calories);
             vAdd = v.findViewById(R.id.addfood);
             mAuth = FirebaseAuth.getInstance();
@@ -81,43 +88,41 @@ public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecy
         private DatabaseReference getCaloriesRef(String ref) {
             FirebaseUser user = mAuth.getCurrentUser();
             String userId = user.getUid();
-            return mDatabase.child("Calories").child(userId).child(ref);
+            return mDatabase.child("Calories").child("Breakfast").child(userId).child(ref);
         }
 
-        public void bindMovieData(final Map<String, ?> fooditem) {
-            vTitle.setText((String) fooditem.get(("iname")));
-            vType.setText((String) fooditem.get("bname"));
-            // vDesc.setText((String) fooditem.get("idesc"));
-            vCal.setText((String) fooditem.get("ical"));
-            caloriecount = Food_RecyclerFrag_Main.calRef1;
-            totalcarbs = Food_RecyclerFrag_Main.user_carbs1;
-            totalprotein = Food_RecyclerFrag_Main.user_protein1;
-            totalfat = Food_RecyclerFrag_Main.user_fat1;
+        public void bindMovieData(final Map<String, ?> foodItem) {
+            vTitle.setText((String) foodItem.get(("iname")));
+            vCal.setText((String) foodItem.get("ical"));
             vAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     count++;
-                    Log.d("Before Adding", String.valueOf(caloriecount) + String.valueOf(totalcarbs) + String.valueOf(totalfat) + String.valueOf(totalprotein));
-                    caloriecount = caloriecount + (Float.parseFloat(String.valueOf(fooditem.get("ical"))));
-                    totalcarbs = totalcarbs + (Float.parseFloat((String.valueOf(fooditem.get("icarbs")))));
-                    totalfat = totalfat + (Float.parseFloat((String.valueOf(fooditem.get("ifat")))));
-                    totalprotein = totalprotein + (Float.parseFloat((String.valueOf(fooditem.get("iprotein")))));
-                    Log.d("After Adding", String.valueOf(caloriecount) + String.valueOf(totalcarbs) + String.valueOf(totalfat) + String.valueOf(totalprotein));
-                    Log.d("Adapter", (String.valueOf(Food_RecyclerFrag_Main.user_fat1)) + (String.valueOf(Food_RecyclerFrag_Main.user_carbs1)) + (String.valueOf(Food_RecyclerFrag_Main.user_protein1)) + (String.valueOf(Food_RecyclerFrag_Main.calRef1)));
+                    caloriecount =  (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
+                    totalcarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
+                    totalfat =  (Float.parseFloat((String.valueOf(foodItem.get("ifat")))));
+                    totalprotein =(Float.parseFloat((String.valueOf(foodItem.get("iprotein")))));
+                    name= String.valueOf(foodItem.get("iname"));
+                    nameBreakfast.add(name);
+                    calories_breakfast.add(caloriecount);
+                    proteins_breakfast.add(totalprotein);
+                    fats_breakfast.add(totalfat);
+                    carbs_breakfast.add(totalcarbs);
 
-                    getCaloriesRef("totalcalories").setValue(caloriecount);
-                    getCaloriesRef("totalfat").setValue(totalfat);
-                    getCaloriesRef("totalcarbs").setValue(totalcarbs);
-                    getCaloriesRef("totalprotein").setValue(totalprotein);
+                    total_cal +=caloriecount;
+                    total_proteins+=totalprotein;
+                    total_carb+=totalcarbs;
+                    total_fats+=totalfat;
+                    getCaloriesRef("total").setValue(total_cal);
+                    getCaloriesRef("totalfats").setValue(total_fats);
+                    getCaloriesRef("totalcarbs").setValue(total_carb);
+                    getCaloriesRef("totalprotein").setValue(total_proteins);
+                    //  getCaloriesRef("name").setValue(name);
 
-                    if (count == 1) {
+                    if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";
                         Toast.makeText(mContext, toast1, Toast.LENGTH_SHORT).show();
-                    } else if (count > 1) {
-                        String toast2 = String.valueOf(count) + "items added";
-                        Toast.makeText(mContext, toast2, Toast.LENGTH_SHORT).show();
-                    }
-                }
+                    } }
             });
             JSONArray j = null;
         }

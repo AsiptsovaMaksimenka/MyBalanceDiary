@@ -33,7 +33,6 @@ public class FoodDataJson {
         String foodJson = HTTPUtility.downloadJSONusingHTTPGetRequest(json_url);
 
         if (foodJson == null) {
-            Log.d("MyDebugMsg", "Having trouble loading URL: " + json_url);
             return;
         }
 
@@ -46,7 +45,6 @@ public class FoodDataJson {
                 createFood(fields);
             }
         } catch (JSONException e) {
-            Log.d("Food Data JSON", "JSONException in downloadFoodDataJson");
             e.printStackTrace();
         }
     }
@@ -65,7 +63,6 @@ public class FoodDataJson {
             food.put("iprotein", fields.getString("nf_total_carbohydrate"));
             addItem(food);
         } catch (JSONException e) {
-            Log.d("AddFood Error", "Check json array for food");
             e.printStackTrace();
         }
     }

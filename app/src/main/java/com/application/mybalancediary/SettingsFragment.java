@@ -43,21 +43,24 @@ public class SettingsFragment extends PreferenceFragment {
         String user_name = prefs.getString("user_name", "");
         String weight_kg = prefs.getString("weight_kg", "");
         String height_kg = prefs.getString("height_kg", "");
+        String cycle_length=prefs.getString("cycle_length","");
+        String period_length=prefs.getString("period_length","");
+        String change_email=prefs.getString("change_email","");
 
-        updateProfile(user_name,weight_kg,height_kg);
+        updateProfile(user_name,weight_kg,height_kg,change_email);
     }
-public void updateProfile(String _user_name,String _weight_kg,String _height_kg)
+public void updateProfile(String _user_name,String _weight_kg,String _height_kg,String _change_email)
 {
     String userID = currentUser.getUid();
     databaseReference = FirebaseDatabase.getInstance().getReference("Users");
     databaseReference.child(userID).child("name").setValue(_user_name);
     databaseReference.child(userID).child("weight").setValue(_weight_kg);
     databaseReference.child(userID).child("height").setValue(_height_kg);
+    databaseReference.child(userID).child("email").setValue(_change_email);
+
 
 }
 }
 
 // boolean period_tracker = preferences.getBoolean("period_tracking", false);
 //  boolean water_tracker = preferences.getBoolean("water_tracking", false);
-//   String cycle_length = prefs.getString("cycle_length", "");
-// String birth_date = prefs.getString("birth_date", "");

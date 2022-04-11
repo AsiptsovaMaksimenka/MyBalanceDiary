@@ -14,7 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBalanceDiary">
         <activity
+            android:name=".Breakfast_Items"
+            android:exported="false" />
+        <activity
             android:name=".DeleteUser"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ChangePasswordActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

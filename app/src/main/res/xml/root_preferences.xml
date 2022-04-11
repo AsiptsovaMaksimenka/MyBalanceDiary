@@ -61,12 +61,23 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Other">
-    <EditTextPreference
-        android:inputType="textPassword"
+        <EditTextPreference
+            android:inputType="textEmailAddress"
+            android:key="change_email"
+            android:title="Email"
+            android:summary="Change email"
+            android:dialogTitle="@string/email"/>
+    <Preference
         android:key="change_password"
         android:title="Password"
         android:summary="Change password"
-        android:dialogTitle="password"/>
+        android:dialogTitle="password">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="com.application.mybalancediary"
+            android:targetClass="com.application.mybalancediary.ChangePasswordActivity"
+            />
+    </Preference>
     <Preference
         android:key="delete_account"
         android:title="Delete account"

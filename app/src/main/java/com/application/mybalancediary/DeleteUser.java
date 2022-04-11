@@ -33,6 +33,7 @@ public class DeleteUser extends AppCompatActivity {
                 deleteUser(email.getText().toString(), password.getText().toString());
             }
         });
+
     }
 
     private void deleteUser(String email, String password) {

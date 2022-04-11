@@ -8,9 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 
 public class Breakfast extends AppCompatActivity {
 
-  //  private DatabaseReference mDatabase;
-   // private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,9 +17,6 @@ public class Breakfast extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.rcfrag_main, Food_RecyclerView_Main.newInstance()).commit();
         }
-
-     //   mAuth = FirebaseAuth.getInstance();
-     //   mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Toolbar mToolbar = findViewById(R.id.recycler_toolbar);
         ActionBar mActionBar = getSupportActionBar();

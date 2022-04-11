@@ -87,22 +87,6 @@ public class RegisterActivity extends AppCompatActivity {
                     mPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             }
         });
-        mAge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
-                int m_Year = calendar.get(Calendar.YEAR);
-                int m_Month = calendar.get(Calendar.MONTH);
-                int m_Day = calendar.get(Calendar.DAY_OF_MONTH);
-                    datePickerDialog = new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mAge.setText(dayOfMonth + "." + (monthOfYear + 1) + "-" + year);
-                    }
-                }, m_Year, m_Month, m_Day);
-                datePickerDialog.show();
-            }
-        });
 
         ShowHidePWDConfirm=findViewById(R.id.show_hide_pwd_confirm);
         ShowHidePWDConfirm.setOnClickListener(new View.OnClickListener() {
@@ -264,9 +248,9 @@ public class RegisterActivity extends AppCompatActivity {
                     getUsersRef("bmr").setValue(Math.round(bmr * 100.0) / 100.0);
                     getUsersRef("workout").setValue(workout);
                     getUsersRef("goals").setValue(goals);
-                    getCaloriesRef("proteins").setValue(Math.round(proteins * 100.0) / 100.0);
-                    getCaloriesRef("fats").setValue(Math.round(fats * 100.0) / 100.0);
-                    getCaloriesRef("carbs").setValue(Math.round(carbs * 100.0) / 100.0);
+                    getUsersRef("proteins").setValue(Math.round(proteins * 100.0) / 100.0);
+                    getUsersRef("fats").setValue(Math.round(fats * 100.0) / 100.0);
+                    getUsersRef("carbs").setValue(Math.round(carbs * 100.0) / 100.0);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
                     Toast.makeText(RegisterActivity.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
