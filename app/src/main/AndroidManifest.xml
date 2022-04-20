@@ -93,8 +93,16 @@
         <activity
             android:name=".Snacks"
             android:exported="true"
-            android:screenOrientation="fullSensor"
-            android:windowSoftInputMode="adjustResize">
+            android:screenOrientation="fullSensor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ReportsFood"
+            android:exported="true"
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

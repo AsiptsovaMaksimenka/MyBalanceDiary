@@ -15,6 +15,7 @@ import com.application.mybalancediary.Dinner_Items;
 import com.application.mybalancediary.Lunch;
 import com.application.mybalancediary.Lunch_Items;
 import com.application.mybalancediary.R;
+import com.application.mybalancediary.ReportsFood;
 import com.application.mybalancediary.Snacks;
 import com.application.mybalancediary.Snacks_Items;
 import com.google.android.material.button.MaterialButton;
@@ -67,6 +68,7 @@ public class HomeFragment extends Fragment {
         final MaterialButton dinner_items= root.findViewById(R.id.dinner_items);
         final MaterialButton snack= root.findViewById(R.id.snacks);
         final MaterialButton snack_items= root.findViewById(R.id.snacks_items);
+        final MaterialButton reports= root.findViewById(R.id.reports);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -206,6 +208,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Snacks_Items.class);
+                startActivity(intent);
+            }
+        });
+        reports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ReportsFood.class);
                 startActivity(intent);
             }
         });
