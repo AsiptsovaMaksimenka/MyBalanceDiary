@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.application.mybalancediary.Breakfast;
 import com.application.mybalancediary.Breakfast_Items;
+import com.application.mybalancediary.Dinner;
+import com.application.mybalancediary.Dinner_Items;
 import com.application.mybalancediary.Lunch;
 import com.application.mybalancediary.Lunch_Items;
 import com.application.mybalancediary.R;
@@ -59,6 +61,9 @@ public class HomeFragment extends Fragment {
         final TextView cal_per_day=root.findViewById(R.id.textView);
         final MaterialButton lunch= root.findViewById(R.id.lunch);
         final MaterialButton lunch_items= root.findViewById(R.id.lunch_items);
+        final MaterialButton dinner= root.findViewById(R.id.dinner);
+        final MaterialButton dinner_items= root.findViewById(R.id.dinner_items);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -169,6 +174,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Lunch_Items.class);
+                startActivity(intent);
+            }
+        });
+        dinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Dinner.class);
+                startActivity(intent);
+            }
+        });
+        dinner_items.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Dinner_Items.class);
                 startActivity(intent);
             }
         });
