@@ -15,6 +15,8 @@ import com.application.mybalancediary.Dinner_Items;
 import com.application.mybalancediary.Lunch;
 import com.application.mybalancediary.Lunch_Items;
 import com.application.mybalancediary.R;
+import com.application.mybalancediary.Snacks;
+import com.application.mybalancediary.Snacks_Items;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -63,6 +65,8 @@ public class HomeFragment extends Fragment {
         final MaterialButton lunch_items= root.findViewById(R.id.lunch_items);
         final MaterialButton dinner= root.findViewById(R.id.dinner);
         final MaterialButton dinner_items= root.findViewById(R.id.dinner_items);
+        final MaterialButton snack= root.findViewById(R.id.snacks);
+        final MaterialButton snack_items= root.findViewById(R.id.snacks_items);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -188,6 +192,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Dinner_Items.class);
+                startActivity(intent);
+            }
+        });
+        snack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Snacks.class);
+                startActivity(intent);
+            }
+        });
+        snack_items.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Snacks_Items.class);
                 startActivity(intent);
             }
         });
