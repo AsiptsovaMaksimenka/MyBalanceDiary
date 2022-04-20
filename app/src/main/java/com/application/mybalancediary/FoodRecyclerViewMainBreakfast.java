@@ -65,7 +65,7 @@ public class FoodRecyclerViewMainBreakfast extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_recyclerview_lunch, container, false);
+        View rootView = inflater.inflate(R.layout.activity_recyclerview_breakfast, container, false);
         RecyclerView mRecyclerView = rootView.findViewById(R.id.cardList);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
