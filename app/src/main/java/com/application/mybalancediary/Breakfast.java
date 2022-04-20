@@ -18,12 +18,6 @@ public class Breakfast extends AppCompatActivity {
                     .replace(R.id.rcfrag_main, Food_RecyclerView_Main.newInstance()).commit();
         }
 
-        Toolbar mToolbar = findViewById(R.id.recycler_toolbar);
-        ActionBar mActionBar = getSupportActionBar();
-        assert mActionBar != null;
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setHomeButtonEnabled(true);
-
     }
 
 }

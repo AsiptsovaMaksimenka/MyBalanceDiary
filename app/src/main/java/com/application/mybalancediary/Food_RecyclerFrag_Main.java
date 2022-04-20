@@ -18,8 +18,6 @@ public class Food_RecyclerFrag_Main extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.rcfrag_main, Food_RecyclerView_Main.newInstance()).commit();
         }
-        Toolbar mToolbar = findViewById(R.id.recycler_toolbar);
-        setSupportActionBar(mToolbar);
         ActionBar mActionBar = getSupportActionBar();
         assert mActionBar != null;
         mActionBar.setDisplayHomeAsUpEnabled(true);

@@ -33,6 +33,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.ScaleInBottomAnimator;
+
 
 
 public class Food_RecyclerView_Main extends Fragment {
@@ -41,7 +44,7 @@ public class Food_RecyclerView_Main extends Fragment {
     FoodDataJson foodData;
     private Food_MyRecyclerViewAdapter mRecyclerViewAdapter;
     android.widget.SearchView search;
-    private final int REQ_CODE_SPEECH_INPUT = 0;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
     public static String voice_query = "";
     private FloatingActionButton voice;
 
@@ -70,10 +73,22 @@ public class Food_RecyclerView_Main extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_recyclerview_activity, container, false);
         RecyclerView mRecyclerView = rootView.findViewById(R.id.cardList);
+        mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerViewAdapter = new Food_MyRecyclerViewAdapter(getActivity(), foodData.foodList);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
+        mRecyclerView.setItemAnimator(new ScaleInBottomAnimator());
+        mRecyclerView.getItemAnimator().setAddDuration(100);
+        mRecyclerView.getItemAnimator().setRemoveDuration(1000);
+        mRecyclerView.getItemAnimator().setMoveDuration(100);
+        mRecyclerView.getItemAnimator().setChangeDuration(100);
+        ScaleInBottomAnimator animator = new ScaleInBottomAnimator();
+        mRecyclerView.setItemAnimator(animator);
+        mRecyclerView.setAdapter(new ScaleInAnimationAdapter(mRecyclerViewAdapter));
+        ScaleInAnimationAdapter alphaAdapter = new ScaleInAnimationAdapter(mRecyclerViewAdapter);
+        alphaAdapter.setDuration(500);
+        mRecyclerView.setAdapter(alphaAdapter);
         voice = rootView.findViewById(R.id.vsfb);
         voice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,8 +116,7 @@ public class Food_RecyclerView_Main extends Fragment {
 
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
-            voice_query  = results.get(0);
-        }
+            voice_query = (results.get(0));        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -114,13 +128,13 @@ public class Food_RecyclerView_Main extends Fragment {
         search = (android.widget.SearchView) menu.findItem(R.id.action_search).getActionView();
         if (search != null) {
             search.setIconifiedByDefault(true);
+            search.setQuery(voice_query, true);
             search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     String food;
                     if (voice_query != "") {
                         food = voice_query;
-                        search.setQuery(voice_query, true);
                         search.setQueryHint(voice_query);
                     }
                     else {

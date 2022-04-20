@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/activity_recycler_frag_change_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/activity_recyclerview_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/cardview_food.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/fragment_home.xml" value="0.25025641025641027" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/menu/menu_actionview.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable-v24/ic_menu_gallery.xml" value="0.2595" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.2595" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable/bg_box_rounded.xml" value="0.1525" />

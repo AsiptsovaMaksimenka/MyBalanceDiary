@@ -117,7 +117,6 @@ public class Food_MyRecyclerViewAdapter extends RecyclerView.Adapter<Food_MyRecy
                     getCaloriesRef("totalfats").setValue(total_fats);
                     getCaloriesRef("totalcarbs").setValue(total_carb);
                     getCaloriesRef("totalprotein").setValue(total_proteins);
-                    //  getCaloriesRef("name").setValue(name);
 
                     if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";
