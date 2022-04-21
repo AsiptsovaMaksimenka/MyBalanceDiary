@@ -11,5 +11,9 @@
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/circle</item>
     </style>
+    <style name="CalendarViewCustomStyle">
+        <item name="android:background">@color/colorMainBackground</item>
+
+    </style>
 
 </resources>

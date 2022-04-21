@@ -113,10 +113,10 @@ public class FoodLunchAdapter extends RecyclerView.Adapter<FoodLunchAdapter.View
                     total_proteins+=totalprotein;
                     total_carb+=totalcarbs;
                     total_fats+=totalfat;
-                    getCaloriesRef("total").setValue(total_cal);
-                    getCaloriesRef("totalfats").setValue(total_fats);
-                    getCaloriesRef("totalcarbs").setValue(total_carb);
-                    getCaloriesRef("totalprotein").setValue(total_proteins);
+                    getCaloriesRef("total").setValue(Math.round( total_cal*10.0 ) / 10.0);
+                    getCaloriesRef("totalfats").setValue(Math.round( total_fats*10.0 ) / 10.0);
+                    getCaloriesRef("totalcarbs").setValue(Math.round( total_carb*10.0 ) / 10.0);
+                    getCaloriesRef("totalprotein").setValue(Math.round( total_proteins*10.0 ) / 10.0);
 
                     if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";

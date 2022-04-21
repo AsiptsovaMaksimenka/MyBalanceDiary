@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/drawable/custom_date_bg_selector.xml" value="0.1435" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/activity_breakfast.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/activity_breakfast_items.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/activity_dinner.xml" value="0.25416666666666665" />
@@ -18,8 +19,10 @@
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/activity_reports_food.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/activity_snacks_items.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/cardview_food.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/fragment_home.xml" value="0.25025641025641027" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/fragment_home.xml" value="0.3328785811732606" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/fragment_water_tracker.xml" value="0.264" />
+        <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/layout/fragment_weight_track.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiary/app/src/main/res/menu/menu_actionview.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable-v24/ic_menu_gallery.xml" value="0.2595" />
         <entry key="..\:/Users/asipc/Desktop/MyBalanceDiaryvol2/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.2595" />

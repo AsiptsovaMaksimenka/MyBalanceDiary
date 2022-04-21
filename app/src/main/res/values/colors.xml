@@ -42,5 +42,57 @@
     <color name="deep_purple_50">#E6D5F8</color>
     <color name="light_blue_a400">#03BBF8</color>
     <color name="light_blue_100">#BDEEFE</color>
+    <color name="colorBlueButtonUnfocused">#039BE5</color>
+    <color name="colorBlueButtonPressed">#D6039BE5</color>
+    <color name="colorBlueButtonFocused">#E0039BE5</color>
+    <color name="colorBlueButtonDisabled">#9E039BE5</color>
+    <color name="colorBlueButtonBorder">#FF404040</color>
+    <color name="colorMainBackground">#303030</color>
+
+    <color name="color_phone_hint">#9C9C9C</color>
+
+    <!-- Blue Button States -->
+    <color name="colorWhiteButtonUnfocused">#FFFFFF</color>
+    <color name="colorWhiteButtonPressed">#D6FFFFFF</color>
+    <color name="colorWhiteButtonFocused">#E0FFFFFF</color>
+    <color name="colorWhiteButtonDisabled">#9EFFFFFF</color>
+    <color name="colorWhiteButtonBorder">#FF404040</color>
+
+    <!-- Edit Text -->
+    <color name="colorEditTextBackgroundUnfocused">#D6FFFFFF</color>
+    <color name="colorEditTextBackgroundFocused">#FFFFFF</color>
+
+    <!-- Chevron -->
+    <color name="colorChevron">#E8E8E8</color>
+
+    <!-- Title Bar -->
+    <color name="colorTitleBar">#212121</color>
+    <color name="colorTitleBarText">#4FC3F7</color>
+
+    <!-- Navigation Bar -->
+    <color name="colorNavigationBackground">#212121</color>
+    <color name="colorNavigationUnselected">#9C9C9C</color>
+    <color name="colorNavigationSelected">#F3F3F3</color>
+
+    <!-- Weight Entries -->
+    <color name="colorEntryPrimaryText">#FFFFFF</color>
+    <color name="colorEntrySecondaryText">#6A686B</color>
+    <color name="colorRecyclerDivider">#999999</color>
+
+    <color name="colorChartBackground">#FFFFFF</color>
+    <color name="colorChartButtonBackground">#F7F7F7</color>
+    <color name="colorChartButtonSelected">#212121</color>
+    <color name="colorChartBorder">#212121</color>
+    <color name="colorWhiteText">#FFFFFF</color>
+    <color name="colorDivider">#9C9C9C</color>
+
+    <color name="colorCalendarMonth">#4FC3F7</color>
+    <color name="colorCalendarSubmitButtonEnabled">#4FC3F7</color>
+    <color name="colorCalendarSubmitButtonDisabled">#E04FC3F7</color>
+    <color name="colorWeekdayBar">#6A686B</color>
+    <color name="chartsNoDataText">@android:color/white</color>
+    <color name="chartsNoDataBackground">#CC0099FF</color>
+    <color name="chartsTitleBackground">@color/colorTitleBar</color>
+    <color name="chartsTitleText">@color/colorTitleBarText</color>
 
 </resources>

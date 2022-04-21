@@ -25,10 +25,10 @@ import java.util.Vector;
 
 
 public class FoodBreakfastAdapter extends RecyclerView.Adapter<FoodBreakfastAdapter.ViewHolder> {
-    float caloriecount = 0f;
-    float totalfat = 0f;
-    float totalcarbs = 0f;
-    float totalprotein = 0f;
+    float calorieCount = 0f;
+    float totalFat = 0f;
+    float totalCarbs = 0f;
+    float totalProtein = 0f;
     public static String name="";
     public static int count = 0;
     private final List<Map<String, ?>> mDataset;
@@ -40,10 +40,10 @@ public class FoodBreakfastAdapter extends RecyclerView.Adapter<FoodBreakfastAdap
     public static Vector<Float>  carbs_breakfast  = new Vector<Float>(50);
 
 
-    public static Float total_cal =0.0f;
-    public static Float total_proteins =0.0f;
-    public static Float total_fats =0.0f;
-    public static  Float total_carb =0.0f;
+    public static int total_cal =0;
+    public static int total_proteins =0;
+    public static int total_fats =0;
+    public static int total_carb =0;
 
     public FoodBreakfastAdapter(Context myContext, List<Map<String, ?>> myDataset) {
         mContext = myContext;
@@ -99,25 +99,25 @@ public class FoodBreakfastAdapter extends RecyclerView.Adapter<FoodBreakfastAdap
                 @Override
                 public void onClick(View v) {
                     count++;
-                    caloriecount =  (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
-                    totalcarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
-                    totalfat =  (Float.parseFloat((String.valueOf(foodItem.get("ifat")))));
-                    totalprotein =(Float.parseFloat((String.valueOf(foodItem.get("iprotein")))));
+                    calorieCount =  (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
+                    totalCarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
+                    totalFat =  (Float.parseFloat((String.valueOf(foodItem.get("ifat")))));
+                    totalProtein =(Float.parseFloat((String.valueOf(foodItem.get("iprotein")))));
                     name= String.valueOf(foodItem.get("iname"));
                     nameBreakfast.add(name);
-                    calories_breakfast.add(caloriecount);
-                    proteins_breakfast.add(totalprotein);
-                    fats_breakfast.add(totalfat);
-                    carbs_breakfast.add(totalcarbs);
+                    calories_breakfast.add(calorieCount);
+                    proteins_breakfast.add(totalProtein);
+                    fats_breakfast.add(totalFat);
+                    carbs_breakfast.add(totalCarbs);
 
-                    total_cal +=caloriecount;
-                    total_proteins+=totalprotein;
-                    total_carb+=totalcarbs;
-                    total_fats+=totalfat;
-                    getCaloriesRef("total").setValue(total_cal);
-                    getCaloriesRef("totalfats").setValue(total_fats);
-                    getCaloriesRef("totalcarbs").setValue(total_carb);
-                    getCaloriesRef("totalprotein").setValue(total_proteins);
+                    total_cal += calorieCount;
+                    total_proteins+= totalProtein;
+                    total_carb+= totalCarbs;
+                    total_fats+= totalFat;
+                    getCaloriesRef("total").setValue(Math.round(total_cal*10.0 ) / 10.0);
+                    getCaloriesRef("totalfats").setValue(Math.round(total_fats*10.0 ) / 10.0);
+                    getCaloriesRef("totalcarbs").setValue(Math.round(total_carb*10.0 ) / 10.0);
+                    getCaloriesRef("totalprotein").setValue(Math.round(total_proteins*10.0 ) / 10.0);
 
                     if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";

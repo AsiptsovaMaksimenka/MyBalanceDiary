@@ -34,7 +34,7 @@
                     android:id="@+id/circularProgressIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:progress="25"
+                    android:progress="0"
                     app:trackColor="@color/blue"
                     app:indicatorSize="160dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +47,7 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="295.5"
+                    android:text="0"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/textView2"
@@ -61,7 +61,7 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/ 1200 kcal"
+                    android:text="/ 0"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/circularProgressIndicator"
                     app:layout_constraintEnd_toEndOf="@+id/circularProgressIndicator"
@@ -86,7 +86,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:progress="15"
+                    android:progress="0"
                     app:layout_constraintEnd_toStartOf="@+id/linearProgressIndicator2"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +98,7 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="19.5"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="/"
+                    android:text="/ 0"
                     android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
                     app:layout_constraintStart_toEndOf="@+id/textView4" />
@@ -131,7 +131,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
-                    android:progress="15"
+                    android:progress="0"
                     app:layout_constraintEnd_toStartOf="@+id/linearProgressIndicator3"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/linearProgressIndicator"
@@ -143,7 +143,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="7.5"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -155,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="/"
+                    android:text="/ 0"
                     android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
                     app:layout_constraintStart_toEndOf="@+id/textView6" />
@@ -174,7 +174,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:progress="15"
+                    android:progress="0"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/linearProgressIndicator2"
@@ -186,7 +186,7 @@
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="37.7"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -198,7 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="/"
+                    android:text="/ 0"
                     android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
                     app:layout_constraintStart_toEndOf="@+id/textView8" />
@@ -237,7 +237,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="295.5 kcal"
+                    android:text="0 kcal"
                     android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView9"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -270,7 +270,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="19.5 gr" />
+                        android:text="0 gr" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -287,7 +287,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="7.5 gr" />
+                        android:text="0 gr" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -304,7 +304,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="37.7 gr" />
+                        android:text="0 gr" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -386,7 +386,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="138dp"
                 android:padding="16dp">
 
                 <TextView
@@ -400,11 +400,87 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <LinearLayout
+                    android:id="@+id/LinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="P"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/lunch_prot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="0 gr" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="F"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/lunch_fats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="0 gr" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="C"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/lunch_carbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="0 gr" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/LinearLayout">
+
+
+                </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/lunch_cal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 600 kcal"
+                    android:text=" 0 kcal"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView12"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -413,6 +489,7 @@
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
                     android:layout_marginTop="16dp"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
@@ -424,22 +501,23 @@
                     app:icon="@drawable/ic_add"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView12"
+                    app:layout_constraintVertical_bias="0.847" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/lunch_items"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="184dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="160dp"
-                    android:text="+ Lunch items"
+                    android:layout_width="156dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="176dp"
+                    android:text="Lunch items"
                     android:textAllCaps="false"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lunch_cal"
-                    app:layout_constraintVertical_bias="0.117" />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                    app:layout_constraintVertical_bias="1.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -456,7 +534,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="140dp"
                 android:padding="16dp">
 
                 <TextView
@@ -470,11 +548,87 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <LinearLayout
+                    android:id="@+id/LinearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="P"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dinner_prot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="0 gr" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="F"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dinner_fats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="0 gr" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="C"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dinner_carbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="0 gr" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/LinearLayout2">
+
+
+                </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/dinner_cal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="600 kcal"
+                    android:text="0 kcal"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -483,6 +637,7 @@
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
@@ -494,22 +649,23 @@
                     app:icon="@drawable/ic_add"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView20"
+                    app:layout_constraintVertical_bias="0.75" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/dinner_items"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="184dp"
-                    android:layout_height="42dp"
+                    android:layout_width="172dp"
+                    android:layout_height="39dp"
                     android:layout_marginStart="160dp"
-                    android:text="+ Dinner items"
+                    android:text="Dinner items"
                     android:textAllCaps="false"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/dinner_cal"
-                    app:layout_constraintVertical_bias="0.117" />
+                    app:layout_constraintVertical_bias="1.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -526,7 +682,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="142dp"
                 android:padding="16dp">
 
                 <TextView
@@ -540,20 +696,111 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <LinearLayout
+                    android:id="@+id/LinearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="P"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/snack_prot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="0 gr" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="F"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/snack_fats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="0 gr" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="C"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/snack_carbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="0 gr" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/LinearLayout3">
+
+
+                </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/snacks_cal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="600 kcal"
+                    android:text="0 kcal"
                     app:layout_constraintBaseline_toBaselineOf="@+id/textView21"
                     app:layout_constraintEnd_toEndOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/snacks_items"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="170dp"
+                    android:layout_height="46dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Snacks items"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/LinearLayout3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:layout_editor_absoluteY="72dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/snacks"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="224dp"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:minHeight="24dp"
@@ -563,23 +810,9 @@
                     android:textStyle="bold"
                     app:icon="@drawable/ic_add"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/snacks_items"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="184dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="160dp"
-                    android:text="+ Snacks items"
-                    android:textAllCaps="false"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/snacks_cal"
-                    app:layout_constraintVertical_bias="0.117" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/LinearLayout3"
+                    app:layout_constraintVertical_bias="0.778" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
