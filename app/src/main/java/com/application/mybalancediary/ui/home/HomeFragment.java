@@ -115,18 +115,18 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String proteins = "/ " + ds.child("proteins").getValue();
-                    String carbs = "/ " + ds.child("carbs").getValue();
-                    String fats = "/ " + ds.child("fats").getValue();
-                    total_calories.setText(String.valueOf(ds.child("bmr").getValue()));
-                    proteins_total.setText(proteins);
-                    fats_total.setText(fats);
-                    carbs_total.setText(carbs);
-                    userCal= parseFloat(String.valueOf(ds.child("bmr").getValue()));
-                    userProteins= parseFloat(String.valueOf(ds.child("proteins").getValue()));
-                    userFats= parseFloat(String.valueOf(ds.child("fats").getValue()));
-                    userCarbs= parseFloat(String.valueOf(ds.child("carbs").getValue()));
-
+                    String proteins = String.valueOf(ds.child("proteins").getValue());
+                    String carbs = String.valueOf(ds.child("carbs").getValue());
+                    String fats = String.valueOf(ds.child("fats").getValue());
+                    String bmr = String.valueOf(ds.child("bmr").getValue());
+                    total_calories.setText(bmr);
+                    proteins_total.setText("/ " + proteins);
+                    fats_total.setText("/ " + fats);
+                    carbs_total.setText("/ " + carbs);
+                    userCal= Float.valueOf(bmr);
+                    userProteins= Float.valueOf(proteins);
+                    userFats= Float.valueOf(fats);
+                    userCarbs= Float.valueOf(carbs);
                 }
             }
             @Override
@@ -139,15 +139,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    br= parseFloat(String.valueOf(ds.child("total").getValue()));
-                    totalProteinsBr= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
-                    totalFatsBr= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
-                    totalCarbsBr= parseFloat(String.valueOf(ds.child("totalcarbs").getValue()));
+                    br= Float.valueOf(String.valueOf(ds.child("total").getValue()));
+                    totalProteinsBr= Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
+                    totalFatsBr= Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
+                    totalCarbsBr= Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
                     breakfast_cal.setText(String.valueOf(ds.child("total").getValue()));
                     breakfast_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
                     breakfast_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
                     breakfast_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
-
                 }
             }
             @Override
@@ -160,15 +159,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    ln= parseFloat(String.valueOf(ds.child("total").getValue()));
-                    totalProteinsLn= parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
-                    totalFatsLn= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
-                    totalCarbsLn= parseFloat(String.valueOf(ds.child("totalcarbs").getValue()));
+                    ln= Float.valueOf(String.valueOf(ds.child("total").getValue()));
+                    totalProteinsLn= Float.valueOf(String.valueOf(ds.child("totalprotein").getValue()));
+                    totalFatsLn= Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
+                    totalCarbsLn= Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
                     lunch_cal.setText(String.valueOf(ds.child("total").getValue()));
                     lunch_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
                     lunch_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
                     lunch_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
-
                 }
             }
             @Override
@@ -181,15 +179,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    dn= parseFloat(String.valueOf(ds.child("total").getValue()));
-                    totalProteinsDn= Float.parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
-                    totalFatsDn= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
-                    totalCarbsDn= parseFloat(String.valueOf(ds.child("totalcarbs").getValue()));
+                    dn= Float.valueOf(String.valueOf(ds.child("total").getValue()));
+                    totalProteinsDn= Float.valueOf(String.valueOf(ds.child("totalprotein").getValue()));
+                    totalFatsDn= Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
+                    totalCarbsDn= Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
                     dinner_cal.setText(String.valueOf(ds.child("total").getValue()));
                     dinner_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
                     dinner_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
                     dinner_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
-
                 }
             }
             @Override
@@ -202,15 +199,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    sn= parseFloat(String.valueOf(ds.child("total").getValue()));
-                    totalProteinsSn= parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
-                    totalFatsSn= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
-                    totalCarbsSn= parseFloat(String.valueOf(ds.child("totalcarbs").getValue()));
+                    sn= Float.valueOf(String.valueOf(ds.child("total").getValue()));
+                    totalProteinsSn= Float.valueOf(String.valueOf(ds.child("totalprotein").getValue()));
+                    totalFatsSn= Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
+                    totalCarbsSn= Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
                     snack_cal.setText(String.valueOf(ds.child("total").getValue()));
                     snack_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
                     snack_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
                     snack_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
-
                 }
             }
             @Override
@@ -228,58 +224,41 @@ public class HomeFragment extends Fragment {
                     proteins_per_day.setText(String.valueOf(ds.child("TotalProteinsPerDay").getValue()));
                     fats_per_day.setText(String.valueOf(ds.child("TotalFatsPerDay").getValue()));
                     carbs_per_day.setText(String.valueOf(ds.child("TotalCarbsPerDay").getValue()));
-                    TotalCal= parseFloat(String.valueOf(ds.child("TotalPerDay").getValue()));
-                    TotalProteins= parseFloat(String.valueOf(ds.child("TotalProteinsPerDay").getValue()));
-                    TotalFats= parseFloat(String.valueOf(ds.child("TotalFatsPerDay").getValue()));
-                    TotalCarbs= parseFloat(String.valueOf(ds.child("TotalCarbsPerDay").getValue()));
+                    TotalCal= Float.valueOf(String.valueOf(ds.child("TotalPerDay").getValue()));
+                    TotalProteins= Float.valueOf(String.valueOf(ds.child("TotalProteinsPerDay").getValue()));
+                    TotalFats= Float.valueOf(String.valueOf(ds.child("TotalFatsPerDay").getValue()));
+                    TotalCarbs= Float.valueOf(String.valueOf(ds.child("TotalCarbsPerDay").getValue()));
                     if (TotalFats>userFats) {
                         fats_progress.setProgress(100);
                         fats_progress.setIndicatorColor(0xFFFF0000);
                     }
-                     else
-                     {
-                    fats_progress.setProgress(Math.round((100 * (TotalFats)) / userFats));
-
-                      }
+                    else
+                        fats_progress.setProgress(Math.round((100 * (TotalFats)) / userFats));
                 }
                 if (TotalProteins>userProteins) {
                     proteins_progress.setProgress(100);
                     proteins_progress.setIndicatorColor(0xFFFF0000);
                 }
                 else
-                {
                     proteins_progress.setProgress(Math.round((100 * (TotalProteins)) / userProteins));
-
-                }
                 if (TotalCarbs>userCarbs) {
                     carbs_progress.setProgress(100);
                     carbs_progress.setIndicatorColor(0xFFFF0000);
                 }
                 else
-                {
                     carbs_progress.setProgress(Math.round((100 * (TotalCarbs)) / userCarbs));
-
-                }
                 if (TotalCal>userCal) {
                     cal_summary.setProgress(100);
                     cal_summary.setIndicatorColor(0xFFFF0000);
                 }
                 else
-                {
                     cal_summary.setProgress(Math.round((100 * (TotalCal)) / userCal));
-
-                }
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
         breakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -343,9 +322,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return root;
-
-
     }
 }

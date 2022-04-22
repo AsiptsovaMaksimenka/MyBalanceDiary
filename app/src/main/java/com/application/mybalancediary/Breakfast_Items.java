@@ -47,21 +47,21 @@ public class Breakfast_Items extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 vector_list.remove(position);
-                Float cal_breakfast=Float.parseFloat(String.valueOf(calories_breakfast.get(position)));
+                FoodBreakfastAdapter.total_cal-=Float.parseFloat(String.valueOf(calories_breakfast.get(position)));
                 calories_breakfast.remove(position);
-                Float pr_breakfast=Float.parseFloat(String.valueOf(proteins_breakfast.get(position)));
+                FoodBreakfastAdapter.total_proteins-=Float.parseFloat(String.valueOf(proteins_breakfast.get(position)));
                 proteins_breakfast.remove(position);
-                Float ft_breakfast=Float.parseFloat(String.valueOf(fats_breakfast.get(position)));
+                FoodBreakfastAdapter.total_fats-=Float.parseFloat(String.valueOf(fats_breakfast.get(position)));
                 fats_breakfast.remove(position);
-                Float cr_breakfast=Float.parseFloat(String.valueOf(carbs_breakfast.get(position)));
+                FoodBreakfastAdapter.total_carb-=Float.parseFloat(String.valueOf(carbs_breakfast.get(position)));
                 carbs_breakfast.remove(position);
                 vectorAdapter.notifyDataSetChanged();
                 list.invalidateViews();
                 list.refreshDrawableState();
-                FoodBreakfastAdapter.total_cal-=cal_breakfast;
-                FoodBreakfastAdapter.total_proteins-=pr_breakfast;
-                FoodBreakfastAdapter.total_fats-=ft_breakfast;
-                FoodBreakfastAdapter.total_carb-=cr_breakfast;
+                //FoodBreakfastAdapter.total_cal-=cal_breakfast;
+                //FoodBreakfastAdapter.total_proteins-=pr_breakfast;
+                //FoodBreakfastAdapter.total_fats-=ft_breakfast;
+                //FoodBreakfastAdapter.total_carb-=cr_breakfast;
                 getCaloriesRef("total").setValue(Math.round(FoodBreakfastAdapter.total_cal*10.0 ) / 10.0);
                 getCaloriesRef("totalfats").setValue(Math.round(FoodBreakfastAdapter.total_fats*10.0 ) / 10.0);
                 getCaloriesRef("totalcarbs").setValue(Math.round(FoodBreakfastAdapter.total_carb*10.0 ) / 10.0);

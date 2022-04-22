@@ -1,7 +1,15 @@
 package com.application.mybalancediary.ui.watertracker;
 
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.application.mybalancediary.AlertReceiver;
 import com.application.mybalancediary.R;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +38,7 @@ import java.util.Vector;
 
 
 public class WaterTracker extends Fragment {
+    private Handler mainhandler = new Handler();
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     FirebaseDatabase firebaseDatabase;
@@ -43,6 +53,7 @@ public class WaterTracker extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_water_tracker, container, false);
+        new Thread(new LabelRunnable()).start();
         final TextView textView_total = root.findViewById(R.id.totalml);
         final TextView textView_tofill = root.findViewById(R.id.tofillml);
         final CircularProgressIndicator  water_progress=root.findViewById(R.id.waveloadingview);
@@ -116,7 +127,42 @@ public class WaterTracker extends Fragment {
 
         return root;
     }
+    private void createNotificationChannel()
+    {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            CharSequence name = "channel";
+            String desc = "Water reminder app";
+            int important = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("channelID", name, important);
+            channel.setDescription(desc);
 
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    class LabelRunnable implements Runnable {
+        @Override
+        public void run() {
+            mainhandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    createNotificationChannel();
+                    Intent intent = new Intent(getActivity(), AlertReceiver.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
+                    long timeAtButtonClick = System.currentTimeMillis();
+                    long timeSendsInMills = 1000*10;
+                    AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick + timeSendsInMills, pendingIntent);
+                }
+            });
+            try {
+                Thread.sleep(7200000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 }

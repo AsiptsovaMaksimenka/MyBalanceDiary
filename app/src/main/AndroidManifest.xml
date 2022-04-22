@@ -146,7 +146,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
+        <receiver android:name=".AlertReceiver"/>
     </application>
 
 </manifest>
