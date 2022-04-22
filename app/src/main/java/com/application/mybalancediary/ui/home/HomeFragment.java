@@ -139,18 +139,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String br_cal=String.valueOf(ds.child("total").getValue());
-                    String breakfast_protein=String.valueOf(ds.child("totalprotein").getValue());
-                    String breakfast_fat=String.valueOf(ds.child("totalfats").getValue());
-                    String breakfast_carb=String.valueOf(ds.child("totalcarbs").getValue());
                     br= parseFloat(String.valueOf(ds.child("total").getValue()));
                     totalProteinsBr= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
                     totalFatsBr= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
                     totalCarbsBr= parseFloat(String.valueOf(ds.child("totalcarbs").getValue()));
-                    breakfast_cal.setText(br_cal);
-                    breakfast_prot.setText(breakfast_protein);
-                    breakfast_fats.setText(breakfast_fat);
-                    breakfast_carbs.setText(breakfast_carb);
+                    breakfast_cal.setText(String.valueOf(ds.child("total").getValue()));
+                    breakfast_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
+                    breakfast_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
+                    breakfast_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
 
                 }
             }
@@ -164,18 +160,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String ln_cal=String.valueOf(ds.child("total").getValue());
-                    String lunch_protein=String.valueOf(ds.child("totalprotein").getValue());
-                    String lunch_fat=String.valueOf(ds.child("totalfats").getValue());
-                    String lunch_carb=String.valueOf(ds.child("totalcarbs").getValue());
                     ln= parseFloat(String.valueOf(ds.child("total").getValue()));
                     totalProteinsLn= parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
                     totalFatsLn= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
                     totalCarbsLn= parseFloat(String.valueOf(ds.child("totalcarbs").getValue()));
-                    lunch_cal.setText(ln_cal);
-                    lunch_prot.setText(lunch_protein);
-                    lunch_fats.setText(lunch_fat);
-                    lunch_carbs.setText(lunch_carb);
+                    lunch_cal.setText(String.valueOf(ds.child("total").getValue()));
+                    lunch_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
+                    lunch_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
+                    lunch_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
 
                 }
             }
@@ -189,18 +181,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String dn_cal=String.valueOf(ds.child("total").getValue());
-                    String dn_protein=String.valueOf(ds.child("totalprotein").getValue());
-                    String dn_fat=String.valueOf(ds.child("totalfats").getValue());
-                    String dn_carb=String.valueOf(ds.child("totalcarbs").getValue());
                     dn= parseFloat(String.valueOf(ds.child("total").getValue()));
-                    totalProteinsDn= parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
+                    totalProteinsDn= Float.parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
                     totalFatsDn= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
                     totalCarbsDn= parseFloat(String.valueOf(ds.child("totalcarbs").getValue()));
-                    dinner_cal.setText(dn_cal);
-                    dinner_prot.setText(dn_protein);
-                    dinner_fats.setText(dn_fat);
-                    dinner_carbs.setText(dn_carb);
+                    dinner_cal.setText(String.valueOf(ds.child("total").getValue()));
+                    dinner_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
+                    dinner_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
+                    dinner_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
 
                 }
             }
@@ -214,18 +202,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String sn_cal=String.valueOf(ds.child("total").getValue());
-                    String sn_protein=String.valueOf(ds.child("totalprotein").getValue());
-                    String sn_fat=String.valueOf(ds.child("totalfats").getValue());
-                    String sn_carb=String.valueOf(ds.child("totalcarbs").getValue());
                     sn= parseFloat(String.valueOf(ds.child("total").getValue()));
                     totalProteinsSn= parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
                     totalFatsSn= parseFloat(String.valueOf(ds.child("totalfats").getValue()));
                     totalCarbsSn= parseFloat(String.valueOf(ds.child("totalcarbs").getValue()));
-                    snack_cal.setText(sn_cal);
-                    snack_prot.setText(sn_protein);
-                    snack_fats.setText(sn_fat);
-                    snack_carbs.setText(sn_carb);
+                    snack_cal.setText(String.valueOf(ds.child("total").getValue()));
+                    snack_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
+                    snack_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
+                    snack_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
 
                 }
             }
@@ -240,14 +224,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String TotalPerDay=String.valueOf(ds.child("TotalPerDay").getValue());
-                    String TotalProteinsPerDay=String.valueOf(ds.child("TotalProteinsPerDay").getValue());
-                    String TotalFatsPerDay=String.valueOf(ds.child("TotalFatsPerDay").getValue());
-                    String TotalCarbsPerDay=String.valueOf(ds.child("TotalCarbsPerDay").getValue());
-                    cal_per_day.setText( TotalPerDay );
-                    proteins_per_day.setText(TotalProteinsPerDay);
-                    fats_per_day.setText(TotalFatsPerDay);
-                    carbs_per_day.setText(TotalCarbsPerDay);
+                    cal_per_day.setText( String.valueOf(ds.child("TotalPerDay").getValue()) );
+                    proteins_per_day.setText(String.valueOf(ds.child("TotalProteinsPerDay").getValue()));
+                    fats_per_day.setText(String.valueOf(ds.child("TotalFatsPerDay").getValue()));
+                    carbs_per_day.setText(String.valueOf(ds.child("TotalCarbsPerDay").getValue()));
                     TotalCal= parseFloat(String.valueOf(ds.child("TotalPerDay").getValue()));
                     TotalProteins= parseFloat(String.valueOf(ds.child("TotalProteinsPerDay").getValue()));
                     TotalFats= parseFloat(String.valueOf(ds.child("TotalFatsPerDay").getValue()));
