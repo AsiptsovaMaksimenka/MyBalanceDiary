@@ -94,5 +94,7 @@
     <color name="chartsNoDataBackground">#CC0099FF</color>
     <color name="chartsTitleBackground">@color/colorTitleBar</color>
     <color name="chartsTitleText">@color/colorTitleBarText</color>
+    <color name="colorBlue">#03A9F4</color>
+    <color name="colorGray">#B8B2B2</color>
 
 </resources>

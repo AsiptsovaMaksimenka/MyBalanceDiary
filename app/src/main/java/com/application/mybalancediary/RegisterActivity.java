@@ -231,6 +231,8 @@ public class RegisterActivity extends AppCompatActivity {
             proteins=((float)0.3*bmr)/(float)4;
             fats= ((float)0.3*bmr)/(float)9;
             carbs=((float)0.4*bmr)/(float)4;
+            int target = Integer.parseInt(weight)*35;
+            int glass =target/250 ;
             progressBar.setVisibility(View.VISIBLE);
             fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -244,13 +246,15 @@ public class RegisterActivity extends AppCompatActivity {
                     getUsersRef("weight").setValue(weight);
                     getUsersRef("age").setValue(age);
                     getUsersRef("gender").setValue(genderMF);
-                    getUsersRef("bmi").setValue(Math.round(bmi * 100.0) / 100.0);
-                    getUsersRef("bmr").setValue(Math.round(bmr * 100.0) / 100.0);
+                    getUsersRef("bmi").setValue(Math.round(bmi * 10.0) / 10.0);
+                    getUsersRef("bmr").setValue(Math.round(bmr * 10.0) / 10.0);
                     getUsersRef("workout").setValue(workout);
                     getUsersRef("goals").setValue(goals);
-                    getUsersRef("proteins").setValue(Math.round(proteins * 100.0) / 100.0);
-                    getUsersRef("fats").setValue(Math.round(fats * 100.0) / 100.0);
-                    getUsersRef("carbs").setValue(Math.round(carbs * 100.0) / 100.0);
+                    getUsersRef("GlassWater").setValue(glass);
+                    getUsersRef("TargetWater").setValue(target);
+                    getUsersRef("proteins").setValue(Math.round(proteins * 10.0) / 10.0);
+                    getUsersRef("fats").setValue(Math.round(fats * 10.0) / 10.0);
+                    getUsersRef("carbs").setValue(Math.round(carbs * 10.0) / 10.0);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
                     Toast.makeText(RegisterActivity.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();

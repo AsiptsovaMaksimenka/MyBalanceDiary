@@ -72,17 +72,6 @@ public class FoodRecyclerViewMainLunch extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerViewAdapter = new FoodLunchAdapter(getActivity(), foodData.foodList);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
-        mRecyclerView.setItemAnimator(new ScaleInBottomAnimator());
-        mRecyclerView.getItemAnimator().setAddDuration(100);
-        mRecyclerView.getItemAnimator().setRemoveDuration(1000);
-        mRecyclerView.getItemAnimator().setMoveDuration(100);
-        mRecyclerView.getItemAnimator().setChangeDuration(100);
-        ScaleInBottomAnimator animator = new ScaleInBottomAnimator();
-        mRecyclerView.setItemAnimator(animator);
-        mRecyclerView.setAdapter(new ScaleInAnimationAdapter(mRecyclerViewAdapter));
-        ScaleInAnimationAdapter alphaAdapter = new ScaleInAnimationAdapter(mRecyclerViewAdapter);
-        alphaAdapter.setDuration(500);
-        mRecyclerView.setAdapter(alphaAdapter);
         voice = rootView.findViewById(R.id.vsfbLunch);
         voice.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,7 +20,9 @@ public class Breakfast_Items extends AppCompatActivity {
         ListView list=findViewById(R.id.listView);
 
        Vector vector_list = FoodBreakfastAdapter.nameBreakfast;
-       vectorAdapter = new ArrayAdapter(Breakfast_Items.this,android.R.layout.simple_list_item_1, vector_list);
+       vectorAdapter = new ArrayAdapter(Breakfast_Items.this,android.R.layout.simple_list_item_checked, vector_list);
         list.setAdapter(vectorAdapter);
+        list.invalidateViews();
+        list.refreshDrawableState();
     }
 }

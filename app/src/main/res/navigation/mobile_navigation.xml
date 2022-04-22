@@ -25,12 +25,12 @@
     <fragment
         android:id="@+id/water_tracker"
         android:name="com.application.mybalancediary.ui.watertracker.WaterTracker"
-        android:label="fragment_water_tracker"
+        android:label="Water Tracker"
         tools:layout="@layout/fragment_water_tracker" />
 
-   <fragment
-    android:id="@+id/weight_track"
-    android:name="com.application.mybalancediary.ui.weight.WeightFragment"
-    android:label="fragment_weight_track"
-    tools:layout="@layout/fragment_weight_track" />
+    <fragment
+        android:id="@+id/weight_track"
+        android:name="com.application.mybalancediary.ui.weight.WeightFragment"
+        android:label="Weight Control"
+        tools:layout="@layout/fragment_weight_track" />
 </navigation>
