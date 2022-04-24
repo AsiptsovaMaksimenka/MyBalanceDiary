@@ -19,6 +19,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -38,12 +43,12 @@ public class FoodBreakfastAdapter extends RecyclerView.Adapter<FoodBreakfastAdap
     public static Vector<Float> proteins_breakfast  = new Vector<Float>(50);
     public static Vector<Float> fats_breakfast  = new Vector<Float>(50);
     public static Vector<Float>  carbs_breakfast  = new Vector<Float>(50);
-
-
     public static int total_cal =0;
     public static int total_proteins =0;
     public static int total_fats =0;
     public static int total_carb =0;
+    Date date = new Date();
+    String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
 
     public FoodBreakfastAdapter(Context myContext, List<Map<String, ?>> myDataset) {
         mContext = myContext;
@@ -89,7 +94,7 @@ public class FoodBreakfastAdapter extends RecyclerView.Adapter<FoodBreakfastAdap
         private DatabaseReference getCaloriesRef(String ref) {
             FirebaseUser user = mAuth.getCurrentUser();
             String userId = user.getUid();
-            return mDatabase.child("Breakfast").child(userId).child(ref);
+            return mDatabase.child(today).child("Breakfast").child(userId).child(ref);
         }
 
         public void bindMovieData(final Map<String, ?> foodItem) {

@@ -13,6 +13,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 public class Snacks_Items extends AppCompatActivity {
@@ -20,10 +22,12 @@ public class Snacks_Items extends AppCompatActivity {
     private ListView  list;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    Date date = new Date();
+    String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     private DatabaseReference getCaloriesRef(String ref) {
         FirebaseUser user = mAuth.getCurrentUser();
         String userId = user.getUid();
-        return mDatabase.child("Snacks").child(userId).child(ref);
+        return mDatabase.child(today).child("Snacks").child(userId).child(ref);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

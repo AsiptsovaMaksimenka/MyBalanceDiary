@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -38,7 +40,8 @@ public class FoodSnacksAdapter extends RecyclerView.Adapter<FoodSnacksAdapter.Vi
     public static Vector<Float> proteins_snack  = new Vector<Float>(50);
     public static Vector<Float> fats_snack  = new Vector<Float>(50);
     public static Vector<Float>  carbs_snack  = new Vector<Float>(50);
-
+    Date date = new Date();
+    String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     public static Float total_cal =0.0f;
     public static Float total_proteins =0.0f;
     public static Float total_fats =0.0f;
@@ -88,7 +91,7 @@ public class FoodSnacksAdapter extends RecyclerView.Adapter<FoodSnacksAdapter.Vi
         private DatabaseReference getCaloriesRef(String ref) {
             FirebaseUser user = mAuth.getCurrentUser();
             String userId = user.getUid();
-            return mDatabase.child("Snacks").child(userId).child(ref);
+            return mDatabase.child(today).child("Snacks").child(userId).child(ref);
         }
 
         public void bindMovieData(final Map<String, ?> foodItem) {

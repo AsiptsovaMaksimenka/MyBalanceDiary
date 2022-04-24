@@ -132,7 +132,7 @@ public class WaterTracker extends Fragment {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
             CharSequence name = "channel";
-            String desc = "Water reminder app";
+            String desc = "My Balance Diary";
             int important = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("channelID", name, important);
             channel.setDescription(desc);

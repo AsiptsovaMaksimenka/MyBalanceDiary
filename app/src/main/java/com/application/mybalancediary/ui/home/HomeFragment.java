@@ -35,6 +35,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class HomeFragment extends Fragment {
     FirebaseAuth firebaseAuth;
@@ -50,11 +53,13 @@ public class HomeFragment extends Fragment {
     public Float br=0.0f, ln=0.0f, dn=0.0f, sn=0.0f;
     public Float userCal=0.0f, userProteins=0.0f,userFats=0.0f,userCarbs=0.0f;
     public Float TotalCal=0.0f, TotalProteins=0.0f,TotalFats=0.0f,TotalCarbs=0.0f;
+    Date date = new Date();
+    String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     private DatabaseReference getTotalPerDayRef(String ref) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         assert user != null;
         String userId = user.getUid();
-        return mDatabase.child("TotalPerDay").child(userId).child(ref);
+        return mDatabase.child(today).child("TotalPerDay").child(userId).child(ref);
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -100,11 +105,11 @@ public class HomeFragment extends Fragment {
         user = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
-        databaseBreakfastReference=firebaseDatabase.getReference("Breakfast");
-        databaseLunchReference=firebaseDatabase.getReference("Lunch");
-        databaseDinnerReference=firebaseDatabase.getReference("Dinner");
-        databaseSnackReference=firebaseDatabase.getReference("Snacks");
-        databaseTotalPerDayReference=firebaseDatabase.getReference("TotalPerDay");
+        databaseBreakfastReference=firebaseDatabase.getReference().child(today).child("Breakfast");
+        databaseLunchReference=firebaseDatabase.getReference().child(today).child("Lunch");
+        databaseDinnerReference=firebaseDatabase.getReference().child(today).child("Dinner");
+        databaseSnackReference=firebaseDatabase.getReference().child(today).child("Snacks");
+        databaseTotalPerDayReference=firebaseDatabase.getReference().child(today).child("TotalPerDay");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         getTotalPerDayRef("TotalPerDay").setValue(Math.round( (br+ln+dn+sn)*10.0 ) / 10.0);
         getTotalPerDayRef("TotalProteinsPerDay").setValue(Math.round( (totalProteinsBr+totalProteinsLn+totalProteinsDn+totalProteinsSn)*10.0 ) / 10.0);
