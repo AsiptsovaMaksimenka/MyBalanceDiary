@@ -307,7 +307,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/add_to_photos/baseline_add_to_photos_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/history/baseline_history_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,7 +318,7 @@
                         <option name="values">
                           <map>
                             <entry key="opacityPercent" value="70" />
-                            <entry key="outputName" value="ic_baseline_add_to_photos_24" />
+                            <entry key="outputName" value="history" />
                             <entry key="sourceFile" value="C:\Users\asipc\Desktop\MyBalanceDiaryvol2" />
                           </map>
                         </option>

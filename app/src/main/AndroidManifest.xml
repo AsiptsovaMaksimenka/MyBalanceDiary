@@ -20,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBalanceDiary">
         <activity
+            android:name=".HistoryWaterFragment"
+            android:exported="false" />
+        <activity
+            android:name=".ui.watertracker.WaterFragment"
+            android:exported="false" />
+        <activity
             android:name=".Month"
             android:exported="false" />
         <activity

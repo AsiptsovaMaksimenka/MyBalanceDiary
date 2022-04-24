@@ -1,150 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.watertracker.WaterTracker">
 
-    <LinearLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#fff"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/TabLayoutText"
+       />
 
-        <TextView
-            android:id="@+id/tofillml"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:text="0"
-            android:textColor="#2196F3"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:text="/"
-            android:textColor="#070707"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/totalml"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:text="0"
-            android:textColor="#070707"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:text="ml"
-            android:textColor="#070707"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:text="Daily Drink Target"
-            android:textAlignment="center"
-            android:textColor="#070707"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/waveloadingview"
-            android:layout_width="140dp"
-            android:layout_height="111dp"
-            android:progress="100"
-            app:indicatorSize="160dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:trackColor="@color/blue"
-            app:trackCornerRadius="8dp"
-            app:trackThickness="18dp" />
-
-
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
-            <ImageView
-                android:id="@+id/glass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_water_glass" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/ic_add" />
-
-            <ImageView
-                android:id="@+id/achive"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/glass"
-                android:src="@drawable/ic_achieve" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="250 ml"
-            android:textAlignment="center"
-            android:textColor="@color/colorBlue" />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/glass"
-            android:src="@drawable/ic_arrow_upward_black_24dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Confirm that you have just drunk water"
-            android:textAlignment="center"
-            android:textColor="#867D7D" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="15dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Today's records"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <ListView
-            android:id="@+id/listview_record"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="5dp" />
-    </LinearLayout>
 </LinearLayout>
