@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingsSteps">
+
+    <Button
+        android:onClick="homeClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="home"
+        android:layout_gravity="end"
+        tools:ignore="OnClick,UsingOnClickInXml" />
+
+
+    <TextView
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="enter_your_step_goal" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="15sp" />
+
+    <EditText
+        android:id="@+id/steps_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:ems="12"
+        android:inputType="number"
+        android:autofillHints="steps"
+        tools:ignore="LabelFor"/>
+
+    <Button
+        android:onClick="saveClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_gravity="center_horizontal"
+        tools:ignore="UsingOnClickInXml" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

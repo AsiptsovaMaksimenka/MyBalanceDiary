@@ -26,6 +26,10 @@
             android:id="@+id/water_tracker"
             android:title="@string/water_tracker"
             android:icon="@drawable/water"/>
+        <item
+            android:id="@+id/stepsMain"
+            android:title="Steps"
+            android:icon="@drawable/steps_24"/>
 
     </group>
 </menu>

@@ -20,16 +20,20 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="Tracking Options">
+        android:title="Water Tracker">
 
-    <SwitchPreference
-        android:key="period_tracking"
-        android:title="Period"
-        android:summary="Track your period"/>
-    <SwitchPreference
+    <EditTextPreference
         android:key="water_tracking"
-        android:title="Water Tracker"
-        android:summary="Track your hydration"/>
+        android:title="Water "
+        android:summary="how much water you want to drink"/>
+        <EditTextPreference
+            android:key="cups_tracking"
+            android:title="Cups of water"
+            android:summary="how much cups you want to drink"/>
+    <SwitchPreference
+        android:key="re_tracking"
+        android:title="Water Reminder"
+        android:summary="turn on/off your reminder"/>
     </PreferenceCategory>
 
     <PreferenceCategory
