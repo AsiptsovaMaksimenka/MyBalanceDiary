@@ -1,12 +1,16 @@
-package com.application.mybalancediary;
+package com.application.mybalancediary.ui.steps;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.application.mybalancediary.R;
+import com.application.mybalancediary.ui.steps.StepsMain;
 
 
 public class SettingsSteps extends AppCompatActivity {
@@ -16,6 +20,8 @@ public class SettingsSteps extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_steps);
+        final Button homeClicked =findViewById(R.id.homeClicked);
+        homeClicked.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), StepsMain.class)));
     }
 
     public void saveClicked(View view) {

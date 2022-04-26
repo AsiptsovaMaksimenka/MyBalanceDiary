@@ -33,8 +33,9 @@
         android:name="com.application.mybalancediary.ui.weight.WeightFragment"
         android:label="Weight Control"
         tools:layout="@layout/fragment_weight_track" />
-    <activity
-        android:id="@+id/stepsMain"
-        android:name="com.application.mybalancediary.StepsMain"
-        android:label="StepsMain" />
+    <fragment
+        android:id="@+id/stepsMain2"
+        android:name="com.application.mybalancediary.ui.steps.StepsMain"
+        android:label="activity_steps"
+        tools:layout="@layout/activity_steps" />
 </navigation>

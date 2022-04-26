@@ -1,4 +1,4 @@
-package com.application.mybalancediary;
+package com.application.mybalancediary.ui.steps;
 
 public class Steps {
     private int running = 1;

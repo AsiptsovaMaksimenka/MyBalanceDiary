@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".StepsMain">
+    tools:context=".ui.steps.StepsMain">
 
 
     <Button
-        android:onClick="settingsClicked"
+        android:id="@+id/btn_click"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="settings"
         android:layout_gravity="end"
-        tools:ignore="UsingOnClickInXml" />
+     />
 
     <Space
         android:layout_width="wrap_content"

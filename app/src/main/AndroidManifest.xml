@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBalanceDiary">
         <activity
-            android:name=".StepsMain"
+            android:name=".ui.steps.SettingsSteps"
             android:exported="false" />
         <activity
             android:name=".Breakfast_Items"

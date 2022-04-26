@@ -1,4 +1,4 @@
-package com.application.mybalancediary;
+package com.application.mybalancediary.ui.steps;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -10,17 +10,21 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import com.application.mybalancediary.R;
 
 
-public class StepsMain extends AppCompatActivity implements SensorEventListener {
+public class StepsMain extends Fragment implements SensorEventListener {
     private Steps steps;
     private SensorManager sensorManager;
     private Sensor sensor;
@@ -37,19 +41,21 @@ public class StepsMain extends AppCompatActivity implements SensorEventListener 
                     setupSensor();
                 }
                 else {
-                    Toast.makeText(this, "No sensor found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No sensor found", Toast.LENGTH_SHORT).show();
                 }
             });
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_steps);
-        percentageView = findViewById(R.id.percentage);
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        final View root = inflater.inflate(R.layout.activity_steps, container, false);
+        percentageView = root.findViewById(R.id.percentage);
         //  circularProgressBar = findViewById(R.id.yourCircularProgressbar);
-        displayGoal = findViewById(R.id.show_goal);
-        showSteps = findViewById(R.id.show_steps);
+        displayGoal = root.findViewById(R.id.show_goal);
+        showSteps = root.findViewById(R.id.show_steps);
+        final Button btn_click =root.findViewById(R.id.btn_click);
+        btn_click.setOnClickListener(v -> startActivity(new Intent(getContext(), SettingsSteps.class)));
         if(savedInstanceState == null) {
             steps = new Steps();
         }
@@ -57,17 +63,18 @@ public class StepsMain extends AppCompatActivity implements SensorEventListener 
 
         }
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED){
             setupSensor();
         } else {
             requestPermissionsLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION);
         }
+        return root;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+   public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (resultCode == getActivity().RESULT_OK) {
             if (data != null) {
                 String goalFromSettings = data.getStringExtra("goal");
                 displayGoal.setText(goalFromSettings);
@@ -78,7 +85,7 @@ public class StepsMain extends AppCompatActivity implements SensorEventListener 
     }
 
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
+  public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("value", steps.toString());
         outState.putInt("mySteps", mySteps);
@@ -86,24 +93,24 @@ public class StepsMain extends AppCompatActivity implements SensorEventListener 
     }
 
     private void setupSensor() {
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if(sensor == null) {
-            Toast.makeText(this, "No sensor found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No sensor found", Toast.LENGTH_SHORT).show();
         }
     }
     //@Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         sensorManager.registerListener(StepsMain.this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
     @Override
-    protected void onPause() {
+   public void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
     }
 
-    protected void onDestroy(){
+    public void onDestroy(){
         super.onDestroy();
         ;
     }
@@ -117,7 +124,7 @@ public class StepsMain extends AppCompatActivity implements SensorEventListener 
 
         // circularProgressBar.setProgressWithAnimation(mySteps, 1000L);
         if (steps.checkGoal(mySteps, currentGoal)){
-            Toast.makeText(this, "Congratulations you hit your goal!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Congratulations you hit your goal!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -127,7 +134,7 @@ public class StepsMain extends AppCompatActivity implements SensorEventListener 
     }
 
     public void settingsClicked(View view) {
-        final Intent intent = new Intent(this, SettingsSteps.class);
+        final Intent intent = new Intent(getContext(), SettingsSteps.class);
         startActivityForResult(intent, MAIN_REQUEST);
     }
 }
