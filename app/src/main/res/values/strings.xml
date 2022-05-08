@@ -98,6 +98,7 @@
     <string name="submit_here_delete">Submit here</string>
     <string name="settings_">Settings</string>
     <string name="logout_">LogOut</string>
+    <string name="Add">Add</string>
 
 
 </resources>
