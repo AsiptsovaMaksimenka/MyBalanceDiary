@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MyBalanceDiary.iml" filepath="$PROJECT_DIR$/.idea/modules/MyBalanceDiary.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MyBalanceDiary.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MyBalanceDiary.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MyBalanceDiary.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MyBalanceDiary.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MyBalanceDiary.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MyBalanceDiary.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MyBalanceDiary.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MyBalanceDiary.app.unitTest.iml" />
     </modules>
   </component>
 </project>

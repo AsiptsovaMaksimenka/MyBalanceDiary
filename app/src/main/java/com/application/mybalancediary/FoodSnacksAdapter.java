@@ -40,6 +40,7 @@ public class FoodSnacksAdapter extends RecyclerView.Adapter<FoodSnacksAdapter.Vi
     public static Vector<Float> proteins_snack  = new Vector<Float>(50);
     public static Vector<Float> fats_snack  = new Vector<Float>(50);
     public static Vector<Float>  carbs_snack  = new Vector<Float>(50);
+    String eatSnack;
     Date date = new Date();
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     public static Float total_cal =0.0f;
@@ -116,10 +117,16 @@ public class FoodSnacksAdapter extends RecyclerView.Adapter<FoodSnacksAdapter.Vi
                     total_proteins+=totalprotein;
                     total_carb+=totalcarbs;
                     total_fats+=totalfat;
+                    for(int i=0;i<nameSnack.size();i++)
+                    {
+                        eatSnack +=(nameSnack.get(i)+',');
+                    }
                     getCaloriesRef("total").setValue(Math.round(total_cal*10.0 ) / 10.0);
                     getCaloriesRef("totalfats").setValue(Math.round(total_fats*10.0 ) / 10.0);
                     getCaloriesRef("totalcarbs").setValue(Math.round(total_carb*10.0 ) / 10.0);
                     getCaloriesRef("totalprotein").setValue(Math.round(total_proteins*10.0 ) / 10.0);
+                    getCaloriesRef("NameSnack").setValue(nameSnack);
+
 
                     if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";

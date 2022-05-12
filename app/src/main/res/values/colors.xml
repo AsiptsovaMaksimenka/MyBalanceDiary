@@ -96,5 +96,6 @@
     <color name="chartsTitleText">@color/colorTitleBarText</color>
     <color name="colorBlue">#03A9F4</color>
     <color name="colorGray">#B8B2B2</color>
+    <color name="colorFab">#FFCD00</color>
 
 </resources>

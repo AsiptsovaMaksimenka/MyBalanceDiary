@@ -24,8 +24,6 @@ public class WaterTracker extends Fragment {
 
     TabLayout tabLayout;
     private Handler mainhandler = new Handler();
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,14 +33,9 @@ public class WaterTracker extends Fragment {
 
         tabLayout = root.findViewById(R.id.tab);
         tabLayout.setupWithViewPager(root.findViewById(R.id.viewpager));
-        // setupIcons();
 return root;
     }
-    /*  private void setupIcons()
-      {
-          tabLayout.getTabAt(0).setIcon(R.drawable.ic_water_menu);
-          tabLayout.getTabAt(1).setIcon(R.drawable.ic_settings_menu);
-      }*/
+
     private void setupViewpager(ViewPager viewPager) {
         ViewpagerAdapter adapter = new ViewpagerAdapter (getChildFragmentManager());
         adapter.addFragment(new WaterFragment(), "Today");

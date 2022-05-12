@@ -1,5 +1,6 @@
 package com.application.mybalancediary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,8 +11,12 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +27,11 @@ public class Breakfast_Items extends AppCompatActivity {
     private ListView  list;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    String eat;
+    Vector<String> vector_list=new Vector();
+
     Date date = new Date();
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     private DatabaseReference getCaloriesRef(String ref) {
@@ -35,21 +45,48 @@ public class Breakfast_Items extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breakfast_items);
         list=findViewById(R.id.listView);
-
-        Vector vector_list = FoodBreakfastAdapter.nameBreakfast;
         Vector calories_breakfast= FoodBreakfastAdapter.calories_breakfast;
         Vector proteins_breakfast= FoodBreakfastAdapter.proteins_breakfast;
         Vector fats_breakfast= FoodBreakfastAdapter.fats_breakfast;
         Vector carbs_breakfast= FoodBreakfastAdapter.carbs_breakfast;
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        vectorAdapter = new ArrayAdapter(Breakfast_Items.this,android.R.layout.simple_list_item_checked, vector_list);
-        list.setAdapter(vectorAdapter);
-        list.invalidateViews();
-        list.refreshDrawableState();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference().child(today).child("Breakfast");
+        Query queryEat = databaseReference;
+        queryEat.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    eat=String.valueOf(ds.child("NameBreakfast").getValue());
+                    String[] strArr = eat.split(",");
+                    Vector<String> tmp=new Vector<String>();
+                    vector_list.clear();
+                    for(String str:strArr)
+                        if(str!="")
+                            vector_list.add(str);
+                    vectorAdapter = new ArrayAdapter(Breakfast_Items.this,android.R.layout.simple_list_item_checked, vector_list);
+                    list.setAdapter(vectorAdapter);
+                    list.invalidateViews();
+                    list.refreshDrawableState();
+
+                }
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    });
+
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                vector_list.remove(position);
+                String newTimeInDB="";
+                for(String str: vector_list)
+                    newTimeInDB+=str+",";
+                vectorAdapter.notifyDataSetChanged();
+                getCaloriesRef("NameBreakfast").setValue(newTimeInDB);
                 vector_list.remove(position);
                 FoodBreakfastAdapter.total_cal-=Float.parseFloat(String.valueOf(calories_breakfast.get(position)));
                 calories_breakfast.remove(position);
@@ -62,10 +99,6 @@ public class Breakfast_Items extends AppCompatActivity {
                 vectorAdapter.notifyDataSetChanged();
                 list.invalidateViews();
                 list.refreshDrawableState();
-                //FoodBreakfastAdapter.total_cal-=cal_breakfast;
-                //FoodBreakfastAdapter.total_proteins-=pr_breakfast;
-                //FoodBreakfastAdapter.total_fats-=ft_breakfast;
-                //FoodBreakfastAdapter.total_carb-=cr_breakfast;
                 getCaloriesRef("total").setValue(Math.round(FoodBreakfastAdapter.total_cal*10.0 ) / 10.0);
                 getCaloriesRef("totalfats").setValue(Math.round(FoodBreakfastAdapter.total_fats*10.0 ) / 10.0);
                 getCaloriesRef("totalcarbs").setValue(Math.round(FoodBreakfastAdapter.total_carb*10.0 ) / 10.0);

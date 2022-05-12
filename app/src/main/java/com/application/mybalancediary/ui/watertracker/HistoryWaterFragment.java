@@ -45,7 +45,7 @@ public class HistoryWaterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.activity_history_water_fragment, container, false);
-        lineChart = root.findViewById(R.id.lineChart);
+      //  lineChart = root.findViewById(R.id.lineChart);
        /* LineDataSet dataSet = new LineDataSet(entries, "Water,ml");
         LineData lineData = new LineData(dataSet);
         lineChart.setData(lineData);

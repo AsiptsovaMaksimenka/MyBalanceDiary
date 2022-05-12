@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment {
         getTotalPerDayRef("TotalProteinsPerDay").setValue(Math.round( (totalProteinsBr+totalProteinsLn+totalProteinsDn+totalProteinsSn)*10.0 ) / 10.0);
         getTotalPerDayRef("TotalFatsPerDay").setValue(Math.round( (totalFatsBr+totalFatsLn+totalFatsDn+totalFatsSn)*10.0 ) / 10.0);
         getTotalPerDayRef("TotalCarbsPerDay").setValue(Math.round( (totalCarbsBr+totalCarbsLn+totalCarbsDn+totalCarbsSn)*10.0 ) / 10.0);
-        Query queryUser = databaseReference;
+        Query queryUser = databaseReference.orderByChild("email").equalTo(user.getEmail());
         queryUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -165,7 +165,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ln= Float.valueOf(String.valueOf(ds.child("total").getValue()));
-                    totalProteinsLn= Float.valueOf(String.valueOf(ds.child("totalprotein").getValue()));
+                    totalProteinsLn= Float.parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
                     totalFatsLn= Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
                     totalCarbsLn= Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
                     lunch_cal.setText(String.valueOf(ds.child("total").getValue()));
