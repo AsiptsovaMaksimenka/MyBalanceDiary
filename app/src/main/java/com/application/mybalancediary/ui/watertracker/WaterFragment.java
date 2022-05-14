@@ -52,17 +52,26 @@ public class WaterFragment extends Fragment {
     public  Vector<String> water_time = new Vector<String>(20);
     ArrayAdapter vectorAdapter;
     private ListView  listView;
-    public String totalMl, Time;
+    public String totalMl, Time,Total;
     public static int count = 0,counter_cups=0;
-    public static String time, ampm;
+    public static String time, ampm,total;
     Date date = new Date();
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
+    // String today="2022-05-15";
     private DatabaseReference getWaterRef(String ref) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         assert user != null;
         String userId = user.getUid();
         return mDatabase.child("Water").child(today).child(userId).child(ref);
     }
+
+    private DatabaseReference getWaterTotalRef(String ref) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        assert user != null;
+        String userId = user.getUid();
+        return mDatabase.child("Water").child("Total").child(userId).child(ref);
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -97,13 +106,27 @@ public class WaterFragment extends Fragment {
             }
         });
 
+        databaseReference=firebaseDatabase.getReference().child("Total").child(today);
+        Query queryWaterTotal = databaseReference;
+        queryWaterTotal.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                   total=String.valueOf(ds.child("Total").getValue());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         root.findViewById(R.id.glass).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 counter_cups+=1;
                 count = count + 250;
                 getWaterRef("Water").setValue(count);
-
                 Calendar calendar = Calendar.getInstance();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
@@ -113,9 +136,10 @@ public class WaterFragment extends Fragment {
                     ampm = "AM";
                 time = (String.format("%02d:%02d", currentHour, currentMinute) + ampm + " - 1 cup");
                 getWaterRef("Cups").setValue(counter_cups);
-
                 Time+=(time+',');
                 getWaterRef("Time").setValue(Time);
+                total=total+String.valueOf(count)+',';
+                getWaterTotalRef("Total").setValue(total);
             }
         });
 
@@ -178,9 +202,7 @@ public class WaterFragment extends Fragment {
     }
     private void createNotificationChannel()
     {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            CharSequence name = "channel";
+        CharSequence name = "channel";
             String desc = "My Balance Diary";
             int important = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("channelID", name, important);
@@ -188,7 +210,7 @@ public class WaterFragment extends Fragment {
 
             NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-        }
+
     }
     class LabelRunnable implements Runnable {
         @Override
@@ -198,7 +220,7 @@ public class WaterFragment extends Fragment {
                 public void run() {
                     createNotificationChannel();
                     Intent intent = new Intent(getActivity(), AlertReceiver.class);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent,PendingIntent.FLAG_MUTABLE);
                     long timeAtButtonClick = System.currentTimeMillis();
                     long timeSendsInMills = 1000*10;
                     AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);

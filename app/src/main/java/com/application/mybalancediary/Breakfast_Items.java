@@ -87,7 +87,6 @@ public class Breakfast_Items extends AppCompatActivity {
                     newTimeInDB+=str+",";
                 vectorAdapter.notifyDataSetChanged();
                 getCaloriesRef("NameBreakfast").setValue(newTimeInDB);
-                vector_list.remove(position);
                 FoodBreakfastAdapter.total_cal-=Float.parseFloat(String.valueOf(calories_breakfast.get(position)));
                 calories_breakfast.remove(position);
                 FoodBreakfastAdapter.total_proteins-=Float.parseFloat(String.valueOf(proteins_breakfast.get(position)));

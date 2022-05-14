@@ -7,11 +7,11 @@ apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.application.mybalancediary"
-        minSdk 21
+        minSdk 31
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -27,8 +27,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     buildFeatures {
         viewBinding true
@@ -75,6 +75,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
     implementation "com.google.android.gms:play-services-location:19.0.1"
+    implementation 'com.jjoe64:graphview:4.2.2'
 
 
 }
