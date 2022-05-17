@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment {
     public Float TotalCal=0.0f, TotalProteins=0.0f,TotalFats=0.0f,TotalCarbs=0.0f;
     Date date = new Date();
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
+    //String today="2022-05-9";
     private DatabaseReference getTotalPerDayRef(String ref) {
         return FirebaseDatabase.getInstance().getReference().child("TotalPerDay").child(today)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
