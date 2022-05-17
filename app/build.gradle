@@ -69,10 +69,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:21.0.0'
     implementation 'com.google.firebase:firebase-database:20.0.5'
     implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
-    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
     implementation "com.google.android.gms:play-services-location:19.0.1"
     implementation 'com.jjoe64:graphview:4.2.2'

@@ -82,22 +82,16 @@ public class FoodBreakfastAdapter extends RecyclerView.Adapter<FoodBreakfastAdap
         public RelativeLayout mRelativeLayout;
         public PopupWindow mPopupWindow;
 
-        private final FirebaseAuth mAuth;
-        private DatabaseReference mDatabase;
-
         public ViewHolder(View v) {
             super(v);
             vTitle = v.findViewById(R.id.title);
             vCal = v.findViewById(R.id.calories);
             vAdd = v.findViewById(R.id.addfood);
-            mAuth = FirebaseAuth.getInstance();
-            mDatabase = FirebaseDatabase.getInstance().getReference();
         }
 
         private DatabaseReference getCaloriesRef(String ref) {
-            FirebaseUser user = mAuth.getCurrentUser();
-            String userId = user.getUid();
-            return mDatabase.child(today).child("Breakfast").child(userId).child(ref);
+            return  FirebaseDatabase.getInstance().getReference().child("Breakfast")
+                    .child(today).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
         }
 
         public void bindMovieData(final Map<String, ?> foodItem) {

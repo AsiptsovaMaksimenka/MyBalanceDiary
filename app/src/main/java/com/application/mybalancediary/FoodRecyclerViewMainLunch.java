@@ -27,9 +27,6 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Locale;
 
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
-import jp.wasabeef.recyclerview.animators.ScaleInBottomAnimator;
-
 
 
 public class FoodRecyclerViewMainLunch extends Fragment {

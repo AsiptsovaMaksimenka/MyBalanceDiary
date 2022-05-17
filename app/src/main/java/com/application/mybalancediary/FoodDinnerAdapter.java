@@ -77,22 +77,16 @@ public class FoodDinnerAdapter extends RecyclerView.Adapter<FoodDinnerAdapter.Vi
         public RelativeLayout mRelativeLayout;
         public PopupWindow mPopupWindow;
 
-        private final FirebaseAuth mAuth;
-        private DatabaseReference mDatabase;
-
         public ViewHolder(View v) {
             super(v);
             vTitle = v.findViewById(R.id.title);
             vCal = v.findViewById(R.id.calories);
             vAdd = v.findViewById(R.id.addfood);
-            mAuth = FirebaseAuth.getInstance();
-            mDatabase = FirebaseDatabase.getInstance().getReference();
         }
 
         private DatabaseReference getCaloriesRef(String ref) {
-            FirebaseUser user = mAuth.getCurrentUser();
-            String userId = user.getUid();
-            return mDatabase.child(today).child("Dinner").child(userId).child(ref);
+            return FirebaseDatabase.getInstance().getReference().child("Dinner").
+            child(today).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
         }
 
         public void bindMovieData(final Map<String, ?> foodItem) {
@@ -126,7 +120,6 @@ public class FoodDinnerAdapter extends RecyclerView.Adapter<FoodDinnerAdapter.Vi
                     getCaloriesRef("totalcarbs").setValue(Math.round(total_carb*10.0 ) / 10.0);
                     getCaloriesRef("totalprotein").setValue(Math.round(total_proteins*10.0 ) / 10.0);
                     getCaloriesRef("NameDinner").setValue(eatDinner);
-
 
                     if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";

@@ -40,12 +40,6 @@ import java.util.Date;
 
 
 public class HomeFragment extends Fragment {
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference,databaseBreakfastReference,databaseLunchReference,databaseDinnerReference,databaseSnackReference,databaseTotalPerDayReference;
     public Float totalProteinsSn=0.0f,totalFatsSn=0.0f,totalCarbsSn=0.0f;
     public Float totalProteinsBr=0.0f,totalFatsBr=0.0f,totalCarbsBr=0.0f;
     public Float totalProteinsLn=0.0f,totalFatsLn=0.0f,totalCarbsLn=0.0f;
@@ -56,10 +50,8 @@ public class HomeFragment extends Fragment {
     Date date = new Date();
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     private DatabaseReference getTotalPerDayRef(String ref) {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        assert user != null;
-        String userId = user.getUid();
-        return mDatabase.child(today).child("TotalPerDay").child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference().child("TotalPerDay").child(today)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -101,22 +93,14 @@ public class HomeFragment extends Fragment {
         final MaterialButton snack= root.findViewById(R.id.snacks);
         final MaterialButton snack_items= root.findViewById(R.id.snacks_items);
         final MaterialButton reports= root.findViewById(R.id.reports);
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Users");
-        databaseBreakfastReference=firebaseDatabase.getReference().child(today).child("Breakfast");
-        databaseLunchReference=firebaseDatabase.getReference().child(today).child("Lunch");
-        databaseDinnerReference=firebaseDatabase.getReference().child(today).child("Dinner");
-        databaseSnackReference=firebaseDatabase.getReference().child(today).child("Snacks");
-        databaseTotalPerDayReference=firebaseDatabase.getReference().child(today).child("TotalPerDay");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         getTotalPerDayRef("TotalPerDay").setValue(Math.round( (br+ln+dn+sn)*10.0 ) / 10.0);
         getTotalPerDayRef("TotalProteinsPerDay").setValue(Math.round( (totalProteinsBr+totalProteinsLn+totalProteinsDn+totalProteinsSn)*10.0 ) / 10.0);
         getTotalPerDayRef("TotalFatsPerDay").setValue(Math.round( (totalFatsBr+totalFatsLn+totalFatsDn+totalFatsSn)*10.0 ) / 10.0);
         getTotalPerDayRef("TotalCarbsPerDay").setValue(Math.round( (totalCarbsBr+totalCarbsLn+totalCarbsDn+totalCarbsSn)*10.0 ) / 10.0);
-        Query queryUser = databaseReference.orderByChild("email").equalTo(user.getEmail());
-        queryUser.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
+                .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -139,8 +123,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        Query queryBreakfast= databaseBreakfastReference;
-        queryBreakfast.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Breakfast").child(today)
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -159,8 +143,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        Query queryLunch = databaseLunchReference;
-        queryLunch.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Lunch").child(today)
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -179,8 +163,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        Query queryDinner = databaseDinnerReference;
-        queryDinner.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Dinner").child(today)
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -199,8 +183,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        Query querySnack = databaseSnackReference;
-        querySnack.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Snacks").child(today)
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -220,8 +204,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Query queryTotal= databaseTotalPerDayReference;
-        queryTotal.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("TotalPerDay").child(today)
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
