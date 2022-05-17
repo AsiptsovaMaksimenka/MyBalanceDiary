@@ -43,35 +43,21 @@ import java.util.Vector;
 
 public class WaterFragment extends Fragment {
     private Handler mainhandler = new Handler();
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference,databaseTimeReference;
     public  Vector<String> water_time = new Vector<String>(20);
     ArrayAdapter vectorAdapter;
     private ListView  listView;
-    public String totalMl, Time,Total;
+    public String totalMl, Time;
     public static int count = 0,counter_cups=0;
     public static String time, ampm,total;
     Date date = new Date();
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
-    // String today="2022-05-15";
+    //String today="2022-05-9";
     private DatabaseReference getWaterRef(String ref) {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
         String userId = user.getUid();
-        return mDatabase.child("Water").child(today).child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference().child("Water").child(today).child(userId).child(ref);
     }
-
-    private DatabaseReference getWaterTotalRef(String ref) {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        assert user != null;
-        String userId = user.getUid();
-        return mDatabase.child("Water").child("Total").child(userId).child(ref);
-    }
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -83,15 +69,7 @@ public class WaterFragment extends Fragment {
         final TextView cups_text=root.findViewById(R.id.cups);
         root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
         listView = root.findViewById(R.id.listview_record);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        databaseReference = firebaseDatabase.getReference("Users");
-        Query query = databaseReference;
-
-        query.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -99,34 +77,17 @@ public class WaterFragment extends Fragment {
                     textView_total.setText(totalMl);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-        databaseReference=firebaseDatabase.getReference().child("Total").child(today);
-        Query queryWaterTotal = databaseReference;
-        queryWaterTotal.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                   total=String.valueOf(ds.child("Total").getValue());
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         root.findViewById(R.id.glass).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 counter_cups+=1;
                 count = count + 250;
                 getWaterRef("Water").setValue(count);
+                getWaterRef("Cups").setValue(counter_cups);
                 Calendar calendar = Calendar.getInstance();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
@@ -135,29 +96,23 @@ public class WaterFragment extends Fragment {
                 else
                     ampm = "AM";
                 time = (String.format("%02d:%02d", currentHour, currentMinute) + ampm + " - 1 cup");
-                getWaterRef("Cups").setValue(counter_cups);
                 Time+=(time+',');
                 getWaterRef("Time").setValue(Time);
-                total=total+String.valueOf(count)+',';
-                getWaterTotalRef("Total").setValue(total);
             }
         });
-
-        databaseReference=firebaseDatabase.getReference().child("Water").child(today);
-        Query queryWater = databaseReference;
-        queryWater.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Water").child(today).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String water = String.valueOf(ds.child("Water").getValue());
-                    cups_text.setText(String.valueOf(counter_cups));
+                    String cups = String.valueOf(ds.child("Cups").getValue());
+                    cups_text.setText(cups);
                     textView_tofill.setText(water);
                     water_progress.setProgress(Math.round((100 * (Integer.parseInt(water)) / Integer.parseInt(totalMl))));
                     if(Integer.parseInt(textView_tofill.getText().toString())>=Integer.parseInt(textView_total.getText().toString()))
                         root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
                     Time=String.valueOf(ds.child("Time").getValue());
                     count=Integer.parseInt(String.valueOf(ds.child("Water").getValue()));
-
                     String[] strArr = Time.split(",");
                     Vector<String> tmp=new Vector<String>();
                     water_time.clear();
@@ -183,7 +138,6 @@ public class WaterFragment extends Fragment {
                     newTimeInDB+=str+",";
                 getWaterRef("Time").setValue(newTimeInDB);
                 vectorAdapter.notifyDataSetChanged();
-
                 counter_cups--;
                 getWaterRef("Cups").setValue(counter_cups);
                 cups_text.setText(String.valueOf(counter_cups));
@@ -203,13 +157,13 @@ public class WaterFragment extends Fragment {
     private void createNotificationChannel()
     {
         CharSequence name = "channel";
-            String desc = "My Balance Diary";
-            int important = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("channelID", name, important);
-            channel.setDescription(desc);
+        String desc = "My Balance Diary";
+        int important = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel("channelID", name, important);
+        channel.setDescription(desc);
 
-            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+        NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
 
     }
     class LabelRunnable implements Runnable {

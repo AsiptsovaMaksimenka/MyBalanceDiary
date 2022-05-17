@@ -23,7 +23,6 @@ import java.util.List;
 public class WaterTracker extends Fragment {
 
     TabLayout tabLayout;
-    private Handler mainhandler = new Handler();
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
