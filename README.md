@@ -15,7 +15,7 @@ Tworzenie konta.
 Liczenie dziennej liczby kalorii, żeby kontrolować swoje żywienie (utrzymanie obecnej wagi, utrata wagi, przyrost wagi (dodanie produktów lub wybór z listy przepisów).
 
 Liczenie wypitej wody i przypominanie w wybranym zakresie czasu o tym, że trzeba je wypić.
-
+ 
 Informacje statystyczne (progres) za wybrany odcinek czasu(dzień, tydzień, miesiąc).
 
 Przechowywanie danych o okresie dla kobiet (kalendarz z funkcją dodania notatek ).
