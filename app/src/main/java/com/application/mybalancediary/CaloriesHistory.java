@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,97 +67,107 @@ public class CaloriesHistory extends Fragment {
         btnLast7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                graph.removeAllSeries();
-                graph.setBackgroundColor(Color.WHITE);
-                graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 7 days");
-                graph.getGridLabelRenderer().setVerticalAxisTitle("Calories,kcal");
-                graph.getGridLabelRenderer().setTextSize(30);
-                graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                graph.getGridLabelRenderer().setGridColor(Color.BLUE);
-                graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
-                series = new LineGraphSeries<DataPoint>();
-                series.setColor(Color.BLUE);
-                series.setDrawDataPoints(true);
-                series.setDrawBackground(true);
-                series.setThickness(10);
-                String[] arr ={"1","2","3","4","5","6","7"};
-                List<String> dataString = Arrays.asList(arr);
-                List<Float>dataFloat= new ArrayList<>();
-                dataFloat.clear();
-                AllCalories=0.0f;
-                dataFloat.addAll(UserCalories);
-                for(int i = 0; i < 7; i++){
-                    AllCalories += dataFloat.get(i);
-                    String x=dataString.get(i);
-                    float y = dataFloat.get(i);
-                    summary.setText(String.valueOf(AllCalories));
-                    series.appendData(new DataPoint(Double.parseDouble(x),y),false,7);
-                }
-                graph.addSeries(series);
-                graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
-                    @Override
-                    public String formatLabel(double value, boolean isValueX) {
-                        if(isValueX){
-                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                            return format.format(new Date((long)value));
-                        }
-                        else {
-                            return super.formatLabel(value, isValueX);
-                        }
+                if (UserCalories.size() < 7) {
+                    btnLast30.setEnabled(false);
+                    Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    graph.removeAllSeries();
+                    graph.setBackgroundColor(Color.WHITE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 7 days");
+                    graph.getGridLabelRenderer().setVerticalAxisTitle("Calories,kcal");
+                    graph.getGridLabelRenderer().setTextSize(30);
+                    graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                    graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                    series = new LineGraphSeries<DataPoint>();
+                    series.setColor(Color.BLUE);
+                    series.setDrawDataPoints(true);
+                    series.setDrawBackground(true);
+                    series.setThickness(10);
+                    String[] arr = {"1", "2", "3", "4", "5", "6", "7"};
+                    List<String> dataString = Arrays.asList(arr);
+                    List<Float> dataFloat = new ArrayList<>();
+                    dataFloat.clear();
+                    AllCalories = 0.0f;
+                    dataFloat.addAll(UserCalories);
+                    for (int i = 0; i < 7; i++) {
+                        AllCalories += dataFloat.get(i);
+                        String x = dataString.get(i);
+                        float y = dataFloat.get(i);
+                        summary.setText(String.valueOf(AllCalories));
+                        series.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
                     }
-                });
+                    graph.addSeries(series);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                return format.format(new Date((long) value));
+                            } else {
+                                return super.formatLabel(value, isValueX);
+                            }
+                        }
+                    });
+                }
             }
         });
 
         btnLast30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                graph.removeAllSeries();
-                graph.setBackgroundColor(Color.WHITE);
-                graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 30 days");
-                graph.getGridLabelRenderer().setVerticalAxisTitle("Calories,kcal");
-                graph.getGridLabelRenderer().setTextSize(30);
-                graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                graph.getGridLabelRenderer().setGridColor(Color.BLUE);
-                graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                if (UserCalories.size() < 30) {
+                    btnLast30.setEnabled(false);
+                    Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
 
-                series = new LineGraphSeries<DataPoint>();
-                series.setColor(Color.BLUE);
-                series.setDrawDataPoints(true);
-                series.setDrawBackground(true);
-                series.setThickness(10);
-                String[] arr ={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"};
-                List<String> dataString = Arrays.asList(arr);
-                List<Float>dataFloat= new ArrayList<>();
-                dataFloat.clear();
-                AllCalories=0.0f;
-                dataFloat.addAll(UserCalories);
-                for(int i = 0; i < 30; i++){
-                    AllCalories += dataFloat.get(i);
-                    String x=dataString.get(i);
-                    float y = dataFloat.get(i);
-                    summary.setText(String.valueOf(AllCalories));
-                    series.appendData(new DataPoint(Double.parseDouble(x),y),true,30);
-                }
-                graph.addSeries(series);
-                graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
-                    @Override
-                    public String formatLabel(double value, boolean isValueX) {
-                        if(isValueX){
-                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                            return format.format(new Date((long)value));
-                        }
-                        else {
-                            return super.formatLabel(value, isValueX);
-                        }
+                } else {
+                    graph.removeAllSeries();
+                    graph.setBackgroundColor(Color.WHITE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 30 days");
+                    graph.getGridLabelRenderer().setVerticalAxisTitle("Calories,kcal");
+                    graph.getGridLabelRenderer().setTextSize(30);
+                    graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                    graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+
+                    series = new LineGraphSeries<DataPoint>();
+                    series.setColor(Color.BLUE);
+                    series.setDrawDataPoints(true);
+                    series.setDrawBackground(true);
+                    series.setThickness(10);
+                    String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
+                    List<String> dataString = Arrays.asList(arr);
+                    List<Float> dataFloat = new ArrayList<>();
+                    dataFloat.clear();
+                    AllCalories = 0.0f;
+                    dataFloat.addAll(UserCalories);
+                    for (int i = 0; i < 30; i++) {
+                        AllCalories += dataFloat.get(i);
+                        String x = dataString.get(i);
+                        float y = dataFloat.get(i);
+                        summary.setText(String.valueOf(AllCalories));
+                        series.appendData(new DataPoint(Double.parseDouble(x), y), true, 30);
                     }
-                });
+                    graph.addSeries(series);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                return format.format(new Date((long) value));
+                            } else {
+                                return super.formatLabel(value, isValueX);
+                            }
+                        }
+                    });
+                }
             }
         });
 

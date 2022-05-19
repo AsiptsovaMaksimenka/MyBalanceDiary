@@ -51,7 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Past 7" />
+            android:text="Past 7"
+            android:backgroundTint="@android:color/darker_gray"
+            />
 
         <Button
             android:id="@+id/buttonLast30"
@@ -61,6 +63,8 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="12dp"
             android:text="Past 30"
+            android:backgroundTint="@android:color/darker_gray"
+
             />
 
         <TextView
