@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.application.mybalancediary.LoginActivity;
 import com.application.mybalancediary.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,10 +37,11 @@ import java.util.List;
 public class HistoryWaterFragment extends Fragment {
     LineGraphSeries<DataPoint> series;
     GraphView graph;
-    Button btnLast30;
-    Button btnLast7;
-    Float AllWater=0.0f;
+    Button btnLast30,btnLast7,btnAll;
+    Float AllWater=0.0f,waterDaily=0.0f;
     List<Float> UserList = new ArrayList<Float>();
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,8 +49,10 @@ public class HistoryWaterFragment extends Fragment {
         graph = root.findViewById(R.id.graph);
         btnLast7 =root.findViewById(R.id.buttonLast7);
         btnLast30=root.findViewById(R.id.buttonLast30);
+        btnAll=root.findViewById(R.id.buttonAll);
         graph.setBackgroundColor(Color.WHITE);
         TextView summary=root.findViewById(R.id.WaterSummary);
+        TextView percent=root.findViewById(R.id.WaterPercent);
         FirebaseDatabase.getInstance().getReference("Water").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -65,103 +70,199 @@ public class HistoryWaterFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-        btnLast7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                graph.removeAllSeries();
-                graph.setBackgroundColor(Color.WHITE);
-                graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 7 days");
-                graph.getGridLabelRenderer().setVerticalAxisTitle("Water,ml");
-                graph.getGridLabelRenderer().setTextSize(30);
-                graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                graph.getGridLabelRenderer().setGridColor(Color.BLUE);
-                graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
-                series = new LineGraphSeries<DataPoint>();
-                series.setColor(Color.BLUE);
-                series.setDrawDataPoints(true);
-                series.setDrawBackground(true);
-                series.setThickness(10);
-                String[] arr ={"1","2","3","4","5","6","7"};
-                List<String> dataString = Arrays.asList(arr);
-                List<Float>dataFloat= new ArrayList<>();
-                dataFloat.clear();
-                AllWater=0.0f;
-                dataFloat.addAll(UserList);
-                for(int i = 0; i < 7; i++){
-                    AllWater += dataFloat.get(i);
-                    String x=dataString.get(i);
-                    float y = dataFloat.get(i);
-                    summary.setText(String.valueOf(AllWater));
-                    series.appendData(new DataPoint(Double.parseDouble(x),y),false,7);
-                }
-                graph.addSeries(series);
-                graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
+        FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
+                .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public String formatLabel(double value, boolean isValueX) {
-                        if(isValueX){
-                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                            return format.format(new Date((long)value));
-                        }
-                        else {
-                            return super.formatLabel(value, isValueX);
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            waterDaily=0.0f;
+                            waterDaily = Float.valueOf(String.valueOf(ds.child("TargetWater").getValue()));
                         }
                     }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
                 });
-            }
-        });
+
+
+
+            btnLast7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (UserList.size() < 7) {
+                        btnLast7.setEnabled(false);
+                        Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        waterDaily*=7;
+                        root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                        graph.removeAllSeries();
+                        graph.setBackgroundColor(Color.WHITE);
+                        graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 7 days");
+                        graph.getGridLabelRenderer().setVerticalAxisTitle("Water,ml");
+                        graph.getGridLabelRenderer().setTextSize(30);
+                        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                        graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                        graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                        series = new LineGraphSeries<DataPoint>();
+                        series.setColor(Color.BLUE);
+                        series.setDrawDataPoints(true);
+                        series.setDrawBackground(true);
+                        series.setThickness(10);
+                        String[] arr = {"1", "2", "3", "4", "5", "6", "7"};
+                        List<String> dataString = Arrays.asList(arr);
+                        List<Float> dataFloat = new ArrayList<>();
+                        dataFloat.clear();
+                        AllWater = 0.0f;
+                        dataFloat.addAll(UserList);
+                        for (int i = 0; i < 7; i++) {
+                            AllWater += dataFloat.get(i);
+                            String x = dataString.get(i);
+                            float y = dataFloat.get(i);
+                            series.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                        }
+                        summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily)+"ml");
+                        percent.setText("This is about "+ String.valueOf((AllWater*100)/waterDaily)+" % of the norm");
+                        if(AllWater>=waterDaily)
+                            root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
+                        graph.addSeries(series);
+                        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                            @Override
+                            public String formatLabel(double value, boolean isValueX) {
+                                if (isValueX) {
+                                    return format.format(new Date((long) value));
+                                } else {
+                                    return super.formatLabel(value, isValueX);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+
+
+            btnAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (UserList.size() < 1) {
+                        btnLast30.setEnabled(false);
+                        Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                        waterDaily*=UserList.size();
+                        graph.removeAllSeries();
+                        graph.setBackgroundColor(Color.WHITE);
+                        graph.getGridLabelRenderer().setHorizontalAxisTitle("All time");
+                        graph.getGridLabelRenderer().setVerticalAxisTitle("Water,ml");
+                        graph.getGridLabelRenderer().setTextSize(30);
+                        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                        graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                        graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                        graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+
+                        series = new LineGraphSeries<DataPoint>();
+                        series.setColor(Color.BLUE);
+                        series.setDrawDataPoints(true);
+                        series.setDrawBackground(true);
+                        series.setThickness(10);
+                        String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
+                        List<String> dataString = Arrays.asList(arr);
+                        List<Float> dataFloat = new ArrayList<>();
+                        dataFloat.clear();
+                        AllWater = 0.0f;
+                        dataFloat.addAll(UserList);
+                        for (int i = 0; i < dataFloat.size(); i++) {
+                            AllWater += dataFloat.get(i);
+                            String x = dataString.get(i);
+                            float y = dataFloat.get(i);
+                            summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily)+"ml");
+                            percent.setText("This is about "+ String.valueOf((AllWater*100)/waterDaily)+" % of the norm");
+                            if(AllWater>=waterDaily)
+                                root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
+                            series.appendData(new DataPoint(Double.parseDouble(x), y), true, 10);
+                        }
+                        graph.addSeries(series);
+                        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                            @Override
+                            public String formatLabel(double value, boolean isValueX) {
+                                if (isValueX) {
+                                    return format.format(new Date((long) value));
+                                } else {
+                                    return super.formatLabel(value, isValueX);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
 
         btnLast30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                graph.removeAllSeries();
-                graph.setBackgroundColor(Color.WHITE);
-                graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 30 days");
-                graph.getGridLabelRenderer().setVerticalAxisTitle("Water,ml");
-                graph.getGridLabelRenderer().setTextSize(30);
-                graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                graph.getGridLabelRenderer().setGridColor(Color.BLUE);
-                graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                if (UserList.size() < 30) {
+                    btnLast30.setEnabled(false);
+                    Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
 
-                series = new LineGraphSeries<DataPoint>();
-                series.setColor(Color.BLUE);
-                series.setDrawDataPoints(true);
-                series.setDrawBackground(true);
-                series.setThickness(10);
-                String[] arr ={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"};
-                List<String> dataString = Arrays.asList(arr);
-                List<Float>dataFloat= new ArrayList<>();
-                dataFloat.clear();
-                AllWater=0.0f;
-                dataFloat.addAll(UserList);
-                for(int i = 0; i < 30; i++){
-                    AllWater += dataFloat.get(i);
-                    String x=dataString.get(i);
-                    float y = dataFloat.get(i);
-                    summary.setText(String.valueOf(AllWater));
-                    series.appendData(new DataPoint(Double.parseDouble(x),y),true,30);
-                }
-                graph.addSeries(series);
-                graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
-                    @Override
-                    public String formatLabel(double value, boolean isValueX) {
-                        if(isValueX){
-                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                            return format.format(new Date((long)value));
-                        }
-                        else {
-                            return super.formatLabel(value, isValueX);
-                        }
+                } else {
+                    root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    waterDaily*=30;
+                    graph.removeAllSeries();
+                    graph.setBackgroundColor(Color.WHITE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 30 days");
+                    graph.getGridLabelRenderer().setVerticalAxisTitle("Water,ml");
+                    graph.getGridLabelRenderer().setTextSize(30);
+                    graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                    graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+
+                    series = new LineGraphSeries<DataPoint>();
+                    series.setColor(Color.BLUE);
+                    series.setDrawDataPoints(true);
+                    series.setDrawBackground(true);
+                    series.setThickness(10);
+                    String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
+                    List<String> dataString = Arrays.asList(arr);
+                    List<Float> dataFloat = new ArrayList<>();
+                    dataFloat.clear();
+                    AllWater = 0.0f;
+                    dataFloat.addAll(UserList);
+                    for (int i = 0; i < 30; i++) {
+                        AllWater += dataFloat.get(i);
+                        String x = dataString.get(i);
+                        float y = dataFloat.get(i);
+                        summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily)+"ml");
+                        percent.setText("This is about "+ String.valueOf((AllWater*100)/waterDaily)+" % of the norm");
+                        if(AllWater>=waterDaily)
+                            root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
+                        series.appendData(new DataPoint(Double.parseDouble(x), y), true, 30);
                     }
-                });
+                    graph.addSeries(series);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                return format.format(new Date((long) value));
+                            } else {
+                                return super.formatLabel(value, isValueX);
+                            }
+                        }
+                    });
+                }
             }
         });
+
+
 
         return root;
     }
