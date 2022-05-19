@@ -3,6 +3,7 @@ package com.application.mybalancediary.ui.watertracker;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class HistoryWaterFragment extends Fragment {
     Float AllWater=0.0f,waterDaily=0.0f;
     int count=0;
     List<Float> UserList = new ArrayList<Float>();
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
@@ -89,6 +91,7 @@ public class HistoryWaterFragment extends Fragment {
 
 
             btnLast7.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onClick(View v) {
                     if (UserList.size() < 7) {
@@ -148,6 +151,7 @@ public class HistoryWaterFragment extends Fragment {
 
 
             btnAll.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onClick(View v) {
                     if (UserList.size() < 1) {
@@ -209,6 +213,7 @@ public class HistoryWaterFragment extends Fragment {
             });
 
         btnLast30.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 if (UserList.size() < 30) {
