@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,32 +34,29 @@ import java.util.List;
 
 public class MacrosHistory extends Fragment {
 
-
-    LineGraphSeries<DataPoint> seriesP;
-    LineGraphSeries<DataPoint> seriesC;
-    LineGraphSeries<DataPoint> seriesF;
-    GraphView graphP;
-    GraphView graphC;
-    GraphView graphF;
-    Button btnLast30,btnLast7;
-    Float AllP=0.0f,AllC=0.0f,AllF=0.0f;
+    LineGraphSeries<DataPoint> seriesP,seriesC,seriesF;
+    GraphView graph;
+    Button btnLast30,btnLast7,btnAll;
+    Float AllP=0.0f,AllC=0.0f,AllF=0.0f,carbs=0f,fats=0f,proteins=0f;
     List<Float> UserProteins = new ArrayList<Float>();
     List<Float> UserCarbs = new ArrayList<Float>();
     List<Float> UserFats = new ArrayList<Float>();
+    int countP=0,countF=0,countC=0;
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.activity_macros_history, container, false);
 
-        graphP = root.findViewById(R.id.graphP);
-        graphC = root.findViewById(R.id.graphC);
-        graphF = root.findViewById(R.id.graphF);
+        graph = root.findViewById(R.id.graph);
+        graph.setBackgroundColor(Color.WHITE);
         btnLast7 =root.findViewById(R.id.buttonLast7);
         btnLast30=root.findViewById(R.id.buttonLast30);
-        graphP.setBackgroundColor(Color.WHITE);
-        graphC.setBackgroundColor(Color.WHITE);
-        graphF.setBackgroundColor(Color.WHITE);
+        btnAll=root.findViewById(R.id.buttonAll);
+        TextView proteinsInfo=root.findViewById(R.id.Proteinsinfo);
+        TextView carbsInfo=root.findViewById(R.id.CarbsInfo);
+        TextView fatsInfo=root.findViewById(R.id.FatsInfo);
 
         FirebaseDatabase.getInstance().getReference("TotalPerDay").addValueEventListener(new ValueEventListener() {
             @Override
@@ -67,8 +66,12 @@ public class MacrosHistory extends Fragment {
                     int counter = 0;
                     while (items.hasNext()) {
                         DataSnapshot item = items.next();
-                        String total = item.child("TotalProteinsPerDay").getValue().toString();
-                        UserProteins.add(Float.parseFloat(total));
+                        String totalP = item.child("TotalProteinsPerDay").getValue().toString();
+                        UserProteins.add(Float.parseFloat(totalP));
+                        String totalF = item.child("TotalFatsPerDay").getValue().toString();
+                        UserFats.add(Float.parseFloat(totalF));
+                        String totalC = item.child("TotalCarbsPerDay").getValue().toString();
+                        UserCarbs.add(Float.parseFloat(totalC));
                     }
                 }
             }
@@ -76,162 +79,100 @@ public class MacrosHistory extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        FirebaseDatabase.getInstance().getReference("TotalPerDay").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot parentDS : dataSnapshot.getChildren()) {
-                    Iterator<DataSnapshot> items = parentDS.getChildren().iterator();
-                    int counter = 0;
-                    while (items.hasNext()) {
-                        DataSnapshot item = items.next();
-                        String total = item.child("TotalFatsPerDay").getValue().toString();
-                        UserFats.add(Float.parseFloat(total));
+        FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
+                .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            carbs = Float.valueOf(String.valueOf(ds.child("carbs").getValue()));
+                            fats = Float.valueOf(String.valueOf(ds.child("fats").getValue()));
+                            proteins = Float.valueOf(String.valueOf(ds.child("proteins").getValue()));
+                        }
                     }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-        FirebaseDatabase.getInstance().getReference("TotalPerDay").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot parentDS : dataSnapshot.getChildren()) {
-                    Iterator<DataSnapshot> items = parentDS.getChildren().iterator();
-                    int counter = 0;
-                    while (items.hasNext()) {
-                        DataSnapshot item = items.next();
-                        String total = item.child("TotalCarbsPerDay").getValue().toString();
-                        UserCarbs.add(Float.parseFloat(total));
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
                     }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+                });
+
+
         btnLast7.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 if (UserProteins.size() < 7 && UserFats.size() < 7 && UserCarbs.size() < 7) {
                     btnLast7.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
-
+                    root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
                 } else {
-                    graphP.removeAllSeries();
-                    graphP.setBackgroundColor(Color.WHITE);
-                    graphP.getGridLabelRenderer().setHorizontalAxisTitle("The last month");
-                    graphP.getGridLabelRenderer().setVerticalAxisTitle("Proteins,gr");
-                    graphP.getGridLabelRenderer().setTextSize(30);
-                    graphP.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                    graphP.getGridLabelRenderer().setGridColor(Color.BLUE);
-                    graphP.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                    graphP.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                    graphP.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                    graphP.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                    root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    graph.removeAllSeries();
+                    graph.setBackgroundColor(Color.WHITE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 7 days");
+                    graph.getGridLabelRenderer().setVerticalAxisTitle("Macros,gr");
+                    graph.getGridLabelRenderer().setTextSize(30);
+                    graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                    graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
                     seriesP = new LineGraphSeries<DataPoint>();
                     seriesP.setColor(Color.BLUE);
                     seriesP.setDrawDataPoints(true);
                     seriesP.setDrawBackground(true);
-                    seriesP.setThickness(10);
+                    seriesP.setThickness(8);
+                    seriesC = new LineGraphSeries<DataPoint>();
+                    seriesC.setColor(Color.RED);
+                    seriesC.setDrawDataPoints(true);
+                    seriesC.setDrawBackground(true);
+                    seriesC.setThickness(10);
+                    seriesF = new LineGraphSeries<DataPoint>();
+                    seriesF.setColor(Color.GREEN);
+                    seriesF.setDrawDataPoints(true);
+                    seriesF.setDrawBackground(true);
+                    seriesF.setThickness(10);
                     String[] arr = {"1", "2", "3", "4", "5", "6", "7"};
                     List<String> dataString = Arrays.asList(arr);
                     List<Float> dataFloat = new ArrayList<>();
+                    List<Float> dataFloatC = new ArrayList<>();
+                    List<Float> dataFloatF = new ArrayList<>();
                     dataFloat.clear();
+                    dataFloatC.clear();
+                    dataFloatF.clear();
                     AllP = 0.0f;
+                    AllC = 0.0f;
+                    AllF = 0.0f;
                     dataFloat.addAll(UserProteins);
+                    dataFloatC.addAll(UserCarbs);
+                    dataFloatF.addAll(UserFats);
                     for (int i = 0; i < 7; i++) {
                         AllP += dataFloat.get(i);
                         String x = dataString.get(i);
                         float y = dataFloat.get(i);
-                        //summary.setText(String.valueOf(AllCalories));
                         seriesP.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
                     }
-                    graphP.addSeries(seriesP);
-                    graphP.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-                        @Override
-                        public String formatLabel(double value, boolean isValueX) {
-                            if (isValueX) {
-                                return format.format(new Date((long) value));
-                            } else {
-                                return super.formatLabel(value, isValueX);
-                            }
-                        }
-                    });
-                    ////////////////////////////////////////////////////
-                    graphC.removeAllSeries();
-                    graphC.setBackgroundColor(Color.WHITE);
-                    graphC.getGridLabelRenderer().setHorizontalAxisTitle("The last month");
-                    graphC.getGridLabelRenderer().setVerticalAxisTitle("Carbs,gr");
-                    graphC.getGridLabelRenderer().setTextSize(30);
-                    graphC.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                    graphC.getGridLabelRenderer().setGridColor(Color.BLUE);
-                    graphC.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                    graphC.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                    graphC.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                    graphC.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
-                    seriesC = new LineGraphSeries<DataPoint>();
-                    seriesC.setColor(Color.BLUE);
-                    seriesC.setDrawDataPoints(true);
-                    seriesC.setDrawBackground(true);
-                    seriesC.setThickness(10);
-                    String[] arrC = {"1", "2", "3", "4", "5", "6", "7"};
-                    List<String> dataStringC = Arrays.asList(arrC);
-                    List<Float> dataFloatC = new ArrayList<>();
-                    dataFloat.clear();
-                    AllC = 0.0f;
-                    dataFloat.addAll(UserCarbs);
                     for (int i = 0; i < 7; i++) {
-                        AllC += dataFloat.get(i);
+                        AllC += dataFloatC.get(i);
                         String x = dataString.get(i);
-                        float y = dataFloat.get(i);
-                        // summary.setText(String.valueOf(AllC));
+                        float y = dataFloatC.get(i);
                         seriesC.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
                     }
-                    graphC.addSeries(seriesC);
-                    graphC.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-                        @Override
-                        public String formatLabel(double value, boolean isValueX) {
-                            if (isValueX) {
-                                return format.format(new Date((long) value));
-                            } else {
-                                return super.formatLabel(value, isValueX);
-                            }
-                        }
-                    });
-                    ////////////////////
-
-                    graphF.removeAllSeries();
-                    graphF.setBackgroundColor(Color.WHITE);
-                    graphF.getGridLabelRenderer().setHorizontalAxisTitle("The last month");
-                    graphF.getGridLabelRenderer().setVerticalAxisTitle("Fats,gr");
-                    graphF.getGridLabelRenderer().setTextSize(30);
-                    graphF.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                    graphF.getGridLabelRenderer().setGridColor(Color.BLUE);
-                    graphF.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                    graphF.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                    graphF.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                    graphF.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
-                    seriesF = new LineGraphSeries<DataPoint>();
-                    seriesF.setColor(Color.BLUE);
-                    seriesF.setDrawDataPoints(true);
-                    seriesF.setDrawBackground(true);
-                    seriesF.setThickness(10);
-                    String[] arrF = {"1", "2", "3", "4", "5", "6", "7"};
-                    List<String> dataStringF = Arrays.asList(arrF);
-                    List<Float> dataFloatF = new ArrayList<>();
-                    dataFloat.clear();
-                    AllF = 0.0f;
-                    dataFloat.addAll(UserFats);
                     for (int i = 0; i < 7; i++) {
-                        AllF += dataFloat.get(i);
+                        AllF += dataFloatF.get(i);
                         String x = dataString.get(i);
-                        float y = dataFloat.get(i);
-                        //summary.setText(String.valueOf(AllF));
+                        float y = dataFloatF.get(i);
                         seriesF.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
                     }
-                    graphF.addSeries(seriesF);
-                    graphF.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                    proteinsInfo.setText("All proteins " + String.valueOf(Math.round(AllP*10.0)/10.0)+" out of " +String.valueOf(Math.round((proteins*7)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllP*100)/(proteins*7))*10.0)/10.0)+" % of the norm)");
+                    fatsInfo.setText("All fats " + String.valueOf(Math.round(AllF*10.0)/10.0)+" out of " +String.valueOf(Math.round((fats*7)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllF*100)/(fats*7))*10.0)/10.0)+" % of the norm)");
+                    carbsInfo.setText("All carbs " + String.valueOf(Math.round(AllC*10.0)/10.0)+" out of " +String.valueOf(Math.round((carbs*7)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllC*100)/(carbs*7))*10.0)/10.0)+" % of the norm)");
+                    if(AllP>=(proteins*7) && AllF>=(fats*7) && AllC>=(carbs*7) )
+                        root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
+                    graph.addSeries(seriesP);
+                    graph.addSeries(seriesC);
+                    graph.addSeries(seriesF);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                         @Override
                         public String formatLabel(double value, boolean isValueX) {
                             if (isValueX) {
@@ -241,133 +182,95 @@ public class MacrosHistory extends Fragment {
                             }
                         }
                     });
+
                 }
             }
         });
 
-
         btnLast30.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 if (UserProteins.size() < 30 && UserFats.size() < 30 && UserCarbs.size() < 30) {
                     btnLast30.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
+                    root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    proteinsInfo.setText("");
+                    carbsInfo.setText("");
+                    fatsInfo.setText("");
 
                 } else {
-                    graphP.removeAllSeries();
-                    graphP.setBackgroundColor(Color.WHITE);
-                    graphP.getGridLabelRenderer().setHorizontalAxisTitle("The last month");
-                    graphP.getGridLabelRenderer().setVerticalAxisTitle("Proteins,gr");
-                    graphP.getGridLabelRenderer().setTextSize(30);
-                    graphP.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                    graphP.getGridLabelRenderer().setGridColor(Color.BLUE);
-                    graphP.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                    graphP.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                    graphP.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                    graphP.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                    proteinsInfo.setText("");
+                    carbsInfo.setText("");
+                    fatsInfo.setText("");
+                    root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    graph.removeAllSeries();
+                    graph.setBackgroundColor(Color.WHITE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitle("The last month");
+                    graph.getGridLabelRenderer().setVerticalAxisTitle("Macros,gr");
+                    graph.getGridLabelRenderer().setTextSize(30);
+                    graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                    graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
                     seriesP = new LineGraphSeries<DataPoint>();
                     seriesP.setColor(Color.BLUE);
                     seriesP.setDrawDataPoints(true);
                     seriesP.setDrawBackground(true);
-                    seriesP.setThickness(10);
-                    String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
-                    List<String> dataString = Arrays.asList(arr);
-                    List<Float> dataFloat = new ArrayList<>();
-                    dataFloat.clear();
-                    AllP = 0.0f;
-                    dataFloat.addAll(UserProteins);
-                    for (int i = 0; i < 7; i++) {
-                        AllP += dataFloat.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloat.get(i);
-                        //summary.setText(String.valueOf(AllCalories));
-                        seriesP.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
-                    }
-                    graphP.addSeries(seriesP);
-                    graphP.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-                        @Override
-                        public String formatLabel(double value, boolean isValueX) {
-                            if (isValueX) {
-                                return format.format(new Date((long) value));
-                            } else {
-                                return super.formatLabel(value, isValueX);
-                            }
-                        }
-                    });
-                    ////////////////////////////////////////////////////
-                    graphC.removeAllSeries();
-                    graphC.setBackgroundColor(Color.WHITE);
-                    graphC.getGridLabelRenderer().setHorizontalAxisTitle("The last month");
-                    graphC.getGridLabelRenderer().setVerticalAxisTitle("Carbs,gr");
-                    graphC.getGridLabelRenderer().setTextSize(30);
-                    graphC.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                    graphC.getGridLabelRenderer().setGridColor(Color.BLUE);
-                    graphC.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                    graphC.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                    graphC.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                    graphC.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                    seriesP.setThickness(8);
                     seriesC = new LineGraphSeries<DataPoint>();
-                    seriesC.setColor(Color.BLUE);
+                    seriesC.setColor(Color.RED);
                     seriesC.setDrawDataPoints(true);
                     seriesC.setDrawBackground(true);
                     seriesC.setThickness(10);
-                    String[] arrC = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
-                    List<String> dataStringC = Arrays.asList(arrC);
-                    List<Float> dataFloatC = new ArrayList<>();
-                    dataFloat.clear();
-                    AllC = 0.0f;
-                    dataFloat.addAll(UserCarbs);
-                    for (int i = 0; i < 30; i++) {
-                        AllC += dataFloat.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloat.get(i);
-                        // summary.setText(String.valueOf(AllC));
-                        seriesC.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
-                    }
-                    graphC.addSeries(seriesC);
-                    graphC.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
-                        @Override
-                        public String formatLabel(double value, boolean isValueX) {
-                            if (isValueX) {
-                                return format.format(new Date((long) value));
-                            } else {
-                                return super.formatLabel(value, isValueX);
-                            }
-                        }
-                    });
-                    ////////////////////
-
-                    graphF.removeAllSeries();
-                    graphF.setBackgroundColor(Color.WHITE);
-                    graphF.getGridLabelRenderer().setHorizontalAxisTitle("The last month");
-                    graphF.getGridLabelRenderer().setVerticalAxisTitle("Fats,gr");
-                    graphF.getGridLabelRenderer().setTextSize(30);
-                    graphF.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-                    graphF.getGridLabelRenderer().setGridColor(Color.BLUE);
-                    graphF.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
-                    graphF.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
-                    graphF.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
-                    graphF.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
                     seriesF = new LineGraphSeries<DataPoint>();
-                    seriesF.setColor(Color.BLUE);
+                    seriesF.setColor(Color.GREEN);
                     seriesF.setDrawDataPoints(true);
                     seriesF.setDrawBackground(true);
                     seriesF.setThickness(10);
-                    String[] arrF = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
-                    List<String> dataStringF = Arrays.asList(arrF);
+                    String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
+                    List<String> dataString = Arrays.asList(arr);
+                    List<Float> dataFloat = new ArrayList<>();
+                    List<Float> dataFloatC = new ArrayList<>();
                     List<Float> dataFloatF = new ArrayList<>();
                     dataFloat.clear();
+                    dataFloatC.clear();
+                    dataFloatF.clear();
+                    AllP = 0.0f;
+                    AllC = 0.0f;
                     AllF = 0.0f;
-                    dataFloat.addAll(UserFats);
+                    dataFloat.addAll(UserProteins);
+                    dataFloatC.addAll(UserCarbs);
+                    dataFloatF.addAll(UserFats);
                     for (int i = 0; i < 30; i++) {
-                        AllF += dataFloat.get(i);
+                        AllP += dataFloat.get(i);
                         String x = dataString.get(i);
                         float y = dataFloat.get(i);
-                        //summary.setText(String.valueOf(AllF));
+                        seriesP.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                    }
+                    for (int i = 0; i < 30; i++) {
+                        AllC += dataFloatC.get(i);
+                        String x = dataString.get(i);
+                        float y = dataFloatC.get(i);
+                        seriesC.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                    }
+                    for (int i = 0; i < 30; i++) {
+                        AllF += dataFloatF.get(i);
+                        String x = dataString.get(i);
+                        float y = dataFloatF.get(i);
                         seriesF.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
                     }
-                    graphF.addSeries(seriesF);
-                    graphF.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                    proteinsInfo.setText("All proteins " + String.valueOf(Math.round(AllP*10.0)/10.0)+" out of " +String.valueOf(Math.round((proteins*30)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllP*100)/(proteins*30))*10.0)/10.0)+" % of the norm)");
+                    fatsInfo.setText("All fats " + String.valueOf(Math.round(AllF*10.0)/10.0)+" out of " +String.valueOf(Math.round((fats*30)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllF*100)/(fats*30))*10.0)/10.0)+" % of the norm)");
+                    carbsInfo.setText("All carbs " + String.valueOf(Math.round(AllC*10.0)/10.0)+" out of " +String.valueOf(Math.round((carbs*30)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllC*100)/(carbs*30))*10.0)/10.0)+" % of the norm)");
+                    if(AllP>=(proteins*30) && AllF>=(fats*30) && AllC>=(carbs*30) )
+                        root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
+                    graph.addSeries(seriesP);
+                    graph.addSeries(seriesC);
+                    graph.addSeries(seriesF);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                         @Override
                         public String formatLabel(double value, boolean isValueX) {
                             if (isValueX) {
@@ -377,10 +280,107 @@ public class MacrosHistory extends Fragment {
                             }
                         }
                     });
+
                 }
             }
         });
+        btnAll.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                if (UserProteins.size() < 1 && UserFats.size() < 1 && UserCarbs.size() < 1) {
+                    btnAll.setEnabled(false);
+                    Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
+                    root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
 
+                } else {
+                    root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    graph.removeAllSeries();
+                    graph.setBackgroundColor(Color.WHITE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitle("All time");
+                    graph.getGridLabelRenderer().setVerticalAxisTitle("Macros,gr");
+                    graph.getGridLabelRenderer().setTextSize(30);
+                    graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                    graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                    seriesP = new LineGraphSeries<DataPoint>();
+                    seriesP.setColor(Color.BLUE);
+                    seriesP.setDrawDataPoints(true);
+                    seriesP.setDrawBackground(true);
+                    seriesP.setThickness(8);
+                    seriesC = new LineGraphSeries<DataPoint>();
+                    seriesC.setColor(Color.RED);
+                    seriesC.setDrawDataPoints(true);
+                    seriesC.setDrawBackground(true);
+                    seriesC.setThickness(10);
+                    seriesF = new LineGraphSeries<DataPoint>();
+                    seriesF.setColor(Color.GREEN);
+                    seriesF.setDrawDataPoints(true);
+                    seriesF.setDrawBackground(true);
+                    seriesF.setThickness(10);
+                    String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
+                    List<String> dataString = Arrays.asList(arr);
+                    List<Float> dataFloat = new ArrayList<>();
+                    List<Float> dataFloatC = new ArrayList<>();
+                    List<Float> dataFloatF = new ArrayList<>();
+                    dataFloat.clear();
+                    dataFloatC.clear();
+                    dataFloatF.clear();
+                    AllP = 0.0f;
+                    AllC = 0.0f;
+                    AllF = 0.0f;
+                    countF=0;
+                    countC=0;
+                    countP=0;
+                    dataFloat.addAll(UserProteins);
+                    dataFloatC.addAll(UserCarbs);
+                    dataFloatF.addAll(UserFats);
+                    for (int i = 0; i < UserProteins.size(); i++) {
+                        AllP += dataFloat.get(i);
+                        String x = dataString.get(i);
+                        countP++;
+                        float y = dataFloat.get(i);
+                        seriesP.appendData(new DataPoint(Double.parseDouble(x), y), false, 10);
+                    }
+                    for (int i = 0; i < UserCarbs.size(); i++) {
+                        AllC += dataFloatC.get(i);
+                        String x = dataString.get(i);
+                        float y = dataFloatC.get(i);
+                        countC++;
+                        seriesC.appendData(new DataPoint(Double.parseDouble(x), y), false, 10);
+                    }
+                    for (int i = 0; i < UserFats.size(); i++) {
+                        AllF += dataFloatF.get(i);
+                        String x = dataString.get(i);
+                        float y = dataFloatF.get(i);
+                        countF++;
+                        seriesF.appendData(new DataPoint(Double.parseDouble(x), y), false, 10);
+                    }
+                    proteinsInfo.setText("All proteins " + String.valueOf(Math.round(AllP*10.0)/10.0)+" out of " +String.valueOf(Math.round((proteins*countP)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllP*100)/(proteins*countP))*10.0)/10.0)+" % of the norm)");
+                    fatsInfo.setText("All fats " + String.valueOf(Math.round(AllF*10.0)/10.0)+" out of " +String.valueOf(Math.round((fats*countF)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllF*100)/(fats*countF))*10.0)/10.0)+" % of the norm)");
+                    carbsInfo.setText("All carbs " + String.valueOf(Math.round(AllC*10.0)/10.0)+" out of " +String.valueOf(Math.round((carbs*countC)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllC*100)/(carbs*countC))*10.0)/10.0)+" % of the norm)");
+                    if(AllP>=(proteins*7) && AllF>=(fats*7) && AllC>=(carbs*7) )
+                        root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
+                    graph.addSeries(seriesP);
+                    graph.addSeries(seriesC);
+                    graph.addSeries(seriesF);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                return format.format(new Date((long) value));
+                            } else {
+                                return super.formatLabel(value, isValueX);
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
 
 
         return root;

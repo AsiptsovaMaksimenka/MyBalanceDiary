@@ -129,6 +129,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
+
                     br= Float.valueOf(String.valueOf(ds.child("total").getValue()));
                     totalProteinsBr= Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
                     totalFatsBr= Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));

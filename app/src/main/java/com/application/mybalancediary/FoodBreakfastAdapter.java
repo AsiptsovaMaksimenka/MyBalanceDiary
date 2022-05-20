@@ -5,19 +5,24 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.mybalancediary.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 
@@ -52,6 +57,7 @@ public class FoodBreakfastAdapter extends RecyclerView.Adapter<FoodBreakfastAdap
     public static int total_carb =0;
     Date date = new Date();
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
+
 
     public FoodBreakfastAdapter(Context myContext, List<Map<String, ?>> myDataset) {
         mContext = myContext;
