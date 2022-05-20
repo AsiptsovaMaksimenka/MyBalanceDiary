@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,7 +105,13 @@ public class MacrosHistory extends Fragment {
                     btnLast7.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.red).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.INVISIBLE);
                 } else {
+                    root.findViewById(R.id.red).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.INVISIBLE);
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
                     graph.removeAllSeries();
                     graph.setBackgroundColor(Color.WHITE);
@@ -164,6 +171,10 @@ public class MacrosHistory extends Fragment {
                         float y = dataFloatF.get(i);
                         seriesF.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
                     }
+                    root.findViewById(R.id.red).setVisibility(View.VISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.VISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.VISIBLE);
+
                     proteinsInfo.setText("All proteins " + String.valueOf(Math.round(AllP*10.0)/10.0)+" out of " +String.valueOf(Math.round((proteins*7)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllP*100)/(proteins*7))*10.0)/10.0)+" % of the norm)");
                     fatsInfo.setText("All fats " + String.valueOf(Math.round(AllF*10.0)/10.0)+" out of " +String.valueOf(Math.round((fats*7)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllF*100)/(fats*7))*10.0)/10.0)+" % of the norm)");
                     carbsInfo.setText("All carbs " + String.valueOf(Math.round(AllC*10.0)/10.0)+" out of " +String.valueOf(Math.round((carbs*7)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllC*100)/(carbs*7))*10.0)/10.0)+" % of the norm)");
@@ -195,6 +206,9 @@ public class MacrosHistory extends Fragment {
                     btnLast30.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.red).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.INVISIBLE);
                     proteinsInfo.setText("");
                     carbsInfo.setText("");
                     fatsInfo.setText("");
@@ -203,6 +217,9 @@ public class MacrosHistory extends Fragment {
                     proteinsInfo.setText("");
                     carbsInfo.setText("");
                     fatsInfo.setText("");
+                    root.findViewById(R.id.red).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.INVISIBLE);
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
                     graph.removeAllSeries();
                     graph.setBackgroundColor(Color.WHITE);
@@ -262,6 +279,9 @@ public class MacrosHistory extends Fragment {
                         float y = dataFloatF.get(i);
                         seriesF.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
                     }
+                    root.findViewById(R.id.red).setVisibility(View.VISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.VISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.VISIBLE);
                     proteinsInfo.setText("All proteins " + String.valueOf(Math.round(AllP*10.0)/10.0)+" out of " +String.valueOf(Math.round((proteins*30)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllP*100)/(proteins*30))*10.0)/10.0)+" % of the norm)");
                     fatsInfo.setText("All fats " + String.valueOf(Math.round(AllF*10.0)/10.0)+" out of " +String.valueOf(Math.round((fats*30)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllF*100)/(fats*30))*10.0)/10.0)+" % of the norm)");
                     carbsInfo.setText("All carbs " + String.valueOf(Math.round(AllC*10.0)/10.0)+" out of " +String.valueOf(Math.round((carbs*30)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllC*100)/(carbs*30))*10.0)/10.0)+" % of the norm)");
@@ -292,9 +312,15 @@ public class MacrosHistory extends Fragment {
                     btnAll.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.red).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.INVISIBLE);
 
                 } else {
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.red).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.INVISIBLE);
                     graph.removeAllSeries();
                     graph.setBackgroundColor(Color.WHITE);
                     graph.getGridLabelRenderer().setHorizontalAxisTitle("All time");
@@ -359,6 +385,9 @@ public class MacrosHistory extends Fragment {
                         countF++;
                         seriesF.appendData(new DataPoint(Double.parseDouble(x), y), false, 10);
                     }
+                    root.findViewById(R.id.red).setVisibility(View.VISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.VISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.VISIBLE);
                     proteinsInfo.setText("All proteins " + String.valueOf(Math.round(AllP*10.0)/10.0)+" out of " +String.valueOf(Math.round((proteins*countP)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllP*100)/(proteins*countP))*10.0)/10.0)+" % of the norm)");
                     fatsInfo.setText("All fats " + String.valueOf(Math.round(AllF*10.0)/10.0)+" out of " +String.valueOf(Math.round((fats*countF)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllF*100)/(fats*countF))*10.0)/10.0)+" % of the norm)");
                     carbsInfo.setText("All carbs " + String.valueOf(Math.round(AllC*10.0)/10.0)+" out of " +String.valueOf(Math.round((carbs*countC)*10.0)/10.0)+ "("+ String.valueOf(Math.round(((AllC*100)/(carbs*countC))*10.0)/10.0)+" % of the norm)");
