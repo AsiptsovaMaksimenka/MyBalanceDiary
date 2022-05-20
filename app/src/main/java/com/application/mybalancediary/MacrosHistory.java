@@ -101,7 +101,7 @@ public class MacrosHistory extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                if (UserProteins.size() < 7 && UserFats.size() < 7 && UserCarbs.size() < 7) {
+                if (UserProteins.size() < 8 && UserFats.size() < 8 && UserCarbs.size() < 8) {
                     btnLast7.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
@@ -139,8 +139,6 @@ public class MacrosHistory extends Fragment {
                     seriesF.setDrawDataPoints(true);
                     seriesF.setDrawBackground(true);
                     seriesF.setThickness(10);
-                    String[] arr = {"1", "2", "3", "4", "5", "6", "7"};
-                    List<String> dataString = Arrays.asList(arr);
                     List<Float> dataFloat = new ArrayList<>();
                     List<Float> dataFloatC = new ArrayList<>();
                     List<Float> dataFloatF = new ArrayList<>();
@@ -153,23 +151,24 @@ public class MacrosHistory extends Fragment {
                     dataFloat.addAll(UserProteins);
                     dataFloatC.addAll(UserCarbs);
                     dataFloatF.addAll(UserFats);
-                    for (int i = 0; i < 7; i++) {
-                        AllP += dataFloat.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloat.get(i);
-                        seriesP.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                    int number_of_values_in_the_graph=7;
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        int index=dataFloat.size()-i;
+                        AllP += dataFloat.get(index);
+                        float y = dataFloat.get(index);
+                        seriesP.appendData(new DataPoint(i+1, y), false, 7);
                     }
-                    for (int i = 0; i < 7; i++) {
-                        AllC += dataFloatC.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloatC.get(i);
-                        seriesC.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        int index=dataFloat.size()-i;
+                        AllC += dataFloatC.get(index);
+                        float y = dataFloatC.get(index);
+                        seriesC.appendData(new DataPoint(i+1, y), false, 7);
                     }
-                    for (int i = 0; i < 7; i++) {
-                        AllF += dataFloatF.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloatF.get(i);
-                        seriesF.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        int index=dataFloat.size()-i;
+                        AllF += dataFloatF.get(index);
+                        float y = dataFloatF.get(index);
+                        seriesF.appendData(new DataPoint(i+1, y), false, 7);
                     }
                     root.findViewById(R.id.red).setVisibility(View.VISIBLE);
                     root.findViewById(R.id.green).setVisibility(View.VISIBLE);
@@ -202,7 +201,7 @@ public class MacrosHistory extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                if (UserProteins.size() < 30 && UserFats.size() < 30 && UserCarbs.size() < 30) {
+                if (UserProteins.size() < 31 && UserFats.size() < 31 && UserCarbs.size() < 31) {
                     btnLast30.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
@@ -247,8 +246,6 @@ public class MacrosHistory extends Fragment {
                     seriesF.setDrawDataPoints(true);
                     seriesF.setDrawBackground(true);
                     seriesF.setThickness(10);
-                    String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
-                    List<String> dataString = Arrays.asList(arr);
                     List<Float> dataFloat = new ArrayList<>();
                     List<Float> dataFloatC = new ArrayList<>();
                     List<Float> dataFloatF = new ArrayList<>();
@@ -261,23 +258,24 @@ public class MacrosHistory extends Fragment {
                     dataFloat.addAll(UserProteins);
                     dataFloatC.addAll(UserCarbs);
                     dataFloatF.addAll(UserFats);
-                    for (int i = 0; i < 30; i++) {
+                    int number_of_values_if_the_graph=30;
+                    for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                        int index=dataFloat.size()-i;
                         AllP += dataFloat.get(i);
-                        String x = dataString.get(i);
                         float y = dataFloat.get(i);
-                        seriesP.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                        seriesP.appendData(new DataPoint(i+1, y), false, 7);
                     }
-                    for (int i = 0; i < 30; i++) {
-                        AllC += dataFloatC.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloatC.get(i);
-                        seriesC.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                    for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                        int index=dataFloat.size()-i;
+                        AllC += dataFloatC.get(index);
+                        float y = dataFloatC.get(index);
+                        seriesC.appendData(new DataPoint(i+1, y), false, 7);
                     }
-                    for (int i = 0; i < 30; i++) {
-                        AllF += dataFloatF.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloatF.get(i);
-                        seriesF.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                    for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                        int index=dataFloat.size()-i;
+                        AllF += dataFloatF.get(index);
+                        float y = dataFloatF.get(index);
+                        seriesF.appendData(new DataPoint(i+1, y), false, 7);
                     }
                     root.findViewById(R.id.red).setVisibility(View.VISIBLE);
                     root.findViewById(R.id.green).setVisibility(View.VISIBLE);
@@ -347,8 +345,6 @@ public class MacrosHistory extends Fragment {
                     seriesF.setDrawDataPoints(true);
                     seriesF.setDrawBackground(true);
                     seriesF.setThickness(10);
-                    String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
-                    List<String> dataString = Arrays.asList(arr);
                     List<Float> dataFloat = new ArrayList<>();
                     List<Float> dataFloatC = new ArrayList<>();
                     List<Float> dataFloatF = new ArrayList<>();
@@ -364,26 +360,27 @@ public class MacrosHistory extends Fragment {
                     dataFloat.addAll(UserProteins);
                     dataFloatC.addAll(UserCarbs);
                     dataFloatF.addAll(UserFats);
-                    for (int i = 0; i < UserProteins.size(); i++) {
-                        AllP += dataFloat.get(i);
-                        String x = dataString.get(i);
+                    int number_of_values_if_the_graph=dataFloat.size()-1;
+                    for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                        int index=dataFloat.size()-i;
+                        AllP += dataFloat.get(index);
                         countP++;
-                        float y = dataFloat.get(i);
-                        seriesP.appendData(new DataPoint(Double.parseDouble(x), y), false, 10);
+                        float y = dataFloat.get(index);
+                        seriesP.appendData(new DataPoint(i+1, y), false, 10);
                     }
-                    for (int i = 0; i < UserCarbs.size(); i++) {
-                        AllC += dataFloatC.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloatC.get(i);
+                    for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                        int index=dataFloat.size()-i;
+                        AllC += dataFloatC.get(index);
+                        float y = dataFloatC.get(index);
                         countC++;
-                        seriesC.appendData(new DataPoint(Double.parseDouble(x), y), false, 10);
+                        seriesC.appendData(new DataPoint(i+1, y), false, 10);
                     }
-                    for (int i = 0; i < UserFats.size(); i++) {
-                        AllF += dataFloatF.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloatF.get(i);
+                    for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                        int index=dataFloat.size()-i;
+                        AllF += dataFloatF.get(index);
+                        float y = dataFloatF.get(index);
                         countF++;
-                        seriesF.appendData(new DataPoint(Double.parseDouble(x), y), false, 10);
+                        seriesF.appendData(new DataPoint(i+1, y), false, 10);
                     }
                     root.findViewById(R.id.red).setVisibility(View.VISIBLE);
                     root.findViewById(R.id.green).setVisibility(View.VISIBLE);

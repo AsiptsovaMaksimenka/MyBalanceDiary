@@ -89,7 +89,7 @@ public class CaloriesHistory extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                if (UserCalories.size() < 7) {
+                if (UserCalories.size() < 8) {
                     btnLast7.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
@@ -114,19 +114,18 @@ public class CaloriesHistory extends Fragment {
                     series.setDrawDataPoints(true);
                     series.setDrawBackground(true);
                     series.setThickness(10);
-                    String[] arr = {"1", "2", "3", "4", "5", "6", "7"};
-                    List<String> dataString = Arrays.asList(arr);
                     List<Float> dataFloat = new ArrayList<>();
                     dataFloat.clear();
                     AllCalories = 0.0f;
                     dataFloat.addAll(UserCalories);
-                    for (int i = 0; i < 7; i++) {
-                        AllCalories += dataFloat.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloat.get(i);
-                        series.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                    int number_of_values_in_the_graph=7;
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        int index=dataFloat.size()-i;
+                        AllCalories += dataFloat.get(index);
+                        float y = dataFloat.get(index);
+                        series.appendData(new DataPoint(i+1, y), false, 7);
                     }
-                    CalSum.setText("You drank " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" ml of water out of " +String.valueOf(Math.round((caloriesDaily*7)*10.0)/10.0)+"ml");
+                    CalSum.setText("You ate " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" kcal out of " +String.valueOf(Math.round((caloriesDaily*7)*10.0)/10.0)+"kcal");
                     CalPer.setText("This is about "+ String.valueOf(Math.round(((AllCalories*100)/(caloriesDaily*7))*10.0)/10.0)+" % of the norm");
                     if(AllCalories>=(caloriesDaily*7))
                         root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
@@ -149,7 +148,7 @@ public class CaloriesHistory extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                if (UserCalories.size() < 30) {
+                if (UserCalories.size() < 31) {
                     btnLast30.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
@@ -181,13 +180,14 @@ public class CaloriesHistory extends Fragment {
                     dataFloat.clear();
                     AllCalories = 0.0f;
                     dataFloat.addAll(UserCalories);
-                    for (int i = 0; i < 30; i++) {
-                        AllCalories += dataFloat.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloat.get(i);
-                        series.appendData(new DataPoint(Double.parseDouble(x), y), true, 30);
+                    int number_of_values_if_the_graph=30;
+                    for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                        int index=dataFloat.size()-i;
+                        AllCalories += dataFloat.get(index);
+                        float y = dataFloat.get(index);
+                        series.appendData(new DataPoint(i+1, y), true, 30);
                     }
-                    CalSum.setText("You drank " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" ml of water out of " +String.valueOf(Math.round((caloriesDaily*30)*10.0)/10.0)+"ml");
+                    CalSum.setText("You ate " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" kcal out of " +String.valueOf(Math.round((caloriesDaily*30)*10.0)/10.0)+"kcal");
                     CalPer.setText("This is about "+ String.valueOf(Math.round(((AllCalories*100)/(caloriesDaily*30))*10.0)/10.0)+" % of the norm");
                     if(AllCalories>=(caloriesDaily*30))
                         root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
@@ -236,21 +236,20 @@ public class CaloriesHistory extends Fragment {
                     series.setDrawDataPoints(true);
                     series.setDrawBackground(true);
                     series.setThickness(10);
-                    String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
-                    List<String> dataString = Arrays.asList(arr);
                     List<Float> dataFloat = new ArrayList<>();
                     dataFloat.clear();
                     AllCalories = 0.0f;
                     count=0;
                     dataFloat.addAll(UserCalories);
-                    for (int i = 0; i < dataFloat.size(); i++) {
-                        AllCalories += dataFloat.get(i);
+                    int number_of_values_if_the_graph=dataFloat.size()-1;
+                    for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                        int index=dataFloat.size()-i;
+                        AllCalories += dataFloat.get(index);
+                        float y = dataFloat.get(index);
                         count++;
-                        String x = dataString.get(i);
-                        float y = dataFloat.get(i);
-                        series.appendData(new DataPoint(Double.parseDouble(x), y), true, 10);
+                        series.appendData(new DataPoint(i+1, y), true, 10);
                     }
-                    CalSum.setText("You drank " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" ml of water out of " +String.valueOf(Math.round((caloriesDaily*count)*10.0)/10.0)+"ml");
+                    CalSum.setText("You ate " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" kcal out of " +String.valueOf(Math.round((caloriesDaily*count)*10.0)/10.0)+"kcal");
                     CalPer.setText("This is about "+ String.valueOf(Math.round(((AllCalories*100)/(caloriesDaily*count))*10.0)/10.0)+" % of the norm");
                     if(AllCalories>=(caloriesDaily*count))
                         root.findViewById(R.id.achive).setVisibility(View.VISIBLE);

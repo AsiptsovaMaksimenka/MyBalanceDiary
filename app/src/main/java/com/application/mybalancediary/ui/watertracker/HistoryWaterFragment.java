@@ -94,7 +94,7 @@ public class HistoryWaterFragment extends Fragment {
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onClick(View v) {
-                    if (UserList.size() < 7) {
+                    if (UserList.size() < 8) {
                         btnLast7.setEnabled(false);
                         Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                         root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
@@ -119,17 +119,16 @@ public class HistoryWaterFragment extends Fragment {
                         series.setDrawDataPoints(true);
                         series.setDrawBackground(true);
                         series.setThickness(10);
-                        String[] arr = {"1", "2", "3", "4", "5", "6", "7"};
-                        List<String> dataString = Arrays.asList(arr);
                         List<Float> dataFloat = new ArrayList<>();
                         dataFloat.clear();
                         AllWater = 0.0f;
                         dataFloat.addAll(UserList);
-                        for (int i = 0; i < 7; i++) {
-                            AllWater += dataFloat.get(i);
-                            String x = dataString.get(i);
-                            float y = dataFloat.get(i);
-                            series.appendData(new DataPoint(Double.parseDouble(x), y), false, 7);
+                        int number_of_values_in_the_graph=7;
+                        for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                            int index=dataFloat.size()-i;
+                            AllWater += dataFloat.get(index);
+                            float y = dataFloat.get(index);
+                            series.appendData(new DataPoint(i+1, y), false, 7);
                         }
                         summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily*7)+"ml");
                         percent.setText("This is about "+ String.valueOf(Math.round(((AllWater*100)/(waterDaily*7))*10.0)/10.0)+" % of the norm");
@@ -181,19 +180,18 @@ public class HistoryWaterFragment extends Fragment {
                         series.setDrawDataPoints(true);
                         series.setDrawBackground(true);
                         series.setThickness(10);
-                        String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
-                        List<String> dataString = Arrays.asList(arr);
                         List<Float> dataFloat = new ArrayList<>();
                         dataFloat.clear();
                         AllWater = 0.0f;
                         count=0;
                         dataFloat.addAll(UserList);
-                        for (int i = 0; i < dataFloat.size()-1; i++) {
-                            AllWater += dataFloat.get(i);
+                        int number_of_values_if_the_graph=dataFloat.size()-1;
+                        for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                            int index=dataFloat.size()-i;
+                            AllWater += dataFloat.get(index);
+                            float y = dataFloat.get(index);
                             count++;
-                            String x = dataString.get(i);
-                            float y = dataFloat.get(i);
-                            series.appendData(new DataPoint(Double.parseDouble(x), y), true, 10);
+                            series.appendData(new DataPoint(i+1, y), true, 10);
                         }
                         summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily*count)+"ml");
                         percent.setText("This is about "+ String.valueOf(Math.round(((AllWater*100)/(waterDaily*count))*10.0)/10.0)+" % of the norm");
@@ -244,22 +242,21 @@ public class HistoryWaterFragment extends Fragment {
                     series.setDrawDataPoints(true);
                     series.setDrawBackground(true);
                     series.setThickness(10);
-                    String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
-                    List<String> dataString = Arrays.asList(arr);
                     List<Float> dataFloat = new ArrayList<>();
                     dataFloat.clear();
                     AllWater = 0.0f;
                     dataFloat.addAll(UserList);
-                    for (int i = 0; i < 30; i++) {
-                        AllWater += dataFloat.get(i);
-                        String x = dataString.get(i);
-                        float y = dataFloat.get(i);
-                        summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily)+"ml");
-                        percent.setText("This is about "+ String.valueOf(Math.round(((AllWater*100)/(waterDaily*30))*10.0)/10.0)+" % of the norm");
-                        if(AllWater>=(waterDaily*30))
-                            root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
-                        series.appendData(new DataPoint(Double.parseDouble(x), y), true, 30);
+                    int number_of_values_if_the_graph=30;
+                    for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
+                        int index=dataFloat.size()-i;
+                        AllWater += dataFloat.get(index);
+                        float y = dataFloat.get(index);
+                        series.appendData(new DataPoint(i+1, y), true, 30);
                     }
+                    summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily)+"ml");
+                    percent.setText("This is about "+ String.valueOf(Math.round(((AllWater*100)/(waterDaily*30))*10.0)/10.0)+" % of the norm");
+                    if(AllWater>=(waterDaily*30))
+                        root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
                     graph.addSeries(series);
                     graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                         @Override
