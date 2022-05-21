@@ -89,11 +89,11 @@ public class WeightFragment extends Fragment {
             public void onClick(View view) {
                 if(statGoalWt.length()==0)
                 {
-                    openWeightFragment_GoalWeight();
+                    openGoalWeightMissingAlertDialog();
                 }
                 else
                 {
-                    openWeightFragment_InputWeightDate();
+                    openActivity_InputWeightDate();
                 }
             }
         });
@@ -102,11 +102,21 @@ public class WeightFragment extends Fragment {
         return root;
     }
 
-    private void openWeightFragment_InputWeightDate() {
+    private void openActivity_InputWeightDate() {
+        Intent intent =  new Intent(getContext(), InputWeightDateActivity.class);
+        startActivityForResult(intent,1);
     }
 
-    private void openWeightFragment_GoalWeight() {
+    private void openGoalWeightMissingAlertDialog() {
+//        GoalWeightMissingAlertDialog goalWeightMissingAlertDialog = new GoalWeightMissingAlertDialog();
+//        goalWeightMissingAlertDialog.show(getContext(),"goalalerttag");
+
+        Intent intent=new Intent(getContext(), GoalWeightMissingAlertDialog.class);
+        startActivityForResult(intent, 1);
+
+
     }
+
 
     private void openWeightFragment_Setting() {
         Intent intent = new Intent(getContext(),WeightFragmentSetting.class);

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.weight.InputWeightDateActivity">
+
+    <Button
+        android:id="@+id/buttonSubmitWeightDate"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="124dp"
+        android:background="@color/purple_500"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dateBox"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/dateBox" />
+
+    <TextView
+        android:id="@+id/dateBox"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="96dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_horizontal|center_vertical"
+        android:hint="Enter date"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/weightBox"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="120dp"
+        android:background="@android:color/transparent"
+        android:digits="0123456789."
+        android:ems="10"
+        android:gravity="center_horizontal|center_vertical"
+        android:hint="Enter your weight"
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="@+id/dateBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/dateBox"
+        app:layout_constraintTop_toBottomOf="@+id/dateBox" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

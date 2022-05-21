@@ -19,9 +19,13 @@
         <activity
             android:name=".ui.steps.SettingsSteps"
             android:exported="false" />
+
+        <activity android:name=".ui.weight.InputWeightDateActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.weight.WeightFragmentSetting"
             android:exported="false" />
+
         <activity
             android:name=".Breakfast_Items"
             android:exported="false"
