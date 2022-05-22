@@ -3,17 +3,20 @@ package com.application.mybalancediary.ui.weight;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.application.mybalancediary.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -54,13 +57,32 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
 
             }
         });
+        btnDeleteAll = (Button) findViewById(R.id.buttonDeleteAll);
+        btnDeleteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //delete from database
+
+            }
+        });
+
+        textGoalDateBox = (TextView) findViewById(R.id.goalDateBox);
+        textGoalDateBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePickerFragmentObj = new FutureDatePickerFragment();
+                datePickerFragmentObj.show(getSupportFragmentManager(),"date picker frag tag2");
+            }
+        });
+
+        textGoalWeightBox = (TextView) findViewById(R.id.goalWeightBox);
+        textGoalWeightBox.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+
 
     }
 
-    private void openSubmitAlertDialog() {
-        SubmitAlertDialog submitAlertDialogObj = new SubmitAlertDialog();
-        submitAlertDialogObj.show(getSupportFragmentManager(),"submitalerttag2");
-    }
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -72,5 +94,20 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
         String currentDateString = DateFormat.getDateInstance().format(cal.getTime());
         textGoalDateBox = (TextView)findViewById(R.id.goalDateBox);
         textGoalDateBox.setText(currentDateString);
+    }
+
+    private void openSubmitAlertDialog() {
+        SubmitAlertDialog submitAlertDialogObj = new SubmitAlertDialog();
+        submitAlertDialogObj.show(getSupportFragmentManager(),"submitalerttag2");
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        Intent resultIntent = new Intent();
+//        resultIntent.putStringArrayListExtra("result",data);
+        setResult(RESULT_OK,resultIntent);
+        finish();
+
     }
 }

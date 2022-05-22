@@ -182,7 +182,7 @@
         <entry key="app/src/main/res/layout/activity_water_fragment.xml" value="0.5580286168521462" />
         <entry key="app/src/main/res/layout/calendar_cell.xml" value="0.10764944275582573" />
         <entry key="app/src/main/res/layout/f_i_w.xml" value="0.30885416666666665" />
-        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.246697998046875" />
+        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_input_weight.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/fragment_inputweight.xml" value="0.2475372314453125" />
         <entry key="app/src/main/res/layout/fragment_settings_weight.xml" value="0.30885416666666665" />

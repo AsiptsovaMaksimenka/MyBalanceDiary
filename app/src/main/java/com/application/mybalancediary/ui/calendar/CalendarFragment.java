@@ -10,21 +10,26 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 
 import java.util.Calendar;
+import java.util.Date;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.mybalancediary.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.type.DateTime;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 public class CalendarFragment extends Fragment {
 
     private MaterialCalendarView calendarView;
     private Button btnAdd;
-
+    private CalendarFragment calendarFragment;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,4 +50,5 @@ public class CalendarFragment extends Fragment {
     }
 
 
-    }
+
+}
