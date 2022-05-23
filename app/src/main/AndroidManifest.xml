@@ -21,7 +21,6 @@
             android:exported="false" />
 
         <activity android:name=".ui.weight.InputWeightDateActivity"/>
-        <activity android:name=".ui.weight.GoalWeightMissingAlertDialog"/>
         <activity
             android:name=".ui.weight.WeightFragmentSetting"
             android:exported="false" />

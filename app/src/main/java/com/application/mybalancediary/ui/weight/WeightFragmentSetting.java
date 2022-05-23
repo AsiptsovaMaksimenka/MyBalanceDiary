@@ -1,5 +1,6 @@
 package com.application.mybalancediary.ui.weight;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.application.mybalancediary.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +32,16 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
     private Button btnUpdateGoal;
     private Button btnDeleteAll;
     private Intent intent;
+//    Date date = new Date();
+//
+//    String today=new SimpleDateFormat("yyyy-MM-dd").format(date);
+
+    private DatabaseReference getWeightRef(String ref) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        String userId = user.getUid();
+        return FirebaseDatabase.getInstance().getReference().child("Weight").child(userId).child(ref);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +65,11 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
                 {
                     float weight=Float.parseFloat(textGoalWeightBox.getText().toString());
                     SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+                    getWeightRef("Goal_Weight").setValue(String.valueOf(weight));
                     Date dateObj = new Date(textGoalDateBox.getText().toString());
                     String formattedDate = simple.format(dateObj);
-
+                    getWeightRef("Goal_Date").setValue(formattedDate);
                 }
-
             }
         });
         btnDeleteAll = (Button) findViewById(R.id.buttonDeleteAll);

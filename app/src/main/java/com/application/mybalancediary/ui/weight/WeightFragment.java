@@ -14,6 +14,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.application.mybalancediary.R;
 import com.application.mybalancediary.databinding.FragmentProfileBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
@@ -40,16 +47,55 @@ public class WeightFragment extends Fragment {
     private TextView statCurWt;
     private TextView statNetWt;
     private TextView statGoalWt;
+    public float currentw;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
         final View root = inflater.inflate(R.layout.fragment_weight_track, container, false);
         statCurWt=root.findViewById(R.id.statCurWt);
         statNetWt=root.findViewById(R.id.statNetWt);
         statGoalWt=root.findViewById(R.id.statGoalWt);
 
+
         updateStatsAndChart();
         grahDate(graph, series, 7);
+
+        FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
+                .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            currentw = Float.valueOf(String.valueOf(ds.child("weight").getValue()));
+                            statCurWt.setText(String.valueOf(currentw));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference().child("Weight").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    String goal_date = String.valueOf(ds.child("Goal_Date").getValue());
+                    String goal_weight = String.valueOf(ds.child("Goal_Weight").getValue());
+                    statGoalWt.setText(goal_weight);
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         btnAlltime=root.findViewById((R.id.buttonAllTime));
         btnAlltime.setOnClickListener(new View.OnClickListener() {
@@ -108,11 +154,12 @@ public class WeightFragment extends Fragment {
     }
 
     private void openGoalWeightMissingAlertDialog() {
-//        GoalWeightMissingAlertDialog goalWeightMissingAlertDialog = new GoalWeightMissingAlertDialog();
-//        goalWeightMissingAlertDialog.show(getContext(),"goalalerttag");
-
-        Intent intent=new Intent(getContext(), GoalWeightMissingAlertDialog.class);
-        startActivityForResult(intent, 1);
+        GoalWeightMissingAlertDialog goalWeightMissingAlertDialog = new GoalWeightMissingAlertDialog();
+//        goalWeightMissingAlertDialog.show(GoalWeightMissingAlertDialog.class,"goalalerttag");
+//        goalWeightMissingAlertDialog(getContext(),GoalWeightMissingAlertDialog.class);
+//
+//        Intent intent=new Intent(getContext(), GoalWeightMissingAlertDialog.class);
+//        startActivityForResult(intent, 1);
 
 
     }
