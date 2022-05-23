@@ -54,7 +54,7 @@ public class WeightFragment extends Fragment {
     private TextView statCurWt;
     private TextView statNetWt;
     private TextView statGoalWt;
-    public float currentw;
+    public float currentw,ChangeWeight;
     List<Float> UserList = new ArrayList<Float>();
 
 
@@ -82,6 +82,7 @@ public class WeightFragment extends Fragment {
                         DataSnapshot item = items.next();
                         String total = item.child("New_Weight").getValue().toString();
                         UserList.add(Float.parseFloat(total));
+                        ChangeWeight=UserList.get(UserList.size()-1);
                     }
                 }
             }
@@ -100,6 +101,10 @@ public class WeightFragment extends Fragment {
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             currentw = Float.valueOf(String.valueOf(ds.child("weight").getValue()));
                             statCurWt.setText(String.valueOf(currentw));
+                            String tmp=String.valueOf(currentw-ChangeWeight);
+                            statNetWt.setText(tmp);
+
+
                         }
                     }
                     @Override
@@ -107,6 +112,7 @@ public class WeightFragment extends Fragment {
 
                     }
                 });
+
 
         FirebaseDatabase.getInstance().getReference().child("Weight").addValueEventListener(new ValueEventListener() {
             @Override
