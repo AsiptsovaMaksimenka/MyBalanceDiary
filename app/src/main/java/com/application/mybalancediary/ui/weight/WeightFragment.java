@@ -69,7 +69,8 @@ public class WeightFragment extends Fragment {
         statGoalWt=root.findViewById(R.id.statGoalWt);
         graph = root.findViewById(R.id.graph);
         graph.setBackgroundColor(Color.WHITE);
-
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Weight,kg");
 
         FirebaseDatabase.getInstance().getReference("Input_Weight").addValueEventListener(new ValueEventListener() {
             @Override
