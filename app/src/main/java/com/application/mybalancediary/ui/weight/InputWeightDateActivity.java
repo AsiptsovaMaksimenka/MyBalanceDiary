@@ -15,6 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.application.mybalancediary.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,6 +33,17 @@ public class InputWeightDateActivity extends AppCompatActivity implements DatePi
     private Button btnLogEntry;
     private Intent intent;
 
+    Date date = new Date();
+//    String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
+    String today="2022-05-1";
+
+    private DatabaseReference getWeightRef(String ref) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        String userId = user.getUid();
+        return FirebaseDatabase.getInstance().getReference().child("Input_Weight").child(today).child(userId).child(ref);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +52,6 @@ public class InputWeightDateActivity extends AppCompatActivity implements DatePi
 
         intent = getIntent();
 
-
-
         btnLogEntry = (Button) findViewById(R.id.buttonSubmitWeightDate);
         btnLogEntry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,20 +59,16 @@ public class InputWeightDateActivity extends AppCompatActivity implements DatePi
 
                 String dateString = textDateBox.getText().toString();
                 String weightString = textWeightBox.getText().toString();
-                String timeString = textTimeBox.getText().toString();
-                if(dateString.length() == 0 || weightString.length() == 0 || timeString.length() == 0){
+                if(dateString.length() == 0 || weightString.length() == 0 ){
                     openSubmitAlertDialog();
                 }
                 else{
                     float weight = Float.parseFloat(textWeightBox.getText().toString());
-                    int time = Integer.parseInt(textTimeBox.getText().toString());
                     SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
                     Date dateObj = new Date(textDateBox.getText().toString());
                     String formattedDate = simple.format(dateObj);
-
-
-                    Log.d("outputformat",formattedDate);
-                    Log.d("outputlogentry",("@START@" + dateString+ "@" + weight + "@" + time + "@END@"));
+                    getWeightRef("New_Weight").setValue(Math.round(weight*10.0)/10.0);
+                    getWeightRef("New_Date").setValue(formattedDate);
                 }
 
 

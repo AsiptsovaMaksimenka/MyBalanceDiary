@@ -1,12 +1,15 @@
 package com.application.mybalancediary.ui.weight;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,6 +32,10 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 public class WeightFragment extends Fragment {
 
@@ -48,6 +55,7 @@ public class WeightFragment extends Fragment {
     private TextView statNetWt;
     private TextView statGoalWt;
     public float currentw;
+    List<Float> UserList = new ArrayList<Float>();
 
 
 
@@ -59,10 +67,29 @@ public class WeightFragment extends Fragment {
         statCurWt=root.findViewById(R.id.statCurWt);
         statNetWt=root.findViewById(R.id.statNetWt);
         statGoalWt=root.findViewById(R.id.statGoalWt);
+        graph = root.findViewById(R.id.graph);
+        graph.setBackgroundColor(Color.WHITE);
 
 
-        updateStatsAndChart();
-        grahDate(graph, series, 7);
+        FirebaseDatabase.getInstance().getReference("Input_Weight").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot parentDS : dataSnapshot.getChildren()) {
+                    Iterator<DataSnapshot> items = parentDS.getChildren().iterator();
+                    int counter = 0;
+                    while (items.hasNext()) {
+                        DataSnapshot item = items.next();
+                        String total = item.child("New_Weight").getValue().toString();
+                        UserList.add(Float.parseFloat(total));
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
 
         FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
                 .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
@@ -99,25 +126,156 @@ public class WeightFragment extends Fragment {
 
         btnAlltime=root.findViewById((R.id.buttonAllTime));
         btnAlltime.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(View view) {
-                grahDate(graph, series, -1);
+            public void onClick(View v) {
+                if (UserList.size() < 1) {
+                    btnAlltime.setEnabled(false);
+                    Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    graph.removeAllSeries();
+                    graph.setBackgroundColor(Color.WHITE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitle("All time");
+                    graph.getGridLabelRenderer().setVerticalAxisTitle("Weight,kg");
+                    graph.getGridLabelRenderer().setTextSize(30);
+                    graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                    graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                    series = new LineGraphSeries<DataPoint>();
+                    series.setColor(Color.BLUE);
+                    series.setDrawDataPoints(true);
+                    series.setDrawBackground(true);
+                    series.setThickness(10);
+                    List<Float> dataFloat = new ArrayList<>();
+                    dataFloat.clear();
+                    dataFloat.addAll(UserList);
+                    int number_of_values_in_the_graph=dataFloat.size()-1;
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        int index=dataFloat.size()-i;
+
+                        float y = dataFloat.get(index);
+                        series.appendData(new DataPoint(i+1, y), false, 10);
+                    }
+                    graph.addSeries(series);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                return format.format(new Date((long) value));
+                            } else {
+                                return super.formatLabel(value, isValueX);
+                            }
+                        }
+                    });
+                }
             }
         });
 
         btnLast30=root.findViewById(R.id.buttonLast30);
         btnLast30.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(View view) {
-                grahDate(graph, series, 30);
+            public void onClick(View v) {
+                if (UserList.size() < 32) {
+                    btnLast30.setEnabled(false);
+                    Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
+
+
+                } else {
+                    graph.removeAllSeries();
+                    graph.setBackgroundColor(Color.WHITE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 30 days");
+                    graph.getGridLabelRenderer().setVerticalAxisTitle("Weight,kg");
+                    graph.getGridLabelRenderer().setTextSize(30);
+                    graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                    graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                    series = new LineGraphSeries<DataPoint>();
+                    series.setColor(Color.BLUE);
+                    series.setDrawDataPoints(true);
+                    series.setDrawBackground(true);
+                    series.setThickness(10);
+                    List<Float> dataFloat = new ArrayList<>();
+                    dataFloat.clear();
+                    dataFloat.addAll(UserList);
+                    int number_of_values_in_the_graph=30;
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        int index=dataFloat.size()-i;
+
+                        float y = dataFloat.get(index);
+                        series.appendData(new DataPoint(i+1, y), false, 7);
+                    }
+                    graph.addSeries(series);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                return format.format(new Date((long) value));
+                            } else {
+                                return super.formatLabel(value, isValueX);
+                            }
+                        }
+                    });
+                }
             }
         });
 
         btnLast7=root.findViewById(R.id.buttonLast7);
         btnLast7.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(View view) {
-                grahDate(graph, series, 7);
+            public void onClick(View v) {
+                if (UserList.size() < 8) {
+                    btnLast7.setEnabled(false);
+                    Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
+
+
+                } else {
+                  graph.removeAllSeries();
+                    graph.setBackgroundColor(Color.WHITE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitle("The last 7 days");
+                    graph.getGridLabelRenderer().setVerticalAxisTitle("Weight,kg");
+                    graph.getGridLabelRenderer().setTextSize(30);
+                    graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+                    graph.getGridLabelRenderer().setGridColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
+                    graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                    series = new LineGraphSeries<DataPoint>();
+                    series.setColor(Color.BLUE);
+                    series.setDrawDataPoints(true);
+                    series.setDrawBackground(true);
+                    series.setThickness(10);
+                    List<Float> dataFloat = new ArrayList<>();
+                    dataFloat.clear();
+                    dataFloat.addAll(UserList);
+                    int number_of_values_in_the_graph=7;
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        int index=dataFloat.size()-i;
+
+                        float y = dataFloat.get(index);
+                        series.appendData(new DataPoint(i+1, y), false, 7);
+                    }
+                    graph.addSeries(series);
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                return format.format(new Date((long) value));
+                            } else {
+                                return super.formatLabel(value, isValueX);
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -160,20 +318,12 @@ public class WeightFragment extends Fragment {
 //
 //        Intent intent=new Intent(getContext(), GoalWeightMissingAlertDialog.class);
 //        startActivityForResult(intent, 1);
-
-
     }
-
 
     private void openWeightFragment_Setting() {
         Intent intent = new Intent(getContext(),WeightFragmentSetting.class);
         startActivityForResult(intent, 2);
     }
 
-    private void grahDate(GraphView graph, LineGraphSeries<DataPoint> series, int i) {
-    }
 
-
-    private void updateStatsAndChart() {
-    }
 }
