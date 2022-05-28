@@ -34,7 +34,7 @@ import java.util.List;
 
 public class CaloriesHistory extends Fragment {
 
-    LineGraphSeries<DataPoint> series;
+    LineGraphSeries<DataPoint> series,seriesGoal;
     GraphView graph;
     Button btnLast30,btnLast7,btnAll;
     Float AllCalories=0.0f,caloriesDaily=0.0f;
@@ -109,6 +109,11 @@ public class CaloriesHistory extends Fragment {
                     graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLUE);
                     graph.getGridLabelRenderer().setHorizontalAxisTitleColor(Color.BLUE);
                     graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLUE);
+                    seriesGoal = new LineGraphSeries<DataPoint>();
+                    seriesGoal.setColor(Color.GREEN);
+                    seriesGoal.setDrawDataPoints(true);
+                    seriesGoal.setDrawBackground(true);
+                    seriesGoal.setThickness(8);
                     series = new LineGraphSeries<DataPoint>();
                     series.setColor(Color.BLUE);
                     series.setDrawDataPoints(true);
@@ -125,11 +130,17 @@ public class CaloriesHistory extends Fragment {
                         float y = dataFloat.get(index);
                         series.appendData(new DataPoint(i+1, y), false, 7);
                     }
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        float y = caloriesDaily;
+                        seriesGoal.appendData(new DataPoint(i+1, y), false, 7);
+                    }
                     CalSum.setText("You ate " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" kcal out of " +String.valueOf(Math.round((caloriesDaily*7)*10.0)/10.0)+"kcal");
                     CalPer.setText("This is about "+ String.valueOf(Math.round(((AllCalories*100)/(caloriesDaily*7))*10.0)/10.0)+" % of the norm");
                     if(AllCalories>=(caloriesDaily*7))
                         root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
                     graph.addSeries(series);
+                    graph.addSeries(seriesGoal);
+
                     graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                         @Override
                         public String formatLabel(double value, boolean isValueX) {
@@ -174,6 +185,11 @@ public class CaloriesHistory extends Fragment {
                     series.setDrawDataPoints(true);
                     series.setDrawBackground(true);
                     series.setThickness(10);
+                    seriesGoal = new LineGraphSeries<DataPoint>();
+                    seriesGoal.setColor(Color.GREEN);
+                    seriesGoal.setDrawDataPoints(true);
+                    seriesGoal.setDrawBackground(true);
+                    seriesGoal.setThickness(8);
                     String[] arr = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"};
                     List<String> dataString = Arrays.asList(arr);
                     List<Float> dataFloat = new ArrayList<>();
@@ -187,6 +203,11 @@ public class CaloriesHistory extends Fragment {
                         float y = dataFloat.get(index);
                         series.appendData(new DataPoint(i+1, y), true, 30);
                     }
+                    for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                        float y = caloriesDaily;
+                        seriesGoal.appendData(new DataPoint(i+1, y), false, 30);
+                    }
+                    graph.addSeries(seriesGoal);
                     CalSum.setText("You ate " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" kcal out of " +String.valueOf(Math.round((caloriesDaily*30)*10.0)/10.0)+"kcal");
                     CalPer.setText("This is about "+ String.valueOf(Math.round(((AllCalories*100)/(caloriesDaily*30))*10.0)/10.0)+" % of the norm");
                     if(AllCalories>=(caloriesDaily*30))
@@ -236,6 +257,11 @@ public class CaloriesHistory extends Fragment {
                     series.setDrawDataPoints(true);
                     series.setDrawBackground(true);
                     series.setThickness(10);
+                    seriesGoal = new LineGraphSeries<DataPoint>();
+                    seriesGoal.setColor(Color.GREEN);
+                    seriesGoal.setDrawDataPoints(true);
+                    seriesGoal.setDrawBackground(true);
+                    seriesGoal.setThickness(8);
                     List<Float> dataFloat = new ArrayList<>();
                     dataFloat.clear();
                     AllCalories = 0.0f;
@@ -249,6 +275,11 @@ public class CaloriesHistory extends Fragment {
                         count++;
                         series.appendData(new DataPoint(i+1, y), true, 10);
                     }
+                    for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                        float y = caloriesDaily;
+                        seriesGoal.appendData(new DataPoint(i+1, y), false, 10);
+                    }
+                    graph.addSeries(seriesGoal);
                     CalSum.setText("You ate " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" kcal out of " +String.valueOf(Math.round((caloriesDaily*count)*10.0)/10.0)+"kcal");
                     CalPer.setText("This is about "+ String.valueOf(Math.round(((AllCalories*100)/(caloriesDaily*count))*10.0)/10.0)+" % of the norm");
                     if(AllCalories>=(caloriesDaily*count))

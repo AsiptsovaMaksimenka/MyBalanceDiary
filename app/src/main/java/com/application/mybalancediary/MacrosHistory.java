@@ -35,7 +35,7 @@ import java.util.List;
 
 public class MacrosHistory extends Fragment {
 
-    LineGraphSeries<DataPoint> seriesP,seriesC,seriesF;
+    LineGraphSeries<DataPoint> seriesP,seriesC,seriesF,seriesGoalP,seriesGoalF,seriesGoalC;
     GraphView graph;
     Button btnLast30,btnLast7,btnAll;
     Float AllP=0.0f,AllC=0.0f,AllF=0.0f,carbs=0f,fats=0f,proteins=0f;
@@ -139,6 +139,21 @@ public class MacrosHistory extends Fragment {
                     seriesF.setDrawDataPoints(true);
                     seriesF.setDrawBackground(true);
                     seriesF.setThickness(10);
+                    seriesGoalP = new LineGraphSeries<DataPoint>();
+                    seriesGoalP.setColor(Color.DKGRAY);
+                    seriesGoalP.setDrawDataPoints(true);
+                    seriesGoalP.setDrawBackground(true);
+                    seriesGoalP.setThickness(8);
+                    seriesGoalC = new LineGraphSeries<DataPoint>();
+                    seriesGoalC.setColor(Color.MAGENTA);
+                    seriesGoalC.setDrawDataPoints(true);
+                    seriesGoalC.setDrawBackground(true);
+                    seriesGoalC.setThickness(8);
+                    seriesGoalF = new LineGraphSeries<DataPoint>();
+                    seriesGoalF.setColor(Color.CYAN);
+                    seriesGoalF.setDrawDataPoints(true);
+                    seriesGoalF.setDrawBackground(true);
+                    seriesGoalF.setThickness(8);
                     List<Float> dataFloat = new ArrayList<>();
                     List<Float> dataFloatC = new ArrayList<>();
                     List<Float> dataFloatF = new ArrayList<>();
@@ -170,6 +185,21 @@ public class MacrosHistory extends Fragment {
                         float y = dataFloatF.get(index);
                         seriesF.appendData(new DataPoint(i+1, y), false, 7);
                     }
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        float y = proteins;
+                        seriesGoalP.appendData(new DataPoint(i+1, y), false, 7);
+                    }
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        float y = carbs;
+                        seriesGoalC.appendData(new DataPoint(i+1, y), false, 7);
+                    }
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                        float y = fats;
+                        seriesGoalF.appendData(new DataPoint(i+1, y), false, 7);
+                    }
+                    graph.addSeries(seriesGoalP);
+                    graph.addSeries(seriesGoalF);
+                    graph.addSeries(seriesGoalC);
                     root.findViewById(R.id.red).setVisibility(View.VISIBLE);
                     root.findViewById(R.id.green).setVisibility(View.VISIBLE);
                     root.findViewById(R.id.blue).setVisibility(View.VISIBLE);
@@ -246,6 +276,21 @@ public class MacrosHistory extends Fragment {
                     seriesF.setDrawDataPoints(true);
                     seriesF.setDrawBackground(true);
                     seriesF.setThickness(10);
+                    seriesGoalP = new LineGraphSeries<DataPoint>();
+                    seriesGoalP.setColor(Color.DKGRAY);
+                    seriesGoalP.setDrawDataPoints(true);
+                    seriesGoalP.setDrawBackground(true);
+                    seriesGoalP.setThickness(8);
+                    seriesGoalC = new LineGraphSeries<DataPoint>();
+                    seriesGoalC.setColor(Color.MAGENTA);
+                    seriesGoalC.setDrawDataPoints(true);
+                    seriesGoalC.setDrawBackground(true);
+                    seriesGoalC.setThickness(8);
+                    seriesGoalF = new LineGraphSeries<DataPoint>();
+                    seriesGoalF.setColor(Color.CYAN);
+                    seriesGoalF.setDrawDataPoints(true);
+                    seriesGoalF.setDrawBackground(true);
+                    seriesGoalF.setThickness(8);
                     List<Float> dataFloat = new ArrayList<>();
                     List<Float> dataFloatC = new ArrayList<>();
                     List<Float> dataFloatF = new ArrayList<>();
@@ -263,20 +308,35 @@ public class MacrosHistory extends Fragment {
                         int index=dataFloat.size()-i;
                         AllP += dataFloat.get(i);
                         float y = dataFloat.get(i);
-                        seriesP.appendData(new DataPoint(i+1, y), false, 7);
+                        seriesP.appendData(new DataPoint(i+1, y), false, 30);
                     }
                     for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
                         int index=dataFloat.size()-i;
                         AllC += dataFloatC.get(index);
                         float y = dataFloatC.get(index);
-                        seriesC.appendData(new DataPoint(i+1, y), false, 7);
+                        seriesC.appendData(new DataPoint(i+1, y), false, 30);
                     }
                     for (int i = 2; i <number_of_values_if_the_graph+2 ; i++) {
                         int index=dataFloat.size()-i;
                         AllF += dataFloatF.get(index);
                         float y = dataFloatF.get(index);
-                        seriesF.appendData(new DataPoint(i+1, y), false, 7);
+                        seriesF.appendData(new DataPoint(i+1, y), false, 30);
                     }
+                    for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                        float y = proteins;
+                        seriesGoalP.appendData(new DataPoint(i+1, y), false, 30);
+                    }
+                    for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                        float y =carbs;
+                        seriesGoalC.appendData(new DataPoint(i+1, y), false, 30);
+                    }
+                    for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                        float y = fats;
+                        seriesGoalF.appendData(new DataPoint(i+1, y), false, 30);
+                    }
+                    graph.addSeries(seriesGoalP);
+                    graph.addSeries(seriesGoalF);
+                    graph.addSeries(seriesGoalC);
                     root.findViewById(R.id.red).setVisibility(View.VISIBLE);
                     root.findViewById(R.id.green).setVisibility(View.VISIBLE);
                     root.findViewById(R.id.blue).setVisibility(View.VISIBLE);
@@ -345,6 +405,21 @@ public class MacrosHistory extends Fragment {
                     seriesF.setDrawDataPoints(true);
                     seriesF.setDrawBackground(true);
                     seriesF.setThickness(10);
+                    seriesGoalP = new LineGraphSeries<DataPoint>();
+                    seriesGoalP.setColor(Color.MAGENTA);
+                    seriesGoalP.setDrawDataPoints(true);
+                    seriesGoalP.setDrawBackground(true);
+                    seriesGoalP.setThickness(8);
+                    seriesGoalC = new LineGraphSeries<DataPoint>();
+                    seriesGoalC.setColor(Color.CYAN);
+                    seriesGoalC.setDrawDataPoints(true);
+                    seriesGoalC.setDrawBackground(true);
+                    seriesGoalC.setThickness(8);
+                    seriesGoalF = new LineGraphSeries<DataPoint>();
+                    seriesGoalF.setColor(Color.DKGRAY);
+                    seriesGoalF.setDrawDataPoints(true);
+                    seriesGoalF.setDrawBackground(true);
+                    seriesGoalF.setThickness(8);
                     List<Float> dataFloat = new ArrayList<>();
                     List<Float> dataFloatC = new ArrayList<>();
                     List<Float> dataFloatF = new ArrayList<>();
@@ -382,6 +457,21 @@ public class MacrosHistory extends Fragment {
                         countF++;
                         seriesF.appendData(new DataPoint(i+1, y), false, 10);
                     }
+                    for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                        float y = proteins;
+                        seriesGoalP.appendData(new DataPoint(i+1, y), false, 10);
+                    }
+                    for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                        float y = carbs;
+                        seriesGoalC.appendData(new DataPoint(i+1, y), false, 10);
+                    }
+                    for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                        float y = fats;
+                        seriesGoalF.appendData(new DataPoint(i+1, y), false, 10);
+                    }
+                    graph.addSeries(seriesGoalP);
+                    graph.addSeries(seriesGoalF);
+                    graph.addSeries(seriesGoalC);
                     root.findViewById(R.id.red).setVisibility(View.VISIBLE);
                     root.findViewById(R.id.green).setVisibility(View.VISIBLE);
                     root.findViewById(R.id.blue).setVisibility(View.VISIBLE);

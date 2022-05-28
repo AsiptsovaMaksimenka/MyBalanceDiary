@@ -36,7 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class HistoryWaterFragment extends Fragment {
-    LineGraphSeries<DataPoint> series;
+    LineGraphSeries<DataPoint> series,seriesGoal;
     GraphView graph;
     Button btnLast30,btnLast7,btnAll;
     Float AllWater=0.0f,waterDaily=0.0f;
@@ -119,6 +119,11 @@ public class HistoryWaterFragment extends Fragment {
                         series.setDrawDataPoints(true);
                         series.setDrawBackground(true);
                         series.setThickness(10);
+                        seriesGoal = new LineGraphSeries<DataPoint>();
+                        seriesGoal.setColor(Color.GREEN);
+                        seriesGoal.setDrawDataPoints(true);
+                        seriesGoal.setDrawBackground(true);
+                        seriesGoal.setThickness(8);
                         List<Float> dataFloat = new ArrayList<>();
                         dataFloat.clear();
                         AllWater = 0.0f;
@@ -130,6 +135,12 @@ public class HistoryWaterFragment extends Fragment {
                             float y = dataFloat.get(index);
                             series.appendData(new DataPoint(i+1, y), false, 7);
                         }
+                        for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+                            float y =waterDaily;
+                            seriesGoal.appendData(new DataPoint(i+1, y), false, 7);
+                        }
+                        graph.addSeries(seriesGoal);
+
                         summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily*7)+"ml");
                         percent.setText("This is about "+ String.valueOf(Math.round(((AllWater*100)/(waterDaily*7))*10.0)/10.0)+" % of the norm");
                         if(AllWater>=(waterDaily*7))
@@ -180,6 +191,11 @@ public class HistoryWaterFragment extends Fragment {
                         series.setDrawDataPoints(true);
                         series.setDrawBackground(true);
                         series.setThickness(10);
+                        seriesGoal = new LineGraphSeries<DataPoint>();
+                        seriesGoal.setColor(Color.GREEN);
+                        seriesGoal.setDrawDataPoints(true);
+                        seriesGoal.setDrawBackground(true);
+                        seriesGoal.setThickness(8);
                         List<Float> dataFloat = new ArrayList<>();
                         dataFloat.clear();
                         AllWater = 0.0f;
@@ -193,6 +209,11 @@ public class HistoryWaterFragment extends Fragment {
                             count++;
                             series.appendData(new DataPoint(i+1, y), true, 10);
                         }
+                        for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                            float y =waterDaily;
+                            seriesGoal.appendData(new DataPoint(i+1, y), false, 10);
+                        }
+                        graph.addSeries(seriesGoal);
                         summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily*count)+"ml");
                         percent.setText("This is about "+ String.valueOf(Math.round(((AllWater*100)/(waterDaily*count))*10.0)/10.0)+" % of the norm");
                         if(AllWater>=(waterDaily*count))
@@ -242,6 +263,11 @@ public class HistoryWaterFragment extends Fragment {
                     series.setDrawDataPoints(true);
                     series.setDrawBackground(true);
                     series.setThickness(10);
+                    seriesGoal = new LineGraphSeries<DataPoint>();
+                    seriesGoal.setColor(Color.GREEN);
+                    seriesGoal.setDrawDataPoints(true);
+                    seriesGoal.setDrawBackground(true);
+                    seriesGoal.setThickness(8);
                     List<Float> dataFloat = new ArrayList<>();
                     dataFloat.clear();
                     AllWater = 0.0f;
@@ -253,6 +279,11 @@ public class HistoryWaterFragment extends Fragment {
                         float y = dataFloat.get(index);
                         series.appendData(new DataPoint(i+1, y), true, 30);
                     }
+                    for (int i = 2;i<number_of_values_if_the_graph+2;i++) {
+                        float y =waterDaily;
+                        seriesGoal.appendData(new DataPoint(i+1, y), false, 30);
+                    }
+                    graph.addSeries(seriesGoal);
                     summary.setText("You drank " + String.valueOf(AllWater)+" ml of water out of " +String.valueOf(waterDaily)+"ml");
                     percent.setText("This is about "+ String.valueOf(Math.round(((AllWater*100)/(waterDaily*30))*10.0)/10.0)+" % of the norm");
                     if(AllWater>=(waterDaily*30))
