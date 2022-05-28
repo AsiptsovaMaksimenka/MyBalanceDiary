@@ -29,16 +29,11 @@ import java.util.HashMap;
 
 public class SettingsFragment extends PreferenceFragment {
 
-    DatabaseReference databaseReference;
-    private FirebaseAuth mAuth ;
-    FirebaseUser currentUser;
-    FirebaseAuth fAuth;
+  //  DatabaseReference databaseReference;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.root_preferences);
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String user_name = prefs.getString("user_name", "");
         String weight_kg = prefs.getString("weight_kg", "");
@@ -51,12 +46,12 @@ public class SettingsFragment extends PreferenceFragment {
     }
 public void updateProfile(String _user_name,String _weight_kg,String _height_kg,String _change_email)
 {
-    String userID = currentUser.getUid();
-    databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-    databaseReference.child(userID).child("name").setValue(_user_name);
-    databaseReference.child(userID).child("weight").setValue(_weight_kg);
-    databaseReference.child(userID).child("height").setValue(_height_kg);
-    databaseReference.child(userID).child("email").setValue(_change_email);
+  //  String userID = currentUser.getUid();
+    //databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+   // databaseReference.child(userID).child("name").setValue(_user_name);
+   // databaseReference.child(userID).child("weight").setValue(_weight_kg);
+   // databaseReference.child(userID).child("height").setValue(_height_kg);
+   // databaseReference.child(userID).child("email").setValue(_change_email);
 
 
 }

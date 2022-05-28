@@ -35,26 +35,20 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     int position;
     String genderMF,userID,workout,goals;
     Float bmi,bmr,fats,proteins,carbs;
     ImageView ShowHidePWD,ShowHidePWDConfirm;
-    private DatabaseReference mDatabase;
     private DatePickerDialog datePickerDialog;
+
     private DatabaseReference getUsersRef(String ref) {
-        FirebaseUser user = fAuth.getCurrentUser();
-        assert user != null;
-        String userId = user.getUid();
-        return mDatabase.child("Users").child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference("Users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
 
     private DatabaseReference getCaloriesRef(String ref) {
-        FirebaseUser user = fAuth.getCurrentUser();
-        assert user != null;
-        String userId = user.getUid();
-        return mDatabase.child("Calories").child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference("Calories")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
 
     @Override
@@ -66,8 +60,6 @@ public class RegisterActivity extends AppCompatActivity {
       final EditText mPassword = findViewById(R.id.password);
       final Button mRegisterBtn = findViewById(R.id.register);
       final TextView mLoginBtn = findViewById(R.id.createText);
-      fAuth = FirebaseAuth.getInstance();
-      fStore = FirebaseFirestore.getInstance();
       final  ProgressBar progressBar = findViewById(R.id.loading);
       final EditText mHeight = findViewById(R.id.heightInput);
       final EditText mWeight = findViewById(R.id.weightInput);
@@ -76,7 +68,6 @@ public class RegisterActivity extends AppCompatActivity {
       final RadioGroup  genderGroup = findViewById(R.id.genderGroup);
       final Spinner spinnerWorkoutFreq = findViewById(R.id.WorkoutFreq);
       final Spinner spinnerGoals = findViewById(R.id.spinnerGoals);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         ShowHidePWD=findViewById(R.id.show_hide_pwd);
         ShowHidePWD.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                 genderMF="Female";
             }
         });
-        if (fAuth.getCurrentUser() != null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
@@ -192,10 +183,8 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
             if(!weight.equals("") || !height.equals("")) {
-                Log.d("In try Block","");
                 bmi =  ((Float.parseFloat(weight) * 10000) / ((Float.parseFloat(height) * (Float.parseFloat(height)))));
                 bmi = Float.valueOf(String.format(Locale.getDefault(), "%.2f", bmi));
-                Log.d("BMI is", bmi.toString());
             }
             if (genderMF.equals("Male"))
             {
@@ -234,12 +223,10 @@ public class RegisterActivity extends AppCompatActivity {
             int target = Integer.parseInt(weight)*35;
             int glass =target/250 ;
             progressBar.setVisibility(View.VISIBLE);
-            fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    FirebaseUser fuser = fAuth.getCurrentUser();
-                    fuser.sendEmailVerification().addOnSuccessListener(aVoid -> Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Log.d(TAG, "onFailure: Email not sent " + e.getMessage()));
+                    FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification().addOnSuccessListener(aVoid -> Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Log.d(TAG, "onFailure: Email not sent " + e.getMessage()));
                     Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-                    userID = fuser.getUid();
                     getUsersRef("name").setValue(fullName);
                     getUsersRef("email").setValue(email);
                     getUsersRef("height").setValue(height);

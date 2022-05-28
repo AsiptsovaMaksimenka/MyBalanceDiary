@@ -300,7 +300,6 @@ public class WeightFragment extends Fragment {
             public void onClick(View view) {
                 if(statGoalWt.length()==0)
                 {
-                    openGoalWeightMissingAlertDialog();
                 }
                 else
                 {
@@ -318,19 +317,11 @@ public class WeightFragment extends Fragment {
         startActivityForResult(intent,1);
     }
 
-    private void openGoalWeightMissingAlertDialog() {
-        GoalWeightMissingAlertDialog goalWeightMissingAlertDialog = new GoalWeightMissingAlertDialog();
-//        goalWeightMissingAlertDialog.show(GoalWeightMissingAlertDialog.class,"goalalerttag");
-//        goalWeightMissingAlertDialog(getContext(),GoalWeightMissingAlertDialog.class);
-//
-//        Intent intent=new Intent(getContext(), GoalWeightMissingAlertDialog.class);
-//        startActivityForResult(intent, 1);
-    }
-
     private void openWeightFragment_Setting() {
         Intent intent = new Intent(getContext(),WeightFragmentSetting.class);
         startActivityForResult(intent, 2);
     }
+
 
 
 }

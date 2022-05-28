@@ -2,9 +2,11 @@ package com.application.mybalancediary.ui.home;
 
 import static java.lang.Float.parseFloat;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,7 @@ import java.util.Date;
 
 
 public class HomeFragment extends Fragment {
+
     public Float totalProteinsSn=0.0f,totalFatsSn=0.0f,totalCarbsSn=0.0f;
     public Float totalProteinsBr=0.0f,totalFatsBr=0.0f,totalCarbsBr=0.0f;
     public Float totalProteinsLn=0.0f,totalFatsLn=0.0f,totalCarbsLn=0.0f;
@@ -48,6 +51,7 @@ public class HomeFragment extends Fragment {
     public Float userCal=0.0f, userProteins=0.0f,userFats=0.0f,userCarbs=0.0f;
     public Float TotalCal=0.0f, TotalProteins=0.0f,TotalFats=0.0f,TotalCarbs=0.0f;
     Date date = new Date();
+    @SuppressLint("SimpleDateFormat")
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     //String today="2022-05-9";
     private DatabaseReference getTotalPerDayRef(String ref) {
@@ -56,6 +60,7 @@ public class HomeFragment extends Fragment {
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView proteins_per_day=root.findViewById(R.id.textView4);
         final TextView proteins_total=root.findViewById(R.id.textView5);
@@ -102,6 +107,7 @@ public class HomeFragment extends Fragment {
         FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
                 .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -255,6 +261,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Breakfast.class);
                 startActivity(intent);
+
             }
         });
         breakfast_items.setOnClickListener(new View.OnClickListener() {
@@ -313,6 +320,9 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return root;
+
     }
+
 }

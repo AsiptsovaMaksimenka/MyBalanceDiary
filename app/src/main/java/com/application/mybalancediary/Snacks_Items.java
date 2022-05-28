@@ -3,6 +3,7 @@ package com.application.mybalancediary;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,18 +26,14 @@ import java.util.Vector;
 public class Snacks_Items extends AppCompatActivity {
     ArrayAdapter vectorAdapter;
     private ListView  list;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
     Date date = new Date();
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
     String eat;
     Vector<String>vector_list =new Vector();
+    @SuppressLint("SimpleDateFormat")
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     private DatabaseReference getCaloriesRef(String ref) {
-        FirebaseUser user = mAuth.getCurrentUser();
-        String userId = user.getUid();
-        return mDatabase.child(today).child("Snacks").child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference("Snacks").child(today)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +44,7 @@ public class Snacks_Items extends AppCompatActivity {
         Vector proteins_snack= FoodSnacksAdapter.proteins_snack;
         Vector fats_snack= FoodSnacksAdapter.fats_snack;
         Vector carbs_snack= FoodSnacksAdapter.carbs_snack;
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference().child(today).child("Snacks");
-        Query queryEat = databaseReference;
-        queryEat.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Snacks").child(today).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {

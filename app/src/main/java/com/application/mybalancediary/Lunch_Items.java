@@ -3,6 +3,7 @@ package com.application.mybalancediary;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,18 +26,14 @@ import java.util.Vector;
 public class Lunch_Items extends AppCompatActivity {
     ArrayAdapter vectorAdapter;
     private ListView  list;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
     String eat;
     Vector<String> vector_list =new Vector();
     Date date = new Date();
+    @SuppressLint("SimpleDateFormat")
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     private DatabaseReference getCaloriesRef(String ref) {
-        FirebaseUser user = mAuth.getCurrentUser();
-        String userId = user.getUid();
-        return mDatabase.child(today).child("Lunch").child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference("Lunch").child(today)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
 
 
@@ -49,12 +46,7 @@ public class Lunch_Items extends AppCompatActivity {
         Vector proteins_lunch= FoodLunchAdapter.proteins_lunch;
         Vector fats_lunch= FoodLunchAdapter.fats_lunch;
         Vector carbs_lunch= FoodLunchAdapter.carbs_lunch;
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference().child(today).child("Lunch");
-        Query queryEat = databaseReference;
-        queryEat.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Lunch").child(today).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {

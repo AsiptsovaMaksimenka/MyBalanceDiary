@@ -1,6 +1,7 @@
 package com.application.mybalancediary.ui.watertracker;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -50,13 +51,14 @@ public class WaterFragment extends Fragment {
     public static int count = 0,counter_cups=0;
     public static String time, ampm,total;
     Date date = new Date();
+    @SuppressLint("SimpleDateFormat")
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     //String today="2022-05-9";
     private DatabaseReference getWaterRef(String ref) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
         String userId = user.getUid();
-        return FirebaseDatabase.getInstance().getReference().child("Water").child(today).child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference("Water").child(today).child(userId).child(ref);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -82,6 +84,7 @@ public class WaterFragment extends Fragment {
             }
         });
         root.findViewById(R.id.glass).setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("DefaultLocale")
             @Override
             public void onClick(View v) {
                 counter_cups+=1;
@@ -100,7 +103,7 @@ public class WaterFragment extends Fragment {
                 getWaterRef("Time").setValue(Time);
             }
         });
-        FirebaseDatabase.getInstance().getReference().child("Water").child(today).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Water").child(today).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {

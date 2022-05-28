@@ -42,15 +42,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
     private void ChangePassword(String email, String password) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         AuthCredential credential = EmailAuthProvider.getCredential(email, password);
-        user.reauthenticate(credential)
+        FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             if (new_pass.equals(confirm_new_pass)) {
-                                user.updatePassword(new_pass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                FirebaseAuth.getInstance().getCurrentUser().updatePassword(new_pass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {

@@ -85,7 +85,6 @@ public class FoodSnacksAdapter extends RecyclerView.Adapter<FoodSnacksAdapter.Vi
         }
 
         private DatabaseReference getCaloriesRef(String ref) {
-
             return FirebaseDatabase.getInstance().getReference().child("Snacks").child(today)
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
         }
