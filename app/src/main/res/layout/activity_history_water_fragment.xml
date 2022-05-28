@@ -74,13 +74,14 @@
 
     <TextView
         android:id="@+id/WaterSummary"
-        android:layout_width="382dp"
-        android:layout_height="31dp"
+        android:layout_width="336dp"
+        android:layout_height="40dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="509dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="170dp"
         android:text=" "
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,13 +89,14 @@
 
     <TextView
         android:id="@+id/WaterPercent"
-        android:layout_width="377dp"
-        android:layout_height="33dp"
+        android:layout_width="357dp"
+        android:layout_height="43dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="589dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="90dp"
         android:text=""
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -110,10 +112,40 @@
         android:layout_marginTop="648dp"
         android:layout_marginBottom="28dp"
         android:src="@drawable/c"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/green"
+        android:layout_width="21dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="609dp"
+        android:layout_marginEnd="373dp"
+        android:layout_marginBottom="97dp"
+        android:src="@drawable/green"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/blue"
+        android:layout_width="21dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="525dp"
+        android:layout_marginEnd="373dp"
+        android:layout_marginBottom="186dp"
+        android:src="@drawable/blue"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -93,6 +93,8 @@ public class CaloriesHistory extends Fragment {
                     btnLast7.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.INVISIBLE);
                     CalSum.setText(" ");
                     CalPer.setText("");
 
@@ -140,7 +142,8 @@ public class CaloriesHistory extends Fragment {
                         root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
                     graph.addSeries(series);
                     graph.addSeries(seriesGoal);
-
+                    root.findViewById(R.id.green).setVisibility(View.VISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.VISIBLE);
                     graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                         @Override
                         public String formatLabel(double value, boolean isValueX) {
@@ -163,6 +166,8 @@ public class CaloriesHistory extends Fragment {
                     btnLast30.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.INVISIBLE);
                     CalSum.setText(" ");
                     CalPer.setText("");
 
@@ -213,6 +218,8 @@ public class CaloriesHistory extends Fragment {
                     if(AllCalories>=(caloriesDaily*30))
                         root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
                     graph.addSeries(series);
+                    root.findViewById(R.id.green).setVisibility(View.VISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.VISIBLE);
                     graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                         @Override
                         public String formatLabel(double value, boolean isValueX) {
@@ -235,6 +242,8 @@ public class CaloriesHistory extends Fragment {
                     btnAll.setEnabled(false);
                     Toast.makeText(getActivity(), "You don't spend enough time here ", Toast.LENGTH_SHORT).show();
                     root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.green).setVisibility(View.INVISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.INVISIBLE);
                     CalSum.setText(" ");
                     CalPer.setText("");
 
@@ -280,6 +289,8 @@ public class CaloriesHistory extends Fragment {
                         seriesGoal.appendData(new DataPoint(i+1, y), false, 10);
                     }
                     graph.addSeries(seriesGoal);
+                    root.findViewById(R.id.green).setVisibility(View.VISIBLE);
+                    root.findViewById(R.id.blue).setVisibility(View.VISIBLE);
                     CalSum.setText("You ate " + String.valueOf(Math.round(AllCalories*10.0)/10.0)+" kcal out of " +String.valueOf(Math.round((caloriesDaily*count)*10.0)/10.0)+"kcal");
                     CalPer.setText("This is about "+ String.valueOf(Math.round(((AllCalories*100)/(caloriesDaily*count))*10.0)/10.0)+" % of the norm");
                     if(AllCalories>=(caloriesDaily*count))

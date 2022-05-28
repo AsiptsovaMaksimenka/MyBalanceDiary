@@ -69,35 +69,63 @@
 
     <TextView
         android:id="@+id/CaloriesSummary"
-        android:layout_width="382dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="509dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="170dp"
+        android:layout_width="336dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="533dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="163dp"
         android:text=" "
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/blue"
+        android:layout_width="22dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="540dp"
+        android:layout_marginEnd="366dp"
+        android:layout_marginBottom="171dp"
+        android:src="@drawable/blue"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/CaloriesPercent"
-        android:layout_width="377dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="595dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="99dp"
+        android:layout_width="337dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="590dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="107dp"
         android:text=""
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/green"
+        android:layout_width="21dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="599dp"
+        android:layout_marginEnd="366dp"
+        android:layout_marginBottom="110dp"
+        android:src="@drawable/green"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/achive"
