@@ -1,76 +1,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="Settings">
-    <PreferenceCategory
-        android:title="Cycle Details">
 
-        <EditTextPreference
-            android:inputType="number"
-            android:key="cycle_length"
-            android:title="Cycle Length"
-            android:summary="The length of your cycles"
-            android:dialogTitle="Cycle Length"/>
 
-        <EditTextPreference
-            android:inputType="number"
-            android:key="period_length"
-            android:title="Period Length"
-            android:summary="The length of your periods"
-            android:dialogTitle="Period Length"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="Water Tracker">
-
-    <EditTextPreference
-        android:key="water_tracking"
-        android:title="Water "
-        android:summary="how much water you want to drink"/>
-        <EditTextPreference
-            android:key="cups_tracking"
-            android:title="Cups of water"
-            android:summary="how much cups you want to drink"/>
-    <SwitchPreference
-        android:key="re_tracking"
-        android:title="Water Reminder"
-        android:summary="turn on/off your reminder"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="User">
-    <EditTextPreference
-        android:inputType="text"
-        android:key="user_name"
-        android:title="Username"
-        android:summary="Change username"
-        android:dialogTitle="username"/>
-    <EditTextPreference
-        android:inputType="number"
-        android:key="weight_kg"
-        android:title="Weight"
-        android:summary="Change weight"
-        android:dialogTitle="weight"/>
-    <EditTextPreference
-        android:inputType="number"
-        android:key="height_kg"
-        android:title="Height"
-        android:summary="Change height"
-        android:dialogTitle="height"/>
-    <EditTextPreference
-        android:inputType="date"
-        android:key="birth_date"
-        android:title="Age"
-        android:summary="Change age"
-        android:dialogTitle="age"/>
-    </PreferenceCategory>
     <PreferenceCategory
         android:title="Other">
-        <EditTextPreference
-            android:inputType="textEmailAddress"
-            android:key="change_email"
-            android:title="Email"
-            android:summary="Change email"
-            android:dialogTitle="@string/email"/>
     <Preference
         android:key="change_password"
         android:title="Password"
@@ -94,6 +27,19 @@
             android:targetClass="com.application.mybalancediary.DeleteUser"
             />
     </Preference>
+        <Preference
+            android:key="change_email"
+            android:title="Email"
+            android:summary="Change email"
+            android:dialogTitle="@string/email"
+            android:enabled="true"
+            android:selectable="true">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="com.application.mybalancediary"
+            android:targetClass="com.application.mybalancediary.ChangeEmail"
+            />
+        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>

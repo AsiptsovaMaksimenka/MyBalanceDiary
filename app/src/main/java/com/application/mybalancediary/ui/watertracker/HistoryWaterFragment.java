@@ -87,10 +87,7 @@ public class HistoryWaterFragment extends Fragment {
 
                     }
                 });
-
-
-
-            btnLast7.setOnClickListener(new View.OnClickListener() {
+        btnLast7.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onClick(View v) {
@@ -314,9 +311,6 @@ public class HistoryWaterFragment extends Fragment {
                 }
             }
         });
-
-
-
         return root;
     }
 }

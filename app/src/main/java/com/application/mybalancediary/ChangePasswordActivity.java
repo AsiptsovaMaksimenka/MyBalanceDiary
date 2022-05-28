@@ -36,32 +36,29 @@ public class ChangePasswordActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChangePassword(email.getText().toString(), current_password.getText().toString());
+                AuthCredential credential = EmailAuthProvider.getCredential(email.toString(), new_pass);
+                FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    if (new_pass.equals(confirm_new_pass)) {
+                                        FirebaseAuth.getInstance().getCurrentUser().updatePassword(new_pass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(ChangePasswordActivity.this, "Update ", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(ChangePasswordActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
             }
         });
     }
-    private void ChangePassword(String email, String password) {
 
-        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
-        FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            if (new_pass.equals(confirm_new_pass)) {
-                                FirebaseAuth.getInstance().getCurrentUser().updatePassword(new_pass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(ChangePasswordActivity.this, "Update ", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(ChangePasswordActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    }
-                });
-    }
 }

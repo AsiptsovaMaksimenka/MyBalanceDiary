@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -17,14 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBalanceDiary">
         <activity
+            android:name=".ChangeEmail"
+            android:exported="false" />
+        <activity
             android:name=".ui.steps.SettingsSteps"
             android:exported="false" />
-
-        <activity android:name=".ui.weight.InputWeightDateActivity"/>
+        <activity android:name=".ui.weight.InputWeightDateActivity" />
         <activity
             android:name=".ui.weight.WeightFragmentSetting"
             android:exported="false" />
-
         <activity
             android:name=".Breakfast_Items"
             android:exported="false"
