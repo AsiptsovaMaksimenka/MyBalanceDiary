@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -81,6 +82,7 @@ public class Breakfast_Items extends AppCompatActivity {
                     newTimeInDB+=str+",";
                 vectorAdapter.notifyDataSetChanged();
                 getCaloriesRef("NameBreakfast").setValue(newTimeInDB);
+                vector_list.remove(position);
                 FoodBreakfastAdapter.total_cal-=Float.parseFloat(String.valueOf(calories_breakfast.get(position)));
                 calories_breakfast.remove(position);
                 FoodBreakfastAdapter.total_proteins-=Float.parseFloat(String.valueOf(proteins_breakfast.get(position)));
@@ -99,6 +101,14 @@ public class Breakfast_Items extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    @Override
+    public void onBackPressed(){
+
+        Intent resultIntent = new Intent();
+        setResult(RESULT_OK,resultIntent);
+        finish();
+
     }
 
 }

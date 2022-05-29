@@ -4,6 +4,7 @@ import static java.lang.Float.parseFloat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -251,23 +252,23 @@ public class HomeFragment extends Fragment {
                                 TotalCarbs = Float.valueOf(String.valueOf(ds.child("TotalCarbsPerDay").getValue()));
                                 if (TotalFats > userFats) {
                                     fats_progress.setProgress(100);
-                                    fats_progress.setIndicatorColor(0xFFFF0000);
+                                    fats_progress.setIndicatorColor(Color.MAGENTA);
                                 } else
                                     fats_progress.setProgress(Math.round((100 * (TotalFats)) / userFats));
                             }
                             if (TotalProteins > userProteins) {
                                 proteins_progress.setProgress(100);
-                                proteins_progress.setIndicatorColor(0xFFFF0000);
+                                proteins_progress.setIndicatorColor(Color.MAGENTA);
                             } else
                                 proteins_progress.setProgress(Math.round((100 * (TotalProteins)) / userProteins));
                             if (TotalCarbs > userCarbs) {
                                 carbs_progress.setProgress(100);
-                                carbs_progress.setIndicatorColor(0xFFFF0000);
+                                carbs_progress.setIndicatorColor(Color.MAGENTA);
                             } else
                                 carbs_progress.setProgress(Math.round((100 * (TotalCarbs)) / userCarbs));
                             if (TotalCal > userCal) {
                                 cal_summary.setProgress(100);
-                                cal_summary.setIndicatorColor(0xFFFF0000);
+                                cal_summary.setIndicatorColor(Color.MAGENTA);
                             } else
                                 cal_summary.setProgress(Math.round((100 * (TotalCal)) / userCal));
                         }
@@ -346,6 +347,9 @@ public class HomeFragment extends Fragment {
         });
         return root;
 
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 
 }

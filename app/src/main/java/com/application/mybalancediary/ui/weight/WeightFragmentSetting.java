@@ -34,7 +34,6 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
     private TextView textGoalDateBox;
     private Button btnUpdateGoal;
     private Button btnDeleteAll;
-    private Intent intent;
     private DatabaseReference getWeightRef(String ref) {
         return FirebaseDatabase.getInstance().getReference("Weight")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
@@ -47,7 +46,6 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_settings_weight);
-        intent=getIntent();
 
         btnUpdateGoal=findViewById(R.id.buttonUpdateGoal);
         btnUpdateGoal.setOnClickListener(new View.OnClickListener() {

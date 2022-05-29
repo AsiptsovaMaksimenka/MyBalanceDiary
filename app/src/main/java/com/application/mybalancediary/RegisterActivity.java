@@ -168,10 +168,10 @@ public class RegisterActivity extends AppCompatActivity {
                 mPassword.setError("Password is Required.");
                 return;
             }
-            if (password.length() > 8 && upperCase(password) && lowerCase(password) && numberCase(password) && specialCase(password)) {
+            if (password.length() >= 8 && upperCase(password) && lowerCase(password) && numberCase(password) && specialCase(password)) {
                 System.out.println("Password accepted");
             } else {
-                mPassword.setError("Password Must be >= 8 characters,have upper,lower letters,number and special character");
+                mPassword.setError("Password Must be > 8 characters,have upper,lower letters,number and special character");
                 return;
             }
             if (TextUtils.isEmpty(Confirm)) {

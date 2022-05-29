@@ -33,8 +33,6 @@ public class InputWeightDateActivity extends AppCompatActivity implements DatePi
     private TextView textWeightBox;
     private TextView textTimeBox;
     private Button btnLogEntry;
-    private Intent intent;
-
     Date date = new Date();
    String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
   //  String today="2022-05-1";
@@ -49,9 +47,6 @@ public class InputWeightDateActivity extends AppCompatActivity implements DatePi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_input_weight);
-
-
-        intent = getIntent();
 
         btnLogEntry = (Button) findViewById(R.id.buttonSubmitWeightDate);
         btnLogEntry.setOnClickListener(new View.OnClickListener() {

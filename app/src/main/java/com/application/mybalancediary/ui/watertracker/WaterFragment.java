@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,13 +86,11 @@ public class WaterFragment extends Fragment {
             }
         });
         root.findViewById(R.id.glass).setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("DefaultLocale")
-            @Override
             public void onClick(View v) {
                 counter_cups+=1;
                 count = count + 250;
                 getWaterRef("Water").setValue(count);
-                getWaterRef("Cups").setValue(counter_cups);
+
                 Calendar calendar = Calendar.getInstance();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
@@ -100,6 +99,8 @@ public class WaterFragment extends Fragment {
                 else
                     ampm = "AM";
                 time = (String.format("%02d:%02d", currentHour, currentMinute) + ampm + " - 1 cup");
+                getWaterRef("Cups").setValue(counter_cups);
+
                 Time+=(time+',');
                 getWaterRef("Time").setValue(Time);
             }
@@ -111,14 +112,14 @@ public class WaterFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String water = String.valueOf(ds.child("Water").getValue());
-                    String cups = String.valueOf(ds.child("Cups").getValue());
-                    cups_text.setText(cups);
+                    cups_text.setText(String.valueOf(counter_cups));
                     textView_tofill.setText(water);
                     water_progress.setProgress(Math.round((100 * (Integer.parseInt(water)) / Integer.parseInt(totalMl))));
                     if(Integer.parseInt(textView_tofill.getText().toString())>=Integer.parseInt(textView_total.getText().toString()))
                         root.findViewById(R.id.achive).setVisibility(View.VISIBLE);
                     Time=String.valueOf(ds.child("Time").getValue());
                     count=Integer.parseInt(String.valueOf(ds.child("Water").getValue()));
+
                     String[] strArr = Time.split(",");
                     Vector<String> tmp=new Vector<String>();
                     water_time.clear();
@@ -144,6 +145,7 @@ public class WaterFragment extends Fragment {
                     newTimeInDB+=str+",";
                 getWaterRef("Time").setValue(newTimeInDB);
                 vectorAdapter.notifyDataSetChanged();
+
                 counter_cups--;
                 getWaterRef("Cups").setValue(counter_cups);
                 cups_text.setText(String.valueOf(counter_cups));

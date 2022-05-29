@@ -10,14 +10,18 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.application.mybalancediary.ui.home.HomeFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -34,6 +38,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -111,6 +117,29 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        List<Fragment> lsActiveFragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragmentActive : lsActiveFragments) {
+
+            if (fragmentActive instanceof NavHostFragment) {
+
+                List<Fragment> lsActiveSubFragments = fragmentActive.getChildFragmentManager().getFragments();
+                for (Fragment fragmentActiveSub : lsActiveSubFragments) {
+
+                    if (fragmentActiveSub instanceof HomeFragment) {
+                        fragmentActiveSub.onActivityResult(requestCode, resultCode, data);
+                    }
+
+                }
+
+            }
+
+        }
+
     }
 
 }

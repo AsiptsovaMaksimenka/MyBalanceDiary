@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.application.mybalancediary.EditProfile;
+import com.application.mybalancediary.RegisterActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +44,7 @@ public class ProfileFragment extends Fragment {
     PictuteListener pictureListener;
     final int PICK_IMAGE = 100;
     ImageView image;
+    ImageButton edit;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class ProfileFragment extends Fragment {
         final TextView calories = root.findViewById(R.id.calories);
         final TextView edit_goal = root.findViewById(R.id.goals);
         final TextView edit_workout = root.findViewById(R.id.Workout);
+        edit=root.findViewById(R.id.edit_profile);
         image =root.findViewById(R.id.profile_picture);
 
         FirebaseStorage.getInstance().getReference()
@@ -110,7 +114,7 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-
+        edit.setOnClickListener(v -> startActivity(new Intent(getContext(), EditProfile.class)));
 
         return root;
     }
