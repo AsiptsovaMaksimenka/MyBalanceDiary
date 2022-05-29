@@ -1,9 +1,15 @@
 package com.application.mybalancediary.ui.weight;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.application.mybalancediary.AlertReceiverWeight;
 import com.application.mybalancediary.R;
 import com.application.mybalancediary.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +51,7 @@ public class WeightFragment extends Fragment {
     private Button btnLast30;
     private Button btnLast7;
     private Button btnSettings;
+    private Handler mainhandler = new Handler();
     String newWeight;
 
     @SuppressLint("SimpleDateFormat")
@@ -405,6 +413,42 @@ public class WeightFragment extends Fragment {
     private void openWeightFragment_Setting() {
         Intent intent = new Intent(getContext(),WeightFragmentSetting.class);
         startActivityForResult(intent, 2);
+    }
+
+
+    private void createNotificationChannel()
+    {
+        CharSequence name = "weightID";
+        String desc = "My Balance Diary";
+        int important = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel("weightID", name, important);
+        channel.setDescription(desc);
+
+        NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+
+    }
+    class LabelRunnable implements Runnable {
+        @Override
+        public void run() {
+            mainhandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    createNotificationChannel();
+                    Intent intent = new Intent(getActivity(), AlertReceiverWeight.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent,PendingIntent.FLAG_MUTABLE);
+                    long timeAtButtonClick = System.currentTimeMillis();
+                    long timeSendsInMills = 1000*10;
+                    AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick + timeSendsInMills, pendingIntent);
+                }
+            });
+            try {
+                Thread.sleep(7200000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
