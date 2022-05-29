@@ -73,11 +73,6 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
                     String formattedDate = simple.format(dateObj);
                     getWeightRef("Goal_Date").setValue(formattedDate);
                 }
-                try {
-                    Fragment mFragment = new WeightFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, mFragment).commit();
-                }
-                catch (Exception e){}
             }
         });
         btnDeleteAll = (Button) findViewById(R.id.buttonDeleteAll);

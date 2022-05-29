@@ -54,6 +54,8 @@ public class HistoryWaterFragment extends Fragment {
         btnLast30=root.findViewById(R.id.buttonLast30);
         btnAll=root.findViewById(R.id.buttonAll);
         graph.setBackgroundColor(Color.WHITE);
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Water,ml");
         TextView summary=root.findViewById(R.id.WaterSummary);
         TextView percent=root.findViewById(R.id.WaterPercent);
         FirebaseDatabase.getInstance().getReference("Water")

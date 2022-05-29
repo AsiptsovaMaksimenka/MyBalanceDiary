@@ -71,11 +71,6 @@ public class InputWeightDateActivity extends AppCompatActivity implements DatePi
                     getWeightRef("New_Weight").setValue(Math.round(weight*10.0)/10.0);
                     getWeightRef("New_Date").setValue(formattedDate);
                 }
-                try {
-                    Fragment mFragment = new WeightFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, mFragment).commit();
-                }
-                catch (Exception e){}
 
             }
         });

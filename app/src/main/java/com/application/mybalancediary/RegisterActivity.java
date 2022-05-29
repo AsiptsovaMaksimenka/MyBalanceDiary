@@ -132,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
             final String fullName = mFullName.getText().toString();
             final String height = mHeight.getText().toString();
             final String weight = mWeight.getText().toString();
-            String[] ageRes=String.valueOf(mAge.getText()).split("-");
+            String[] ageRes=String.valueOf(mAge.getText()).split("\\W");
             final String age=String.valueOf(getAge(Integer.valueOf(ageRes[2]),Integer.valueOf(ageRes[1]),Integer.valueOf(ageRes[0])));
             String Confirm = etConfirm.getText().toString();
             if (TextUtils.isEmpty(age)) {

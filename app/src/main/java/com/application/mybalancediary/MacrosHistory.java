@@ -52,6 +52,8 @@ public class MacrosHistory extends Fragment {
 
         graph = root.findViewById(R.id.graph);
         graph.setBackgroundColor(Color.WHITE);
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Macros,gr");
         btnLast7 =root.findViewById(R.id.buttonLast7);
         btnLast30=root.findViewById(R.id.buttonLast30);
         btnAll=root.findViewById(R.id.buttonAll);

@@ -53,6 +53,8 @@ public class CaloriesHistory extends Fragment {
         TextView CalPer=root.findViewById(R.id.CaloriesPercent);
         root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
         graph.setBackgroundColor(Color.WHITE);
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Calories,kcal");
         FirebaseDatabase.getInstance().getReference("TotalPerDay")
                 .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
