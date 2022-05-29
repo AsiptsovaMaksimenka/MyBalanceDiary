@@ -44,6 +44,7 @@ public class WeightFragment extends Fragment {
     private Button btnLast30;
     private Button btnLast7;
     private Button btnSettings;
+    String newWeight;
 
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
@@ -75,6 +76,26 @@ public class WeightFragment extends Fragment {
         graph.setBackgroundColor(Color.WHITE);
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Weight,kg");
+
+        FirebaseDatabase.getInstance().getReference().child("Input_Weight").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            try{
+                                newWeight = String.valueOf(ds.child("New_Weight").getValue());
+                                statNetWt.setText(newWeight);
+                            }
+                            catch(Exception error) {}
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         FirebaseDatabase.getInstance().getReference("Input_Weight")
                 .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
