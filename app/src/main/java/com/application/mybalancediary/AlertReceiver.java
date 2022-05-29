@@ -10,9 +10,9 @@ import androidx.core.app.NotificationManagerCompat;
 public class AlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        NotificationCompat.Builder nb = new NotificationCompat.Builder(context, "weightID")
-          .setContentText("Time to update your weight")
-                .setSmallIcon(R.drawable.weight)
+        NotificationCompat.Builder nb = new NotificationCompat.Builder(context, "channelID")
+          .setContentText("Hydrate yourself with one glass of water")
+                .setSmallIcon(R.drawable.ic_water_glass)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
