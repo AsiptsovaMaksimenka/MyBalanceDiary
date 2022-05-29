@@ -36,6 +36,6 @@
     <fragment
         android:id="@+id/stepsMain2"
         android:name="com.application.mybalancediary.ui.steps.StepsMain"
-        android:label="activity_steps"
+        android:label="Steps"
         tools:layout="@layout/activity_steps" />
 </navigation>

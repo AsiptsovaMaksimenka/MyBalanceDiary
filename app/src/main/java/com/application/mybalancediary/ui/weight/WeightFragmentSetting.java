@@ -35,10 +35,6 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
     private Button btnUpdateGoal;
     private Button btnDeleteAll;
     private Intent intent;
-//    Date date = new Date();
-//
-//    String today=new SimpleDateFormat("yyyy-MM-dd").format(date);
-
     private DatabaseReference getWeightRef(String ref) {
         return FirebaseDatabase.getInstance().getReference("Weight")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);

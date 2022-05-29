@@ -241,7 +241,7 @@
         android:layout_height="27dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="@string/lifestyle"
+        android:text="Activity level:"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerGoals" />

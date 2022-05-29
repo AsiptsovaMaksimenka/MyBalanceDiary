@@ -17,8 +17,16 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ChangeEmail extends AppCompatActivity {
+
+
+    private DatabaseReference getEmailRef(String ref) {
+        return FirebaseDatabase.getInstance().getReference("Users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,7 @@ public class ChangeEmail extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         Toast.makeText(ChangeEmail.this, "Update ", Toast.LENGTH_SHORT).show();
+                                                        getEmailRef("email").setValue(new_email.getText().toString().trim());
                                                         startActivity(new Intent(ChangeEmail.this, SettingsFragment.class));
                                                     } else {
                                                         Toast.makeText(ChangeEmail.this, "Error", Toast.LENGTH_SHORT).show();
@@ -55,6 +64,7 @@ public class ChangeEmail extends AppCompatActivity {
                 }
             }
         });
+
     }
 
 

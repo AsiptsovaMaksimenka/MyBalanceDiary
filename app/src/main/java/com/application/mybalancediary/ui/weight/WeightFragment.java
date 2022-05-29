@@ -48,8 +48,6 @@ public class WeightFragment extends Fragment {
 
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-
-    //graph create
     LineGraphSeries<DataPoint> series, seriesGoal;
     GraphView graph;
 
@@ -116,6 +114,28 @@ public class WeightFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        FirebaseDatabase.getInstance().getReference().child("Input_Weight").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            try{
+                                newWeight = String.valueOf(ds.child("New_Weight").getValue());
+                                statNetWt.setText(newWeight);
+                            }
+                            catch(Exception error) {}
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
         FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
                 .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .addValueEventListener(new ValueEventListener() {

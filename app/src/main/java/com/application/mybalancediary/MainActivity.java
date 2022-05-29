@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -54,6 +55,27 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.Name_user);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.EmailU);
+        FirebaseDatabase.getInstance().getReference("Users")
+                .orderByChild("email").equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String Name = String.valueOf(ds.child("name").getValue());
+                            String Email = String.valueOf(ds.child("email").getValue());
+                            navUsername.setText(Name);
+                            navEmail.setText(Email);
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
 
     }

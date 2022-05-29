@@ -19,7 +19,7 @@
 
         <item
             android:id="@+id/weight_track"
-            android:title="@string/weight_track"
+            android:title="Weight Control"
             android:icon="@drawable/w_track"/>
 
         <item
