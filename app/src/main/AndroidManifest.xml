@@ -23,9 +23,6 @@
         <activity
             android:name=".ChangeEmail"
             android:exported="false" />
-        <activity
-            android:name=".ui.steps.SettingsSteps"
-            android:exported="false" />
         <activity android:name=".ui.weight.InputWeightDateActivity" />
         <activity
             android:name=".ui.weight.WeightFragmentSetting"

@@ -118,28 +118,6 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        List<Fragment> lsActiveFragments = getSupportFragmentManager().getFragments();
-        for (Fragment fragmentActive : lsActiveFragments) {
-
-            if (fragmentActive instanceof NavHostFragment) {
-
-                List<Fragment> lsActiveSubFragments = fragmentActive.getChildFragmentManager().getFragments();
-                for (Fragment fragmentActiveSub : lsActiveSubFragments) {
-
-                    if (fragmentActiveSub instanceof HomeFragment) {
-                        fragmentActiveSub.onActivityResult(requestCode, resultCode, data);
-                    }
-
-                }
-
-            }
-
-        }
-
-    }
 
 }
