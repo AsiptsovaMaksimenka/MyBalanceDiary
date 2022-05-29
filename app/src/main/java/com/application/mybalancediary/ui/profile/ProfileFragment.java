@@ -88,15 +88,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String Name = "" + ds.child("name").getValue();
-                    String age = "" + ds.child("age").getValue();
-                    String gender = "" + ds.child("gender").getValue();
-                    String Weight = "" + ds.child("weight").getValue();
-                    String Height = "" + ds.child("height").getValue();
-                    String BMI = "" + ds.child("bmi").getValue();
-                    String Calories = "" + ds.child("bmr").getValue();
-                    String Work = "" + ds.child("workout").getValue();
-                    String Goal = "" + ds.child("goals").getValue();
+                    String Name = String.valueOf( ds.child("name").getValue());
+                    String age = String.valueOf( ds.child("age").getValue());
+                    String gender = String.valueOf( ds.child("gender").getValue());
+                    String Weight = String.valueOf( ds.child("weight").getValue());
+                    String Height = String.valueOf( ds.child("height").getValue());
+                    String BMI = String.valueOf( ds.child("bmi").getValue());
+                    String Calories = String.valueOf( ds.child("bmr").getValue());
+                    String Work = String.valueOf( ds.child("workout").getValue());
+                    String Goal = String.valueOf(ds.child("goals").getValue());
                     name.setText(Name);
                     user_age.setText(age);
                     weight.setText(Weight);

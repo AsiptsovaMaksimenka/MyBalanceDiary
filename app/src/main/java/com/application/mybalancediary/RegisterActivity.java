@@ -46,11 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
 
-    private DatabaseReference getCaloriesRef(String ref) {
-        return FirebaseDatabase.getInstance().getReference("Calories")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

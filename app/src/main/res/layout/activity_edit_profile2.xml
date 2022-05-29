@@ -1,123 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditProfile">
 
-    <EditText
-        android:id="@+id/user_name"
-        android:layout_width="348dp"
-        android:layout_height="33dp"
-        android:layout_marginBottom="648dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/name"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.215"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/edit_height"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="592dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/height"
-        android:inputType="number"
-        android:padding="10dp"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/edit_weight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="536dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/weight"
-        android:inputType="number"
-        android:padding="10dp"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="13dp"
+            android:text="Edit"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/fullName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.812" />
 
+        <EditText
+            android:id="@+id/fullName"
+            android:layout_width="310dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="640dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/full_name"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
 
-    <TextView
-        android:id="@+id/Goals"
-        android:layout_width="120dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/goal"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_weight" />
-
-    <Spinner
-        android:id="@+id/spinnerNewGoals"
-        android:layout_width="270dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Goals"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/WorkoutFreqText"
-        android:layout_width="111dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/lifestyle"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerNewGoals" />
-
-    <Spinner
-        android:id="@+id/NewWorkoutFreq"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/spinnerNewGoals"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/WorkoutFreqText"
-        app:layout_constraintTop_toBottomOf="@+id/WorkoutFreqText"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
-        android:enabled="true"
-        android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NewWorkoutFreq"
-        app:layout_constraintVertical_bias="0.055" />
+            />
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/weightInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/weight_kg"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fullName" />
+
+
+        <EditText
+            android:id="@+id/heightInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/height_cm_"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weightInput" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="64dp"
+            android:enabled="true"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/WorkoutFreq"
+            app:layout_constraintVertical_bias="0.187" />
+
+        <EditText
+            android:id="@+id/ageInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="Birth Date"
+            android:inputType="datetime"
+            android:padding="10dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/heightInput" />
+
+
+
+        <TextView
+            android:id="@+id/Goals"
+            android:layout_width="120dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/goal"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/genderGroup" />
+
+        <Spinner
+            android:id="@+id/spinnerGoals"
+            android:layout_width="270dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Goals"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/WorkoutFreqText"
+            android:layout_width="111dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Activity level:"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerGoals" />
+
+        <Spinner
+            android:id="@+id/WorkoutFreq"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/spinnerGoals"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/WorkoutFreqText"
+            app:layout_constraintTop_toBottomOf="@+id/WorkoutFreqText"
+            tools:ignore="MissingConstraints" />
+
+        <RadioGroup
+            android:id="@+id/genderGroup"
+            android:layout_width="215dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.421"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ageInput">
+
+            <RadioButton
+                android:id="@+id/femaleRadio"
+                android:layout_width="111dp"
+                android:layout_height="match_parent"
+                android:text="@string/female"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/maleRadio"
+                android:layout_width="105dp"
+                android:layout_height="match_parent"
+                android:text="@string/male"
+                android:textSize="14sp" />
+
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>
