@@ -49,7 +49,7 @@ public class WeightFragment extends Fragment {
     SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 
     //graph create
-    LineGraphSeries<DataPoint> series;
+    LineGraphSeries<DataPoint> series, seriesGoal;
     GraphView graph;
 
     private TextView statCurWt;
@@ -159,6 +159,13 @@ public class WeightFragment extends Fragment {
                     series.setDrawDataPoints(true);
                     series.setDrawBackground(true);
                     series.setThickness(10);
+
+                    seriesGoal = new LineGraphSeries<DataPoint>();
+                    seriesGoal.setColor(Color.GREEN);
+                    seriesGoal.setDrawDataPoints(true);
+                    seriesGoal.setDrawBackground(true);
+                    seriesGoal.setThickness(8);
+
                     List<Float> dataFloat = new ArrayList<>();
                     dataFloat.clear();
                     dataFloat.addAll(UserList);
@@ -170,6 +177,13 @@ public class WeightFragment extends Fragment {
                         series.appendData(new DataPoint(i+1, y), false, 10);
                     }
                     graph.addSeries(series);
+
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+
+                        seriesGoal.appendData(new DataPoint(i+1, currentw), false, 7);
+                    }
+                    graph.addSeries(seriesGoal);
+
                     graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                         @Override
                         public String formatLabel(double value, boolean isValueX) {
@@ -211,6 +225,13 @@ public class WeightFragment extends Fragment {
                     series.setDrawDataPoints(true);
                     series.setDrawBackground(true);
                     series.setThickness(10);
+
+                    seriesGoal = new LineGraphSeries<DataPoint>();
+                    seriesGoal.setColor(Color.GREEN);
+                    seriesGoal.setDrawDataPoints(true);
+                    seriesGoal.setDrawBackground(true);
+                    seriesGoal.setThickness(8);
+
                     List<Float> dataFloat = new ArrayList<>();
                     dataFloat.clear();
                     dataFloat.addAll(UserList);
@@ -222,6 +243,13 @@ public class WeightFragment extends Fragment {
                         series.appendData(new DataPoint(i+1, y), false, 7);
                     }
                     graph.addSeries(series);
+
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+
+                        seriesGoal.appendData(new DataPoint(i+1, currentw), false, 7);
+                    }
+                    graph.addSeries(seriesGoal);
+
                     graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                         @Override
                         public String formatLabel(double value, boolean isValueX) {
@@ -263,6 +291,13 @@ public class WeightFragment extends Fragment {
                     series.setDrawDataPoints(true);
                     series.setDrawBackground(true);
                     series.setThickness(10);
+
+                    seriesGoal = new LineGraphSeries<DataPoint>();
+                    seriesGoal.setColor(Color.GREEN);
+                    seriesGoal.setDrawDataPoints(true);
+                    seriesGoal.setDrawBackground(true);
+                    seriesGoal.setThickness(8);
+
                     List<Float> dataFloat = new ArrayList<>();
                     dataFloat.clear();
                     dataFloat.addAll(UserList);
@@ -274,6 +309,13 @@ public class WeightFragment extends Fragment {
                         series.appendData(new DataPoint(i+1, y), false, 7);
                     }
                     graph.addSeries(series);
+
+                    for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
+
+                        seriesGoal.appendData(new DataPoint(i+1, currentw), false, 7);
+                    }
+                    graph.addSeries(seriesGoal);
+
                     graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                         @Override
                         public String formatLabel(double value, boolean isValueX) {
