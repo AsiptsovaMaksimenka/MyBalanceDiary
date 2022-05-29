@@ -25,12 +25,5 @@ public class Breakfast extends AppCompatActivity {
         ActionBar mActionBar = getSupportActionBar();
 
     }
-    @Override
-    public void onBackPressed(){
 
-        Intent resultIntent = new Intent();
-        setResult(RESULT_OK,resultIntent);
-        finish();
-
-    }
 }

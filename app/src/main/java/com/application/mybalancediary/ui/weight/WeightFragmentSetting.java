@@ -38,9 +38,6 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
         return FirebaseDatabase.getInstance().getReference("Weight")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -61,7 +58,7 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
                 else
                 {
                     float weight=Float.parseFloat(textGoalWeightBox.getText().toString());
-                    SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
                     getWeightRef("Goal_Weight").setValue(String.valueOf(weight));
                     Date dateObj = new Date(textGoalDateBox.getText().toString());
                     String formattedDate = simple.format(dateObj);
@@ -113,15 +110,7 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
 
     private void openSubmitAlertDialog() {
         SubmitAlertDialog submitAlertDialogObj = new SubmitAlertDialog();
-        submitAlertDialogObj.show(getSupportFragmentManager(),"submitalerttag2");
+        submitAlertDialogObj.show(getSupportFragmentManager(),"submittable2");
     }
 
-    @Override
-    public void onBackPressed(){
-
-        Intent resultIntent = new Intent();
-        setResult(RESULT_OK,resultIntent);
-        finish();
-
-    }
 }

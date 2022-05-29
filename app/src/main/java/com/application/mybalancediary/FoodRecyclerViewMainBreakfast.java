@@ -40,11 +40,7 @@ public class FoodRecyclerViewMainBreakfast extends Fragment {
     private final int REQ_CODE_SPEECH_INPUT = 100;
     public static String voice_query = "";
     private FloatingActionButton voice;
-
-
-    public FoodRecyclerViewMainBreakfast() {
-
-    }
+    public FoodRecyclerViewMainBreakfast() {}
 
     public static FoodRecyclerViewMainBreakfast newInstance() {
         FoodRecyclerViewMainBreakfast fragment = new FoodRecyclerViewMainBreakfast();
@@ -178,5 +174,6 @@ public class FoodRecyclerViewMainBreakfast extends Fragment {
             }
         }
     }
+
 
 }
