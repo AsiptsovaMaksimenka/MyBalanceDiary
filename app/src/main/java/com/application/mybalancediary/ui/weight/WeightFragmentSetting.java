@@ -66,6 +66,10 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
                     Date dateObj = new Date(textGoalDateBox.getText().toString());
                     String formattedDate = simple.format(dateObj);
                     getWeightRef("Goal_Date").setValue(formattedDate);
+                    Intent intent = new Intent();
+                    intent.putExtra("goal" , weight);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
             }
         });

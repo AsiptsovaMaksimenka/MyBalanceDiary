@@ -65,6 +65,10 @@ public class InputWeightDateActivity extends AppCompatActivity implements DatePi
                     String formattedDate = simple.format(dateObj);
                     getWeightRef("New_Weight").setValue(Math.round(weight*10.0)/10.0);
                     getWeightRef("New_Date").setValue(formattedDate);
+                    Intent intent = new Intent();
+                    intent.putExtra("goal" , weight);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
 
             }
