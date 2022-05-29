@@ -39,14 +39,8 @@ public class ProfileFragment extends Fragment {
     private interface PictuteListener {
         void onProfilePictureUpdated();
     }
-
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    StorageReference storageReference;
-    private PictuteListener pictureListener;
-    private final int PICK_IMAGE = 100;
+    PictuteListener pictureListener;
+    final int PICK_IMAGE = 100;
     ImageView image;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -63,13 +57,10 @@ public class ProfileFragment extends Fragment {
         final TextView edit_workout = root.findViewById(R.id.Workout);
         image =root.findViewById(R.id.profile_picture);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Users");
-        storageReference = FirebaseStorage.getInstance().getReference();
-StorageReference profRef=storageReference.child("Users/"+firebaseAuth.getCurrentUser().getUid()+"/profile.jpg");
-        profRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        FirebaseStorage.getInstance().getReference()
+                .child("Users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profile.jpg")
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 image.setBackground(null);
@@ -87,8 +78,9 @@ StorageReference profRef=storageReference.child("Users/"+firebaseAuth.getCurrent
         });
 
 
-        Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
-        query.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Users")
+                .orderByChild("email").equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -129,17 +121,19 @@ StorageReference profRef=storageReference.child("Users/"+firebaseAuth.getCurrent
         if(requestCode==1000)
         {
             Uri imageUri=data.getData();
-           // image.setImageURI(imageUri);
             uploadImageToFirebase(imageUri);
         }
     }
     public void uploadImageToFirebase (Uri imageUri)
     {
-     StorageReference fileRef=storageReference.child("Users/"+firebaseAuth.getCurrentUser().getUid()+"/profile.jpg");
-     fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        FirebaseStorage.getInstance().getReference()
+                .child("Users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profile.jpg")
+                .putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
          @Override
          public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-             fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+             FirebaseStorage.getInstance().getReference()
+                     .child("Users/"+FirebaseAuth.getInstance().getCurrentUser().getUid()+"/profile.jpg")
+                     .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                  @Override
                  public void onSuccess(Uri uri) {
                      Picasso.get().load(uri).into(image);

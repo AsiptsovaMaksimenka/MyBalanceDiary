@@ -53,7 +53,9 @@ public class CaloriesHistory extends Fragment {
         TextView CalPer=root.findViewById(R.id.CaloriesPercent);
         root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
         graph.setBackgroundColor(Color.WHITE);
-        FirebaseDatabase.getInstance().getReference("TotalPerDay").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("TotalPerDay")
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot parentDS : dataSnapshot.getChildren()) {
@@ -70,7 +72,8 @@ public class CaloriesHistory extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
+        FirebaseDatabase.getInstance().getReference("Users")
+                .orderByChild("email")
                 .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .addValueEventListener(new ValueEventListener() {
                     @Override

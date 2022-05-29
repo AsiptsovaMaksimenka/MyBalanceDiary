@@ -55,10 +55,8 @@ public class WaterFragment extends Fragment {
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     //String today="2022-05-9";
     private DatabaseReference getWaterRef(String ref) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user != null;
-        String userId = user.getUid();
-        return FirebaseDatabase.getInstance().getReference("Water").child(today).child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference("Water").
+                child(today).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -71,7 +69,10 @@ public class WaterFragment extends Fragment {
         final TextView cups_text=root.findViewById(R.id.cups);
         root.findViewById(R.id.achive).setVisibility(View.INVISIBLE);
         listView = root.findViewById(R.id.listview_record);
-        FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Users")
+                .orderByChild("email")
+                .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -103,7 +104,9 @@ public class WaterFragment extends Fragment {
                 getWaterRef("Time").setValue(Time);
             }
         });
-        FirebaseDatabase.getInstance().getReference("Water").child(today).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Water").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {

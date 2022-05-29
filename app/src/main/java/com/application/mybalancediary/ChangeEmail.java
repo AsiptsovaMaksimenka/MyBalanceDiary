@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,22 +31,28 @@ public class ChangeEmail extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AuthCredential credential = EmailAuthProvider
-                        .getCredential(email.toString(), password.toString());
-                FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                FirebaseAuth.getInstance().getCurrentUser().updateEmail(new_email.toString())
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    AuthCredential credential = EmailAuthProvider
+                            .getCredential(email.getText().toString().trim(), password.getText().toString().trim());
+                    FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    FirebaseAuth.getInstance().getCurrentUser().updateEmail(new_email.getText().toString().trim())
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(ChangeEmail.this, "Update ", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(ChangeEmail.this, SettingsFragment.class));
+                                                    } else {
+                                                        Toast.makeText(ChangeEmail.this, "Error", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
-                                            }
-                                        });
-                            }
-                        });
+                                            });
+                                }
+                            });
+                }
             }
         });
     }

@@ -2,6 +2,7 @@ package com.application.mybalancediary.ui.weight;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.application.mybalancediary.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,11 +40,11 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
 //    String today=new SimpleDateFormat("yyyy-MM-dd").format(date);
 
     private DatabaseReference getWeightRef(String ref) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user != null;
-        String userId = user.getUid();
-        return FirebaseDatabase.getInstance().getReference().child("Weight").child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference("Weight")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +73,17 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
                     String formattedDate = simple.format(dateObj);
                     getWeightRef("Goal_Date").setValue(formattedDate);
                 }
+                try {
+                    Fragment mFragment = new WeightFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, mFragment).commit();
+                }
+                catch (Exception e){}
             }
         });
         btnDeleteAll = (Button) findViewById(R.id.buttonDeleteAll);
         btnDeleteAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //delete from database
 
             }
         });
@@ -120,7 +127,6 @@ public class WeightFragmentSetting extends AppCompatActivity implements DatePick
     public void onBackPressed(){
 
         Intent resultIntent = new Intent();
-//        resultIntent.putStringArrayListExtra("result",data);
         setResult(RESULT_OK,resultIntent);
         finish();
 

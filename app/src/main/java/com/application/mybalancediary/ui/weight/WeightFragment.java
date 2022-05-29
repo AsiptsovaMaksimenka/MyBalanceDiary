@@ -45,6 +45,7 @@ public class WeightFragment extends Fragment {
     private Button btnLast7;
     private Button btnSettings;
 
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 
     //graph create
@@ -56,6 +57,9 @@ public class WeightFragment extends Fragment {
     private TextView statGoalWt;
     public float currentw,ChangeWeight;
     List<Float> UserList = new ArrayList<Float>();
+    Date date = new Date();
+    String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
+   // String today="2022-05-1";
 
 
 
@@ -72,7 +76,9 @@ public class WeightFragment extends Fragment {
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Weight,kg");
 
-        FirebaseDatabase.getInstance().getReference("Input_Weight").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Input_Weight")
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot parentDS : dataSnapshot.getChildren()) {
@@ -82,7 +88,6 @@ public class WeightFragment extends Fragment {
                         DataSnapshot item = items.next();
                         String total = item.child("New_Weight").getValue().toString();
                         UserList.add(Float.parseFloat(total));
-                        ChangeWeight=UserList.get(UserList.size()-1);
                     }
                 }
             }
@@ -90,9 +95,6 @@ public class WeightFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
-
         FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
                 .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .addValueEventListener(new ValueEventListener() {
@@ -101,8 +103,6 @@ public class WeightFragment extends Fragment {
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             currentw = Float.valueOf(String.valueOf(ds.child("weight").getValue()));
                             statCurWt.setText(String.valueOf(currentw));
-                            String tmp=String.valueOf(currentw-ChangeWeight);
-                            statNetWt.setText(tmp);
 
 
                         }
@@ -114,7 +114,9 @@ public class WeightFragment extends Fragment {
                 });
 
 
-        FirebaseDatabase.getInstance().getReference().child("Weight").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Weight")
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -314,7 +316,7 @@ public class WeightFragment extends Fragment {
 
     private void openActivity_InputWeightDate() {
         Intent intent =  new Intent(getContext(), InputWeightDateActivity.class);
-        startActivityForResult(intent,1);
+        startActivity(intent);
     }
 
     private void openWeightFragment_Setting() {

@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.application.mybalancediary.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,14 +36,13 @@ public class InputWeightDateActivity extends AppCompatActivity implements DatePi
     private Intent intent;
 
     Date date = new Date();
-//    String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
-    String today="2022-05-1";
+   String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
+  //  String today="2022-05-1";
 
     private DatabaseReference getWeightRef(String ref) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user != null;
-        String userId = user.getUid();
-        return FirebaseDatabase.getInstance().getReference().child("Input_Weight").child(today).child(userId).child(ref);
+        return FirebaseDatabase.getInstance().getReference().child("Input_Weight")
+                .child(today)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
 
     @Override
@@ -70,7 +71,11 @@ public class InputWeightDateActivity extends AppCompatActivity implements DatePi
                     getWeightRef("New_Weight").setValue(Math.round(weight*10.0)/10.0);
                     getWeightRef("New_Date").setValue(formattedDate);
                 }
-
+                try {
+                    Fragment mFragment = new WeightFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, mFragment).commit();
+                }
+                catch (Exception e){}
 
             }
         });

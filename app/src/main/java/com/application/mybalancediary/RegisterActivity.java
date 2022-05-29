@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     int position;
-    String genderMF,userID,workout,goals;
+    String genderMF,workout,goals;
     Float bmi,bmr,fats,proteins,carbs;
     ImageView ShowHidePWD,ShowHidePWDConfirm;
     private DatePickerDialog datePickerDialog;

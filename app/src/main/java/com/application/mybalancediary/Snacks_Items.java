@@ -44,7 +44,9 @@ public class Snacks_Items extends AppCompatActivity {
         Vector proteins_snack= FoodSnacksAdapter.proteins_snack;
         Vector fats_snack= FoodSnacksAdapter.fats_snack;
         Vector carbs_snack= FoodSnacksAdapter.carbs_snack;
-        FirebaseDatabase.getInstance().getReference("Snacks").child(today).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Snacks").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {

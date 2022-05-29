@@ -1,5 +1,6 @@
 package com.application.mybalancediary;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class FoodLunchAdapter extends RecyclerView.Adapter<FoodLunchAdapter.View
     public static Vector<Float>  carbs_lunch  = new Vector<Float>(50);
     String eatLunch;
     Date date = new Date();
+    @SuppressLint("SimpleDateFormat")
     String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
     public static Float total_cal =0.0f;
     public static Float total_proteins =0.0f;
@@ -87,8 +89,8 @@ public class FoodLunchAdapter extends RecyclerView.Adapter<FoodLunchAdapter.View
         }
 
         private DatabaseReference getCaloriesRef(String ref) {
-            return  FirebaseDatabase.getInstance().getReference()
-                    .child("Lunch").child(today).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
+            return  FirebaseDatabase.getInstance().getReference("Lunch")
+                    .child(today).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
         }
 
         public void bindMovieData(final Map<String, ?> foodItem) {
@@ -97,6 +99,7 @@ public class FoodLunchAdapter extends RecyclerView.Adapter<FoodLunchAdapter.View
             vAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    try{
                     count++;
                     caloriecount =  (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
                     totalcarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
@@ -122,8 +125,7 @@ public class FoodLunchAdapter extends RecyclerView.Adapter<FoodLunchAdapter.View
                     getCaloriesRef("totalcarbs").setValue(Math.round( total_carb*10.0 ) / 10.0);
                     getCaloriesRef("totalprotein").setValue(Math.round( total_proteins*10.0 ) / 10.0);
                     getCaloriesRef("NameLunch").setValue(nameLunch);
-
-
+                    }catch(Exception e){}
                     if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";
                         Toast.makeText(mContextLunch, toast1, Toast.LENGTH_SHORT).show();

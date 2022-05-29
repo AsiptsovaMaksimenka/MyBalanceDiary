@@ -45,7 +45,9 @@ public class Dinner_Items extends AppCompatActivity {
         Vector proteins_dinner= FoodDinnerAdapter.proteins_dinner;
         Vector fats_dinner= FoodDinnerAdapter.fats_dinner;
         Vector carbs_dinner= FoodDinnerAdapter.carbs_dinner;
-        FirebaseDatabase.getInstance().getReference("Dinner").child(today).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Dinner").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {

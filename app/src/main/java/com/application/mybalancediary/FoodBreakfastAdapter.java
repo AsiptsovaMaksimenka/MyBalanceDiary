@@ -96,7 +96,7 @@ public class FoodBreakfastAdapter extends RecyclerView.Adapter<FoodBreakfastAdap
         }
 
         private DatabaseReference getCaloriesRef(String ref) {
-            return  FirebaseDatabase.getInstance().getReference().child("Breakfast")
+            return  FirebaseDatabase.getInstance().getReference("Breakfast")
                     .child(today).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
         }
 
@@ -106,33 +106,33 @@ public class FoodBreakfastAdapter extends RecyclerView.Adapter<FoodBreakfastAdap
             vAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    count++;
-                    calorieCount =  (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
-                    totalCarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
-                    totalFat =  (Float.parseFloat((String.valueOf(foodItem.get("ifat")))));
-                    totalProtein =(Float.parseFloat((String.valueOf(foodItem.get("iprotein")))));
-                    name= String.valueOf(foodItem.get("iname"));
-                    nameBreakfast.add(name);
-                    calories_breakfast.add(calorieCount);
-                    proteins_breakfast.add(totalProtein);
-                    fats_breakfast.add(totalFat);
-                    carbs_breakfast.add(totalCarbs);
+                    try {
+                        count++;
+                        calorieCount = (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
+                        totalCarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
+                        totalFat = (Float.parseFloat((String.valueOf(foodItem.get("ifat")))));
+                        totalProtein = (Float.parseFloat((String.valueOf(foodItem.get("iprotein")))));
+                        name = String.valueOf(foodItem.get("iname"));
+                        nameBreakfast.add(name);
+                        calories_breakfast.add(calorieCount);
+                        proteins_breakfast.add(totalProtein);
+                        fats_breakfast.add(totalFat);
+                        carbs_breakfast.add(totalCarbs);
 
-                    total_cal += calorieCount;
-                    total_proteins+= totalProtein;
-                    total_carb+= totalCarbs;
-                    total_fats+= totalFat;
-                    for(int i=0;i<nameBreakfast.size();i++)
-                    {
-                        eatBreakfast+=(nameBreakfast.get(i)+',');
-                    }
+                        total_cal += calorieCount;
+                        total_proteins += totalProtein;
+                        total_carb += totalCarbs;
+                        total_fats += totalFat;
+                        for (int i = 0; i < nameBreakfast.size(); i++) {
+                            eatBreakfast += (nameBreakfast.get(i) + ',');
+                        }
 
-                    getCaloriesRef("total").setValue(Math.round(total_cal*10.0 ) / 10.0);
-                    getCaloriesRef("totalfats").setValue(Math.round(total_fats*10.0 ) / 10.0);
-                    getCaloriesRef("totalcarbs").setValue(Math.round(total_carb*10.0 ) / 10.0);
-                    getCaloriesRef("totalprotein").setValue(Math.round(total_proteins*10.0 ) / 10.0);
-                    getCaloriesRef("NameBreakfast").setValue(eatBreakfast);
-
+                        getCaloriesRef("total").setValue(Math.round(total_cal * 10.0) / 10.0);
+                        getCaloriesRef("totalfats").setValue(Math.round(total_fats * 10.0) / 10.0);
+                        getCaloriesRef("totalcarbs").setValue(Math.round(total_carb * 10.0) / 10.0);
+                        getCaloriesRef("totalprotein").setValue(Math.round(total_proteins * 10.0) / 10.0);
+                        getCaloriesRef("NameBreakfast").setValue(eatBreakfast);
+                    }catch (Exception e){}
                     if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";
                         Toast.makeText(mContext, toast1, Toast.LENGTH_SHORT).show();

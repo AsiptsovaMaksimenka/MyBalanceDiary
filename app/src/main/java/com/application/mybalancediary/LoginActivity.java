@@ -35,13 +35,12 @@ public class LoginActivity extends AppCompatActivity {
     Button mLoginBtn;
     TextView mCreateBtn, forgotTextLink;
     ProgressBar progressBar;
-    FirebaseAuth fAuth;
+    FirebaseAuth firebaseAuth;
     ImageView ShowHidePWD;
     private GoogleApiClient googleApiClient;
     Button signInButton;
     public static final int SIGN_IN_CODE = 777;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener firebaseAuthListener;
+    FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.Email);
         mPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.progressBar);
-        fAuth = FirebaseAuth.getInstance();
         mLoginBtn = findViewById(R.id.loginBtn);
         mCreateBtn = findViewById(R.id.createText);
         forgotTextLink = findViewById(R.id.forgotPassword);
@@ -90,8 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuthListener = firebaseAuth -> {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            if (user != null) {
+            if (firebaseAuth.getCurrentUser() != null) {
                 goMainScreen();
             }
         };
@@ -118,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
             progressBar.setVisibility(View.VISIBLE);
 
-            fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -143,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
 
             passwordResetDialog.setPositiveButton("Yes", (dialog, which) -> {
                 String mail = resetMail.getText().toString();
-                fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(aVoid -> Toast.makeText(LoginActivity.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Error ! Reset Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show());
+                FirebaseAuth.getInstance().sendPasswordResetEmail(mail).addOnSuccessListener(aVoid -> Toast.makeText(LoginActivity.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Error ! Reset Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show());
 
             });
 
@@ -160,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        firebaseAuth.addAuthStateListener(firebaseAuthListener);
+        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuthListener);
     }
 
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -183,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setVisibility(View.GONE);
 
         AuthCredential credential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, task -> {
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(this, task -> {
 
             progressBar.setVisibility(View.GONE);
             signInButton.setVisibility(View.VISIBLE);
@@ -204,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStop();
 
         if (firebaseAuthListener != null) {
-            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+            FirebaseAuth.getInstance().removeAuthStateListener(firebaseAuthListener);
         }
 
     }

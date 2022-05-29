@@ -179,13 +179,14 @@
         android:autofillHints=""
         android:ems="10"
         android:hint="Birth Date"
+        android:inputType="datetime"
         android:padding="10dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heightInput"
-        android:inputType="date" />
+         />
 
     <TextView
         android:id="@+id/createText"

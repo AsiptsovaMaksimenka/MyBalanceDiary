@@ -85,7 +85,7 @@ public class FoodDinnerAdapter extends RecyclerView.Adapter<FoodDinnerAdapter.Vi
         }
 
         private DatabaseReference getCaloriesRef(String ref) {
-            return FirebaseDatabase.getInstance().getReference().child("Dinner").
+            return FirebaseDatabase.getInstance().getReference("Dinner").
             child(today).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
         }
 
@@ -95,32 +95,32 @@ public class FoodDinnerAdapter extends RecyclerView.Adapter<FoodDinnerAdapter.Vi
             vAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    count++;
-                    caloriecount =  (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
-                    totalcarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
-                    totalfat =  (Float.parseFloat((String.valueOf(foodItem.get("ifat")))));
-                    totalprotein =(Float.parseFloat((String.valueOf(foodItem.get("iprotein")))));
-                    name= String.valueOf(foodItem.get("iname"));
-                    nameDinner.add(name);
-                    calories_dinner.add(caloriecount);
-                    proteins_dinner.add(totalprotein);
-                    fats_dinner.add(totalfat);
-                    carbs_dinner.add(totalcarbs);
+                    try {
+                        count++;
+                        caloriecount = (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
+                        totalcarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
+                        totalfat = (Float.parseFloat((String.valueOf(foodItem.get("ifat")))));
+                        totalprotein = (Float.parseFloat((String.valueOf(foodItem.get("iprotein")))));
+                        name = String.valueOf(foodItem.get("iname"));
+                        nameDinner.add(name);
+                        calories_dinner.add(caloriecount);
+                        proteins_dinner.add(totalprotein);
+                        fats_dinner.add(totalfat);
+                        carbs_dinner.add(totalcarbs);
 
-                    total_cal +=caloriecount;
-                    total_proteins+=totalprotein;
-                    total_carb+=totalcarbs;
-                    total_fats+=totalfat;
-                    for(int i=0;i<nameDinner.size();i++)
-                    {
-                        eatDinner+=(nameDinner.get(i)+',');
-                    }
-                    getCaloriesRef("total").setValue(Math.round(total_cal*10.0 ) / 10.0);
-                    getCaloriesRef("totalfats").setValue(Math.round(total_fats*10.0 ) / 10.0);
-                    getCaloriesRef("totalcarbs").setValue(Math.round(total_carb*10.0 ) / 10.0);
-                    getCaloriesRef("totalprotein").setValue(Math.round(total_proteins*10.0 ) / 10.0);
-                    getCaloriesRef("NameDinner").setValue(eatDinner);
-
+                        total_cal += caloriecount;
+                        total_proteins += totalprotein;
+                        total_carb += totalcarbs;
+                        total_fats += totalfat;
+                        for (int i = 0; i < nameDinner.size(); i++) {
+                            eatDinner += (nameDinner.get(i) + ',');
+                        }
+                        getCaloriesRef("total").setValue(Math.round(total_cal * 10.0) / 10.0);
+                        getCaloriesRef("totalfats").setValue(Math.round(total_fats * 10.0) / 10.0);
+                        getCaloriesRef("totalcarbs").setValue(Math.round(total_carb * 10.0) / 10.0);
+                        getCaloriesRef("totalprotein").setValue(Math.round(total_proteins * 10.0) / 10.0);
+                        getCaloriesRef("NameDinner").setValue(eatDinner);
+                    }catch (Exception e) {}
                     if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";
                         Toast.makeText(mContextDinner, toast1, Toast.LENGTH_SHORT).show();

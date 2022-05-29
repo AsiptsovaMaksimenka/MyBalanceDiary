@@ -56,7 +56,9 @@ public class HistoryWaterFragment extends Fragment {
         graph.setBackgroundColor(Color.WHITE);
         TextView summary=root.findViewById(R.id.WaterSummary);
         TextView percent=root.findViewById(R.id.WaterPercent);
-        FirebaseDatabase.getInstance().getReference("Water").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Water")
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot parentDS : dataSnapshot.getChildren()) {
@@ -73,7 +75,8 @@ public class HistoryWaterFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        FirebaseDatabase.getInstance().getReference("Users").orderByChild("email")
+        FirebaseDatabase.getInstance().getReference("Users")
+                .orderByChild("email")
                 .equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .addValueEventListener(new ValueEventListener() {
                     @Override

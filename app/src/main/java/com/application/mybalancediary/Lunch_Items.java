@@ -46,7 +46,9 @@ public class Lunch_Items extends AppCompatActivity {
         Vector proteins_lunch= FoodLunchAdapter.proteins_lunch;
         Vector fats_lunch= FoodLunchAdapter.fats_lunch;
         Vector carbs_lunch= FoodLunchAdapter.carbs_lunch;
-        FirebaseDatabase.getInstance().getReference("Lunch").child(today).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Lunch").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {

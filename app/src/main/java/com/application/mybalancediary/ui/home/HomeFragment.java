@@ -134,11 +134,12 @@ public class HomeFragment extends Fragment {
                     }
                 });
         FirebaseDatabase.getInstance().getReference().child("Breakfast").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot ds : snapshot.getChildren()) {
-
+                            try{
                             br = Float.valueOf(String.valueOf(ds.child("total").getValue()));
                             totalProteinsBr = Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
                             totalFatsBr = Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
@@ -147,6 +148,8 @@ public class HomeFragment extends Fragment {
                             breakfast_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
                             breakfast_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
                             breakfast_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
+                            }
+                            catch(Exception error) {}
                         }
                     }
 
@@ -156,18 +159,22 @@ public class HomeFragment extends Fragment {
                     }
                 });
         FirebaseDatabase.getInstance().getReference().child("Lunch").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot ds : snapshot.getChildren()) {
-                            ln = Float.valueOf(String.valueOf(ds.child("total").getValue()));
-                            totalProteinsLn = Float.parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
-                            totalFatsLn = Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
-                            totalCarbsLn = Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
-                            lunch_cal.setText(String.valueOf(ds.child("total").getValue()));
-                            lunch_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
-                            lunch_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
-                            lunch_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
+                            try {
+                                ln = Float.valueOf(String.valueOf(ds.child("total").getValue()));
+                                totalProteinsLn = Float.parseFloat(String.valueOf(ds.child("totalprotein").getValue()));
+                                totalFatsLn = Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
+                                totalCarbsLn = Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
+                                lunch_cal.setText(String.valueOf(ds.child("total").getValue()));
+                                lunch_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
+                                lunch_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
+                                lunch_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
+                            }
+                            catch(Exception error) {}
                         }
                     }
 
@@ -177,18 +184,22 @@ public class HomeFragment extends Fragment {
                     }
                 });
         FirebaseDatabase.getInstance().getReference().child("Dinner").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot ds : snapshot.getChildren()) {
-                            dn = Float.valueOf(String.valueOf(ds.child("total").getValue()));
-                            totalProteinsDn = Float.valueOf(String.valueOf(ds.child("totalprotein").getValue()));
-                            totalFatsDn = Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
-                            totalCarbsDn = Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
-                            dinner_cal.setText(String.valueOf(ds.child("total").getValue()));
-                            dinner_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
-                            dinner_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
-                            dinner_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
+                            try {
+                                dn = Float.valueOf(String.valueOf(ds.child("total").getValue()));
+                                totalProteinsDn = Float.valueOf(String.valueOf(ds.child("totalprotein").getValue()));
+                                totalFatsDn = Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
+                                totalCarbsDn = Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
+                                dinner_cal.setText(String.valueOf(ds.child("total").getValue()));
+                                dinner_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
+                                dinner_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
+                                dinner_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
+                            }
+                            catch(Exception error){}
                         }
                     }
 
@@ -198,18 +209,22 @@ public class HomeFragment extends Fragment {
                     }
                 });
         FirebaseDatabase.getInstance().getReference().child("Snacks").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot ds : snapshot.getChildren()) {
-                            sn = Float.valueOf(String.valueOf(ds.child("total").getValue()));
-                            totalProteinsSn = Float.valueOf(String.valueOf(ds.child("totalprotein").getValue()));
-                            totalFatsSn = Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
-                            totalCarbsSn = Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
-                            snack_cal.setText(String.valueOf(ds.child("total").getValue()));
-                            snack_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
-                            snack_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
-                            snack_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
+                            try {
+                                sn = Float.valueOf(String.valueOf(ds.child("total").getValue()));
+                                totalProteinsSn = Float.valueOf(String.valueOf(ds.child("totalprotein").getValue()));
+                                totalFatsSn = Float.valueOf(String.valueOf(ds.child("totalfats").getValue()));
+                                totalCarbsSn = Float.valueOf(String.valueOf(ds.child("totalcarbs").getValue()));
+                                snack_cal.setText(String.valueOf(ds.child("total").getValue()));
+                                snack_prot.setText(String.valueOf(ds.child("totalprotein").getValue()));
+                                snack_fats.setText(String.valueOf(ds.child("totalfats").getValue()));
+                                snack_carbs.setText(String.valueOf(ds.child("totalcarbs").getValue()));
+                            }
+                            catch(Exception error){}
                         }
                     }
 
@@ -220,40 +235,45 @@ public class HomeFragment extends Fragment {
                 });
 
         FirebaseDatabase.getInstance().getReference().child("TotalPerDay").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds : snapshot.getChildren()) {
-                            cal_per_day.setText(String.valueOf(ds.child("TotalPerDay").getValue()));
-                            proteins_per_day.setText(String.valueOf(ds.child("TotalProteinsPerDay").getValue()));
-                            fats_per_day.setText(String.valueOf(ds.child("TotalFatsPerDay").getValue()));
-                            carbs_per_day.setText(String.valueOf(ds.child("TotalCarbsPerDay").getValue()));
-                            TotalCal = Float.valueOf(String.valueOf(ds.child("TotalPerDay").getValue()));
-                            TotalProteins = Float.valueOf(String.valueOf(ds.child("TotalProteinsPerDay").getValue()));
-                            TotalFats = Float.valueOf(String.valueOf(ds.child("TotalFatsPerDay").getValue()));
-                            TotalCarbs = Float.valueOf(String.valueOf(ds.child("TotalCarbsPerDay").getValue()));
-                            if (TotalFats > userFats) {
-                                fats_progress.setProgress(100);
-                                fats_progress.setIndicatorColor(0xFFFF0000);
+                        try {
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                cal_per_day.setText(String.valueOf(ds.child("TotalPerDay").getValue()));
+                                proteins_per_day.setText(String.valueOf(ds.child("TotalProteinsPerDay").getValue()));
+                                fats_per_day.setText(String.valueOf(ds.child("TotalFatsPerDay").getValue()));
+                                carbs_per_day.setText(String.valueOf(ds.child("TotalCarbsPerDay").getValue()));
+                                TotalCal = Float.valueOf(String.valueOf(ds.child("TotalPerDay").getValue()));
+                                TotalProteins = Float.valueOf(String.valueOf(ds.child("TotalProteinsPerDay").getValue()));
+                                TotalFats = Float.valueOf(String.valueOf(ds.child("TotalFatsPerDay").getValue()));
+                                TotalCarbs = Float.valueOf(String.valueOf(ds.child("TotalCarbsPerDay").getValue()));
+                                if (TotalFats > userFats) {
+                                    fats_progress.setProgress(100);
+                                    fats_progress.setIndicatorColor(0xFFFF0000);
+                                } else
+                                    fats_progress.setProgress(Math.round((100 * (TotalFats)) / userFats));
+                            }
+                            if (TotalProteins > userProteins) {
+                                proteins_progress.setProgress(100);
+                                proteins_progress.setIndicatorColor(0xFFFF0000);
                             } else
-                                fats_progress.setProgress(Math.round((100 * (TotalFats)) / userFats));
+                                proteins_progress.setProgress(Math.round((100 * (TotalProteins)) / userProteins));
+                            if (TotalCarbs > userCarbs) {
+                                carbs_progress.setProgress(100);
+                                carbs_progress.setIndicatorColor(0xFFFF0000);
+                            } else
+                                carbs_progress.setProgress(Math.round((100 * (TotalCarbs)) / userCarbs));
+                            if (TotalCal > userCal) {
+                                cal_summary.setProgress(100);
+                                cal_summary.setIndicatorColor(0xFFFF0000);
+                            } else
+                                cal_summary.setProgress(Math.round((100 * (TotalCal)) / userCal));
                         }
-                        if (TotalProteins > userProteins) {
-                            proteins_progress.setProgress(100);
-                            proteins_progress.setIndicatorColor(0xFFFF0000);
-                        } else
-                            proteins_progress.setProgress(Math.round((100 * (TotalProteins)) / userProteins));
-                        if (TotalCarbs > userCarbs) {
-                            carbs_progress.setProgress(100);
-                            carbs_progress.setIndicatorColor(0xFFFF0000);
-                        } else
-                            carbs_progress.setProgress(Math.round((100 * (TotalCarbs)) / userCarbs));
-                        if (TotalCal > userCal) {
-                            cal_summary.setProgress(100);
-                            cal_summary.setIndicatorColor(0xFFFF0000);
-                        } else
-                            cal_summary.setProgress(Math.round((100 * (TotalCal)) / userCal));
+                        catch(Exception error){}
                     }
+
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {

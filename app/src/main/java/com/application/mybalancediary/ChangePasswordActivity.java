@@ -3,6 +3,7 @@ package com.application.mybalancediary;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,8 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 public class ChangePasswordActivity extends AppCompatActivity {
-    String new_pass;
-    String confirm_new_pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,32 +30,33 @@ public class ChangePasswordActivity extends AppCompatActivity {
         final EditText new_password = findViewById(R.id.password_new);
         final EditText new_password_repeat = findViewById(R.id.password_new_repeat);
         Button save = findViewById(R.id.Save_password);
-        new_pass=new_password.getText().toString();
-        confirm_new_pass=new_password_repeat.getText().toString();
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AuthCredential credential = EmailAuthProvider.getCredential(email.toString(), new_pass);
-                FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    if (new_pass.equals(confirm_new_pass)) {
-                                        FirebaseAuth.getInstance().getCurrentUser().updatePassword(new_pass).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(ChangePasswordActivity.this, "Update ", Toast.LENGTH_SHORT).show();
-                                                } else {
-                                                    Toast.makeText(ChangePasswordActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    AuthCredential credential = EmailAuthProvider.getCredential(email.getText().toString().trim(), current_password.getText().toString().trim());
+                    FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        if (new_password.getText().toString().trim().equals(new_password_repeat.getText().toString().trim())) {
+                                            FirebaseAuth.getInstance().getCurrentUser().updatePassword(new_password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(ChangePasswordActivity.this, "Update ", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(ChangePasswordActivity.this, SettingsFragment.class));
+                                                    } else {
+                                                        Toast.makeText(ChangePasswordActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
     }

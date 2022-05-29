@@ -85,7 +85,7 @@ public class FoodSnacksAdapter extends RecyclerView.Adapter<FoodSnacksAdapter.Vi
         }
 
         private DatabaseReference getCaloriesRef(String ref) {
-            return FirebaseDatabase.getInstance().getReference().child("Snacks").child(today)
+            return FirebaseDatabase.getInstance().getReference("Snacks").child(today)
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
         }
 
@@ -95,32 +95,32 @@ public class FoodSnacksAdapter extends RecyclerView.Adapter<FoodSnacksAdapter.Vi
             vAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    count++;
-                    caloriecount =  (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
-                    totalcarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
-                    totalfat =  (Float.parseFloat((String.valueOf(foodItem.get("ifat")))));
-                    totalprotein =(Float.parseFloat((String.valueOf(foodItem.get("iprotein")))));
-                    name= String.valueOf(foodItem.get("iname"));
-                    nameSnack.add(name);
-                    calories_snack.add(caloriecount);
-                    proteins_snack.add(totalprotein);
-                    fats_snack.add(totalfat);
-                    carbs_snack.add(totalcarbs);
+                    try {
+                        count++;
+                        caloriecount = (Float.parseFloat(String.valueOf(foodItem.get("ical"))));
+                        totalcarbs = (Float.parseFloat((String.valueOf(foodItem.get("icarbs")))));
+                        totalfat = (Float.parseFloat((String.valueOf(foodItem.get("ifat")))));
+                        totalprotein = (Float.parseFloat((String.valueOf(foodItem.get("iprotein")))));
+                        name = String.valueOf(foodItem.get("iname"));
+                        nameSnack.add(name);
+                        calories_snack.add(caloriecount);
+                        proteins_snack.add(totalprotein);
+                        fats_snack.add(totalfat);
+                        carbs_snack.add(totalcarbs);
 
-                    total_cal +=caloriecount;
-                    total_proteins+=totalprotein;
-                    total_carb+=totalcarbs;
-                    total_fats+=totalfat;
-                    for(int i=0;i<nameSnack.size();i++)
-                    {
-                        eatSnack +=(nameSnack.get(i)+',');
-                    }
-                    getCaloriesRef("total").setValue(Math.round(total_cal*10.0 ) / 10.0);
-                    getCaloriesRef("totalfats").setValue(Math.round(total_fats*10.0 ) / 10.0);
-                    getCaloriesRef("totalcarbs").setValue(Math.round(total_carb*10.0 ) / 10.0);
-                    getCaloriesRef("totalprotein").setValue(Math.round(total_proteins*10.0 ) / 10.0);
-                    getCaloriesRef("NameSnack").setValue(nameSnack);
-
+                        total_cal += caloriecount;
+                        total_proteins += totalprotein;
+                        total_carb += totalcarbs;
+                        total_fats += totalfat;
+                        for (int i = 0; i < nameSnack.size(); i++) {
+                            eatSnack += (nameSnack.get(i) + ',');
+                        }
+                        getCaloriesRef("total").setValue(Math.round(total_cal * 10.0) / 10.0);
+                        getCaloriesRef("totalfats").setValue(Math.round(total_fats * 10.0) / 10.0);
+                        getCaloriesRef("totalcarbs").setValue(Math.round(total_carb * 10.0) / 10.0);
+                        getCaloriesRef("totalprotein").setValue(Math.round(total_proteins * 10.0) / 10.0);
+                        getCaloriesRef("NameSnack").setValue(nameSnack);
+                    }catch (Exception e){}
 
                     if (count >= 1) {
                         String toast1 = String.valueOf(count) + "item added";
