@@ -11,7 +11,8 @@
         android:id="@+id/homeClicked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="home"
+        android:text="Back"
+        android:visibility="invisible"
         android:layout_gravity="end"
        />
 
@@ -22,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="enter_your_step_goal" />
+        android:text="Enter your goal" />
 
     <Space
         android:layout_width="wrap_content"

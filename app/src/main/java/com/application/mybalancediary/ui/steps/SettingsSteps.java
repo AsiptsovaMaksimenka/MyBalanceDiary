@@ -20,8 +20,7 @@ public class SettingsSteps extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_steps);
-        final Button homeClicked =findViewById(R.id.homeClicked);
-        homeClicked.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), StepsMain.class)));
+
     }
 
     public void saveClicked(View view) {

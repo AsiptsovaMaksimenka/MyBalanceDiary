@@ -1,5 +1,6 @@
 package com.application.mybalancediary.ui.steps;
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,9 +30,7 @@ public class StepsMain extends Fragment implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor sensor;
     private TextView showSteps;
-    private TextView displayGoal;
     private TextView percentageView;
-    //  private CircularProgressBar circularProgressBar;
     private int currentGoal = 0;
     int mySteps = 0;
     public static final int MAIN_REQUEST = 2;
@@ -45,15 +44,12 @@ public class StepsMain extends Fragment implements SensorEventListener {
                 }
             });
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.activity_steps, container, false);
         percentageView = root.findViewById(R.id.percentage);
-        //  circularProgressBar = findViewById(R.id.yourCircularProgressbar);
-        displayGoal = root.findViewById(R.id.show_goal);
-        showSteps = root.findViewById(R.id.show_steps);
+        showSteps = root.findViewById(R.id.steps_goal);
         final Button btn_click =root.findViewById(R.id.btn_click);
         btn_click.setOnClickListener(v -> startActivity(new Intent(getContext(), SettingsSteps.class)));
         if(savedInstanceState == null) {
@@ -77,7 +73,7 @@ public class StepsMain extends Fragment implements SensorEventListener {
         if (resultCode == getActivity().RESULT_OK) {
             if (data != null) {
                 String goalFromSettings = data.getStringExtra("goal");
-                displayGoal.setText(goalFromSettings);
+               showSteps.setText(goalFromSettings);
                 currentGoal = Integer.parseInt(goalFromSettings);
                 // circularProgressBar.setProgressMax(currentGoal);
             }
@@ -99,7 +95,7 @@ public class StepsMain extends Fragment implements SensorEventListener {
             Toast.makeText(getContext(), "No sensor found", Toast.LENGTH_SHORT).show();
         }
     }
-    //@Override
+    @Override
     public void onResume() {
         super.onResume();
         sensorManager.registerListener(StepsMain.this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -115,6 +111,7 @@ public class StepsMain extends Fragment implements SensorEventListener {
         ;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         mySteps = steps.countSteps((int) sensorEvent.values[0]);
@@ -122,7 +119,6 @@ public class StepsMain extends Fragment implements SensorEventListener {
         int percentage = steps.returnPercentage(currentGoal, mySteps);
         percentageView.setText(percentage + "%");
 
-        // circularProgressBar.setProgressWithAnimation(mySteps, 1000L);
         if (steps.checkGoal(mySteps, currentGoal)){
             Toast.makeText(getContext(), "Congratulations you hit your goal!", Toast.LENGTH_SHORT).show();
         }

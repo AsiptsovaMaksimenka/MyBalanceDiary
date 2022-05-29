@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:progress="0"
-                    app:trackColor="@color/blue"
+                    app:trackColor="@color/green"
                     app:indicatorSize="160dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

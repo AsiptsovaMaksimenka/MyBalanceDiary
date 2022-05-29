@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,68 +10,77 @@
     tools:context=".ui.steps.StepsMain">
 
 
+    <TextView
+        android:id="@+id/show_steps"
+        android:layout_width="226dp"
+        android:layout_height="53dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="199dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="479dp"
+        android:text="Today's steps"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/steps_goal"
+        android:layout_width="222dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="332dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="349dp"
+        android:text="current_steps"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
     <Button
         android:id="@+id/btn_click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="settings"
-        android:layout_gravity="end"
-     />
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="15sp" />
-
-    <TextView
-        android:textSize="50sp"
-        android:id="@+id/show_steps"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="0"/>
-
-    <TextView
-        android:textSize="25sp"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="current_steps" />
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="50sp" />
-
-    <TextView
-        android:id="@+id/show_goal"
-        android:textSize="50sp"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="0"/>
-
-    <TextView
-        android:textSize="25sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="step_goal" />
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="50sp" />
+        android:layout_width="108dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="276dp"
+        android:layout_marginTop="677dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="15dp"
+        android:text="Settings"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/percentage"
-        android:textSize="50sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="223dp"
+        android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="494dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="186dp"
         android:gravity="center"
-        android:text="Percentage"/>
+        android:text="Percentage"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>
