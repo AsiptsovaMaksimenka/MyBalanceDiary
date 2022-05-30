@@ -187,7 +187,6 @@
             android:autofillHints=""
             android:ems="10"
             android:hint="Birth Date"
-            android:inputType="datetime"
             android:padding="10dp"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"

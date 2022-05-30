@@ -151,6 +151,7 @@
         </activity>
 
         <receiver android:name=".AlertReceiver" />
+        <receiver android:name=".AlertReceiverWeight" />
     </application>
 
 </manifest>
