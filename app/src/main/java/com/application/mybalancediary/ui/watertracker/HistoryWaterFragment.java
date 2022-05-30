@@ -59,7 +59,6 @@ public class HistoryWaterFragment extends Fragment {
         TextView summary=root.findViewById(R.id.WaterSummary);
         TextView percent=root.findViewById(R.id.WaterPercent);
         FirebaseDatabase.getInstance().getReference("Water")
-                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

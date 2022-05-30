@@ -56,7 +56,6 @@ public class CaloriesHistory extends Fragment {
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Calories,kcal");
         FirebaseDatabase.getInstance().getReference("TotalPerDay")
-                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

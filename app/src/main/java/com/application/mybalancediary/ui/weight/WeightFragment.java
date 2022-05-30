@@ -84,7 +84,6 @@ public class WeightFragment extends Fragment {
         graph.getGridLabelRenderer().setVerticalAxisTitle("Weight,kg");
 
         FirebaseDatabase.getInstance().getReference().child("Input_Weight").child(today)
-                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -438,7 +437,7 @@ public class WeightFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), AlertReceiverWeight.class);
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent,PendingIntent.FLAG_MUTABLE);
                     long timeAtButtonClick = System.currentTimeMillis();
-                    long timeSendsInMills = 1000*10;
+                    long timeSendsInMills = 1000*5;
                     AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                     alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick + timeSendsInMills, pendingIntent);
                 }

@@ -53,8 +53,8 @@ public class WaterFragment extends Fragment {
     public static String time, ampm,total;
     Date date = new Date();
     @SuppressLint("SimpleDateFormat")
-    String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
-    //String today="2022-05-9";
+    //String today= new SimpleDateFormat("yyyy-MM-dd").format(date);
+    String today="2022-05-20";
     private DatabaseReference getWaterRef(String ref) {
         return FirebaseDatabase.getInstance().getReference("Water").
                 child(today).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);

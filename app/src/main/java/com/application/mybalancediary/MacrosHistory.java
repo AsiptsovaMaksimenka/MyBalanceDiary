@@ -62,7 +62,6 @@ public class MacrosHistory extends Fragment {
         TextView fatsInfo=root.findViewById(R.id.FatsInfo);
 
         FirebaseDatabase.getInstance().getReference("TotalPerDay")
-                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
