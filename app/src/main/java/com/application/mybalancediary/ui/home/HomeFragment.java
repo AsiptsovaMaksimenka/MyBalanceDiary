@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
     @SuppressLint("SimpleDateFormat")
     String today = new SimpleDateFormat("yyyy-MM-dd").format(date);
 
-    //String today="2022-05-9";
+  //  String today="2022-05-20";
     private DatabaseReference getTotalPerDayRef(String ref) {
         return FirebaseDatabase.getInstance().getReference().child("TotalPerDay").child(today)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);

@@ -84,6 +84,7 @@ public class WeightFragment extends Fragment {
         graph.getGridLabelRenderer().setVerticalAxisTitle("Weight,kg");
 
         FirebaseDatabase.getInstance().getReference().child("Input_Weight").child(today)
+                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -103,7 +104,6 @@ public class WeightFragment extends Fragment {
                 });
 
         FirebaseDatabase.getInstance().getReference("Input_Weight")
-                .orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -228,7 +228,7 @@ public class WeightFragment extends Fragment {
 
                     for (int i = 2;i<number_of_values_in_the_graph+2;i++) {
 
-                        seriesGoal.appendData(new DataPoint(i+1, currentw), false, 7);
+                        seriesGoal.appendData(new DataPoint(i+1, currentw), false, 10);
                     }
                     graph.addSeries(seriesGoal);
 
