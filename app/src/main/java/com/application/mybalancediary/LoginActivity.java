@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
-        mCreateBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
+        mCreateBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), reg1.class)));
 
         forgotTextLink.setOnClickListener(v -> {
 

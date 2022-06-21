@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".reg4">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="13dp"
+        android:text="@string/create_a_new_account"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/genderText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.581" />
+
+    <TextView
+        android:id="@+id/genderText"
+        android:layout_width="122dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="16dp"
+        android:text="Gender:"
+        android:textSize="15sp"
+
+        app:layout_constraintBottom_toTopOf="@+id/genderGroup"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/Goals"
+        android:layout_width="115dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/goal"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genderGroup" />
+
+    <Spinner
+        android:id="@+id/spinnerGoals"
+        android:layout_width="294dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Goals"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/WorkoutFreqText"
+        android:layout_width="122dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="36dp"
+        android:text="Activity level:"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGoals" />
+
+    <Spinner
+        android:id="@+id/WorkoutFreq"
+        android:layout_width="294dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerGoals"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/WorkoutFreqText"
+        app:layout_constraintTop_toBottomOf="@+id/WorkoutFreqText"
+        tools:ignore="MissingConstraints" />
+
+    <RadioGroup
+        android:id="@+id/genderGroup"
+        android:layout_width="270dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="212dp"
+        android:layout_marginBottom="460dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/femaleRadio"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:text="@string/female"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/maleRadio"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:text="@string/male"
+            android:textSize="14sp" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="64dp"
+        android:enabled="true"
+        android:text="@string/register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WorkoutFreq"
+        app:layout_constraintVertical_bias="0.187" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,19 +16,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.application.mybalancediary.EditProfile;
-import com.application.mybalancediary.RegisterActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import com.application.mybalancediary.R;
 import com.google.firebase.storage.UploadTask;
@@ -38,10 +32,10 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
 
-    private interface PictuteListener {
+    private interface PictureListener {
         void onProfilePictureUpdated();
     }
-    PictuteListener pictureListener;
+    PictureListener pictureListener;
     final int PICK_IMAGE = 100;
     ImageView image;
     ImageButton edit;
