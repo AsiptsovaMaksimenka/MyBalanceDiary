@@ -44,7 +44,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.Name_user);
-        TextView navEmail = (TextView) headerView.findViewById(R.id.EmailU);
+        TextView navUsername =  headerView.findViewById(R.id.Name_user);
+        TextView navEmail = headerView.findViewById(R.id.EmailU);
         FirebaseDatabase.getInstance().getReference("Users")
                 .orderByChild("email").equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .addValueEventListener(new ValueEventListener() {
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     .signOut(this)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         public void onComplete(@NonNull Task<Void> task) {
-                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            startActivity(new Intent(MainActivity.this, reg1.class));
                             finish();
                         }
                     });

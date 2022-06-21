@@ -42,7 +42,7 @@ public class DeleteUser extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        startActivity(new Intent(DeleteUser.this, LoginActivity.class));
+                                                        startActivity(new Intent(DeleteUser.this, reg1.class));
                                                         Toast.makeText(DeleteUser.this, "Deleted User Successfully,", Toast.LENGTH_LONG).show();
                                                     }
                                                 }

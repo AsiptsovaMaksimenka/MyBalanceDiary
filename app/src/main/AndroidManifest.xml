@@ -18,23 +18,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBalanceDiary">
         <activity
+            android:name=".SplashActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".reg4"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".reg3"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".reg2"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".reg1"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".EditProfile"
             android:exported="false" />
