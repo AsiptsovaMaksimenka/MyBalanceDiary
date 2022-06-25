@@ -11,6 +11,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.application.mybalancediary.ui.home.HomeFragment;
+import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername =  headerView.findViewById(R.id.Name_user);
         TextView navEmail = headerView.findViewById(R.id.EmailU);
+        ImageView navView= headerView.findViewById(R.id.imageView);
         FirebaseDatabase.getInstance().getReference("Users")
                 .orderByChild("email").equalTo(FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .addValueEventListener(new ValueEventListener() {
@@ -71,8 +73,13 @@ public class MainActivity extends AppCompatActivity {
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             String Name = String.valueOf(ds.child("name").getValue());
                             String Email = String.valueOf(ds.child("email").getValue());
+                            String image =String.valueOf(ds.child("image").getValue());
                             navUsername.setText(Name);
                             navEmail.setText(Email);
+                            try {
+                                Glide.with(MainActivity.this).load(image).into(navView);
+                            } catch (Exception e) {
+                            }
 
                         }
                     }
@@ -81,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

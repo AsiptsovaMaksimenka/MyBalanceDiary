@@ -1,7 +1,5 @@
 package com.application.mybalancediary;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +28,7 @@ public class FoodDataJson {
     public void downloadFoodDataJson(String json_url) throws JSONException {
         foodList.clear();
 
-        String foodJson = HTTPUtility.downloadJSONusingHTTPGetRequest(json_url);
+        String foodJson = HTTPUtility.downloadJSONUsingHTTPGetRequest(json_url);
 
         if (foodJson == null) {
             return;

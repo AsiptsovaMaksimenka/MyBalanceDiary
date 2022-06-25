@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,7 +27,10 @@ public class reg2 extends AppCompatActivity {
         final EditText mHeight = findViewById(R.id.heightInput);
         final EditText mWeight = findViewById(R.id.weightInput);
         final Button mRegisterBtn = findViewById(R.id.register);
+        final CircularProgressIndicator indicator =findViewById(R.id.progress_barCircle);
         mRegisterBtn.setOnClickListener(v -> {
+            indicator.show();
+            indicator.setVisibility(View.VISIBLE);
             final String height = mHeight.getText().toString();
             final String weight = mWeight.getText().toString();
             if (TextUtils.isEmpty(weight)) {

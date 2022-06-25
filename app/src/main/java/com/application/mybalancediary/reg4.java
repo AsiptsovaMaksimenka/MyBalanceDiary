@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,6 +45,7 @@ public class reg4 extends AppCompatActivity {
         final Spinner spinnerWorkoutFreq = findViewById(R.id.WorkoutFreq);
         final Spinner spinnerGoals = findViewById(R.id.spinnerGoals);
         final Button mRegisterBtn = findViewById(R.id.register);
+        final CircularProgressIndicator indicator =findViewById(R.id.progress_barCircle);
 
         FirebaseDatabase.getInstance().getReference("Users")
                 .orderByChild("email")
@@ -87,13 +89,15 @@ public class reg4 extends AppCompatActivity {
             position = genderGroup.indexOfChild(findViewById(checkedId));
             if (position == 1) {
                 Log.d("Gender is ", "Male");
-                genderMF="Male";
+                genderMF="Men";
             } else {
                 Log.d("Gender is ", "Female");
                 genderMF="Female";
             }
         });
         mRegisterBtn.setOnClickListener(v -> {
+            indicator.show();
+            indicator.setVisibility(View.VISIBLE);
             if(!weight.equals("") || !height.equals("")) {
                 bmi =  ((Float.parseFloat(weight) * 10000) / ((Float.parseFloat(height) * (Float.parseFloat(height)))));
                 bmi = Float.valueOf(String.format(Locale.getDefault(), "%.2f", bmi));

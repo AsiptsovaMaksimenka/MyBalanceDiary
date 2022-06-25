@@ -31,14 +31,9 @@ import java.util.Objects;
 
 
 public class LoginActivity extends AppCompatActivity {
-    EditText mEmail, mPassword;
-    Button mLoginBtn;
-    TextView mCreateBtn, forgotTextLink;
-    ProgressBar progressBar;
     FirebaseAuth firebaseAuth;
-    ImageView ShowHidePWD;
-    private GoogleApiClient googleApiClient;
-    Button signInButton;
+    //private GoogleApiClient googleApiClient;
+   // Button signInButton;
     public static final int SIGN_IN_CODE = 777;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
 
@@ -50,14 +45,13 @@ public class LoginActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_login);
 
-        mEmail = findViewById(R.id.Email);
-        mPassword = findViewById(R.id.password);
-        progressBar = findViewById(R.id.progressBar);
-        mLoginBtn = findViewById(R.id.loginBtn);
-        mCreateBtn = findViewById(R.id.createText);
-        forgotTextLink = findViewById(R.id.forgotPassword);
-        signInButton = findViewById(R.id.btn_googleLogin);
-        ShowHidePWD=findViewById(R.id.show_hide_pwd);
+   final EditText mEmail = findViewById(R.id.Email);
+   final EditText mPassword = findViewById(R.id.password);
+   final Button mLoginBtn = findViewById(R.id.loginBtn);
+   final TextView  mCreateBtn = findViewById(R.id.createText);
+   final TextView  forgotTextLink = findViewById(R.id.forgotPassword);
+     //   signInButton = findViewById(R.id.btn_googleLogin);
+        final ImageView ShowHidePWD=findViewById(R.id.show_hide_pwd);
         ShowHidePWD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,18 +66,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("1008459252405-t0jbvgp83tsf7qjig4k4gef16u9spm0o.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
-
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-        signInButton.setOnClickListener(v -> {
-            Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-            startActivityForResult(intent, SIGN_IN_CODE);
-        });
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken("1008459252405-t0jbvgp83tsf7qjig4k4gef16u9spm0o.apps.googleusercontent.com")
+//                .requestEmail()
+//                .build();
+//
+//        googleApiClient = new GoogleApiClient.Builder(this)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build();
+//        signInButton.setOnClickListener(v -> {
+//            Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+//            startActivityForResult(intent, SIGN_IN_CODE);
+//        });
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -112,16 +106,12 @@ public class LoginActivity extends AppCompatActivity {
                 mPassword.setError("Password Must be >= 6 Characters");
                 return;
             }
-
-            progressBar.setVisibility(View.VISIBLE);
-
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
                     Toast.makeText(LoginActivity.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
                 }
 
             });
@@ -164,32 +154,30 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == SIGN_IN_CODE) {
+//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+//
+//        }
+//    }
 
-        if (requestCode == SIGN_IN_CODE) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-
-        }
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount) {
-
-        progressBar.setVisibility(View.VISIBLE);
-        signInButton.setVisibility(View.GONE);
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
-        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(this, task -> {
-
-            progressBar.setVisibility(View.GONE);
-            signInButton.setVisibility(View.VISIBLE);
-
-            if (!task.isSuccessful()) {
-                Toast.makeText(getApplicationContext(), R.string.login_failed, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount) {
+//
+//        signInButton.setVisibility(View.GONE);
+//
+//        AuthCredential credential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
+//        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(this, task -> {
+//
+//            signInButton.setVisibility(View.VISIBLE);
+//
+//            if (!task.isSuccessful()) {
+//                Toast.makeText(getApplicationContext(), R.string.login_failed, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private void goMainScreen() {
         Intent intent = new Intent(this, MainActivity.class);

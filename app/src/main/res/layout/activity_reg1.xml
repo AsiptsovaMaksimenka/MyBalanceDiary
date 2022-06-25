@@ -33,7 +33,7 @@
         android:layout_marginBottom="476dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:textSize="14sp"
@@ -115,9 +115,9 @@
         android:layout_width="100dp"
         android:layout_height="56dp"
         android:layout_gravity="start"
-        android:layout_marginBottom="164dp"
+        android:layout_marginBottom="184dp"
         android:enabled="true"
-        android:text="Next"
+        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -143,13 +143,30 @@
         android:layout_height="30dp"
         android:layout_marginStart="101dp"
         android:layout_marginEnd="94dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="36dp"
         android:text="@string/already_registered_login_here"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.166"
         app:layout_constraintLeft_toRightOf="@+id/register"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_barCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="580dp"
+        android:layout_marginBottom="103dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:indicatorColor="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toRightOf="@+id/register"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

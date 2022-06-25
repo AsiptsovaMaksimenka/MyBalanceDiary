@@ -15,22 +15,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class reg1 extends AppCompatActivity {
-    private static final String TAG ="TAG";
-    ImageView ShowHidePWD,ShowHidePWDConfirm;
-
     private DatabaseReference getUsersRef(String ref) {
         return FirebaseDatabase.getInstance().getReference("Users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(ref);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +40,8 @@ public class reg1 extends AppCompatActivity {
         final EditText etConfirm = findViewById(R.id.etConfirmPassword);
         final Button mRegisterBtn = findViewById(R.id.register);
         final TextView mLoginBtn = findViewById(R.id.createText);
-
-        ShowHidePWD = findViewById(R.id.show_hide_pwd);
+        final CircularProgressIndicator indicator =findViewById(R.id.progress_barCircle);
+        final ImageView ShowHidePWD = findViewById(R.id.show_hide_pwd);
         ShowHidePWD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +52,7 @@ public class reg1 extends AppCompatActivity {
             }
         });
 
-        ShowHidePWDConfirm = findViewById(R.id.show_hide_pwd_confirm);
+     final ImageView ShowHidePWDConfirm = findViewById(R.id.show_hide_pwd_confirm);
         ShowHidePWDConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +67,8 @@ public class reg1 extends AppCompatActivity {
             finish();
         }
         mRegisterBtn.setOnClickListener(v -> {
+            indicator.show();
+            indicator.setVisibility(View.VISIBLE);
             final String email = mEmail.getText().toString().trim();
             String password = mPassword.getText().toString();
             final String fullName = mFullName.getText().toString();
@@ -78,7 +78,7 @@ public class reg1 extends AppCompatActivity {
                 return;
             }
             if (!isValid(email)) {
-                mEmail.setError("Email isnt real.");
+                mEmail.setError("Email isn't real.");
                 return;
             }
             if (TextUtils.isEmpty(password)) {
@@ -103,7 +103,7 @@ public class reg1 extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
                             .addOnSuccessListener(aVoid ->
-                                    Toast.makeText(reg1.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Log.d(TAG, "onFailure: Email not sent " + e.getMessage()));
+                                    Toast.makeText(reg1.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Log.d("TAG", "onFailure: Email not sent " + e.getMessage()));
                     getUsersRef("name").setValue(fullName);
                     getUsersRef("email").setValue(email);
                     startActivity(new Intent(getApplicationContext(), reg2.class));

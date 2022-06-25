@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChangeEmail">
+
     <EditText
         android:id="@+id/current_email"
-        android:layout_width="288dp"
-        android:layout_height="39dp"
+        android:layout_width="332dp"
+        android:layout_height="62dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="648dp"
+        android:layout_marginTop="189dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="488dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="Email"
@@ -20,16 +22,17 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/new_email"
-        android:layout_width="288dp"
-        android:layout_height="39dp"
+        android:layout_width="338dp"
+        android:layout_height="62dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="548dp"
+        android:layout_marginTop="265dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="404dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="New Email"
@@ -38,45 +41,44 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/current_email"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="290dp"
-        android:layout_height="35dp"
+        android:layout_width="338dp"
+        android:layout_height="55dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="339dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="337dp"
+        android:autofillHints=""
         android:ems="10"
-        android:hint="New Password"
+        android:hint="Password"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_email"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Save"
-        android:layout_width="194dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="148dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="414dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="267dp"
         android:text="Save"
         android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
-
-
-
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

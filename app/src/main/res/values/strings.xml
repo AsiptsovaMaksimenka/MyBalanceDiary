@@ -99,6 +99,8 @@
     <string name="settings_">Settings</string>
     <string name="logout_">LogOut</string>
     <string name="Add">Add</string>
+    <string name="next">Next</string>
+    <string name="username">Username</string>
 
 
 </resources>
