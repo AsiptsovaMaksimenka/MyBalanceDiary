@@ -38,8 +38,6 @@ public class reg3 extends AppCompatActivity {
         final CircularProgressIndicator indicator =findViewById(R.id.progress_barCircle);
 
         mRegisterBtn.setOnClickListener(v -> {
-            indicator.show();
-            indicator.setVisibility(View.VISIBLE);
             final String day = mDay.getText().toString();
             final String month = mMonth.getText().toString();
             final String year = mYear.getText().toString();
@@ -61,6 +59,8 @@ public class reg3 extends AppCompatActivity {
                 return;
             }
             if (validateDate(Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year))) {
+                indicator.show();
+                indicator.setVisibility(View.VISIBLE);
                 getUsersRef("age").setValue(getAge(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day)));
                 startActivity(new Intent(getApplicationContext(), reg4.class));
             }

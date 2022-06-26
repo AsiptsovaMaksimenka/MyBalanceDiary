@@ -89,20 +89,18 @@ public class reg4 extends AppCompatActivity {
             position = genderGroup.indexOfChild(findViewById(checkedId));
             if (position == 1) {
                 Log.d("Gender is ", "Male");
-                genderMF="Vertolet";
+                genderMF="Male";
             } else {
                 Log.d("Gender is ", "Female");
-                genderMF="Multivarka";
+                genderMF="Female";
             }
         });
         mRegisterBtn.setOnClickListener(v -> {
-            indicator.show();
-            indicator.setVisibility(View.VISIBLE);
             if(!weight.equals("") || !height.equals("")) {
                 bmi =  ((Float.parseFloat(weight) * 10000) / ((Float.parseFloat(height) * (Float.parseFloat(height)))));
                 bmi = Float.valueOf(String.format(Locale.getDefault(), "%.2f", bmi));
             }
-            if (genderMF.equals("Vertolet"))
+            if (genderMF.equals("Male"))
             {
                 bmr=(float) 5 + ((float)10 *(Float.parseFloat(weight))) + ((float)6.25  *(Float.parseFloat(height))) - ((float)5 * (Float.parseFloat(age)));
                 if (workout.equals("None (little or no exercise)"))
@@ -116,7 +114,7 @@ public class reg4 extends AppCompatActivity {
                 if (workout.equals("Very High (physical job or 7+ times/week)"))
                     bmr=bmr*(float)1.9;
             }
-            else  if (genderMF.equals("Multivarka")) {
+            else  if (genderMF.equals("Female")) {
                 bmr=((float)10*(Float.parseFloat(weight))) + ((float)6.25 *(Float.parseFloat(height)))- ((float)5* (Float.parseFloat(age)))- 161;
                 if (workout.equals("None (little or no exercise)"))
                     bmr=bmr*(float)1.2;
@@ -137,6 +135,8 @@ public class reg4 extends AppCompatActivity {
             fats= ((float)0.3*bmr)/(float)9;
             carbs=((float)0.4*bmr)/(float)4;
             int target = Integer.parseInt(weight)*35;
+            indicator.show();
+            indicator.setVisibility(View.VISIBLE);
             getUsersRef("gender").setValue(genderMF);
             getUsersRef("bmi").setValue(Math.round(bmi * 10.0) / 10.0);
             getUsersRef("bmr").setValue(Math.round(bmr * 10.0) / 10.0);

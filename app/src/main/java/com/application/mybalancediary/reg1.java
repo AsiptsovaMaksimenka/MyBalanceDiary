@@ -67,8 +67,6 @@ public class reg1 extends AppCompatActivity {
             finish();
         }
         mRegisterBtn.setOnClickListener(v -> {
-            indicator.show();
-            indicator.setVisibility(View.VISIBLE);
             final String email = mEmail.getText().toString().trim();
             String password = mPassword.getText().toString();
             final String fullName = mFullName.getText().toString();
@@ -104,6 +102,8 @@ public class reg1 extends AppCompatActivity {
                     FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
                             .addOnSuccessListener(aVoid ->
                                     Toast.makeText(reg1.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Log.d("TAG", "onFailure: Email not sent " + e.getMessage()));
+                    indicator.show();
+                    indicator.setVisibility(View.VISIBLE);
                     getUsersRef("name").setValue(fullName);
                     getUsersRef("email").setValue(email);
                     startActivity(new Intent(getApplicationContext(), reg2.class));

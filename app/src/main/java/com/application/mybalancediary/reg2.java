@@ -29,8 +29,6 @@ public class reg2 extends AppCompatActivity {
         final Button mRegisterBtn = findViewById(R.id.register);
         final CircularProgressIndicator indicator =findViewById(R.id.progress_barCircle);
         mRegisterBtn.setOnClickListener(v -> {
-            indicator.show();
-            indicator.setVisibility(View.VISIBLE);
             final String height = mHeight.getText().toString();
             final String weight = mWeight.getText().toString();
             if (TextUtils.isEmpty(weight)) {
@@ -49,6 +47,8 @@ public class reg2 extends AppCompatActivity {
                 mHeight.setError("Height must me greater then 100 and lesser then 230");
                 return;
             }
+            indicator.show();
+            indicator.setVisibility(View.VISIBLE);
             getUsersRef("height").setValue(height);
             getUsersRef("weight").setValue(weight);
             startActivity(new Intent(getApplicationContext(), reg3.class));

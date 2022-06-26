@@ -94,14 +94,14 @@
             android:id="@+id/femaleRadio"
             android:layout_width="130dp"
             android:layout_height="match_parent"
-            android:text="Multivarka"
+            android:text="Female"
             android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/maleRadio"
             android:layout_width="130dp"
             android:layout_height="match_parent"
-            android:text="Vertolet"
+            android:text="Male"
             android:textSize="14sp" />
 
     </RadioGroup>
