@@ -89,10 +89,10 @@ public class reg4 extends AppCompatActivity {
             position = genderGroup.indexOfChild(findViewById(checkedId));
             if (position == 1) {
                 Log.d("Gender is ", "Male");
-                genderMF="Men";
+                genderMF="Vertolet";
             } else {
                 Log.d("Gender is ", "Female");
-                genderMF="Female";
+                genderMF="Multivarka";
             }
         });
         mRegisterBtn.setOnClickListener(v -> {
@@ -102,7 +102,7 @@ public class reg4 extends AppCompatActivity {
                 bmi =  ((Float.parseFloat(weight) * 10000) / ((Float.parseFloat(height) * (Float.parseFloat(height)))));
                 bmi = Float.valueOf(String.format(Locale.getDefault(), "%.2f", bmi));
             }
-            if (genderMF.equals("Male"))
+            if (genderMF.equals("Vertolet"))
             {
                 bmr=(float) 5 + ((float)10 *(Float.parseFloat(weight))) + ((float)6.25  *(Float.parseFloat(height))) - ((float)5 * (Float.parseFloat(age)));
                 if (workout.equals("None (little or no exercise)"))
@@ -116,7 +116,7 @@ public class reg4 extends AppCompatActivity {
                 if (workout.equals("Very High (physical job or 7+ times/week)"))
                     bmr=bmr*(float)1.9;
             }
-            else  if (genderMF.equals("Female")) {
+            else  if (genderMF.equals("Multivarka")) {
                 bmr=((float)10*(Float.parseFloat(weight))) + ((float)6.25 *(Float.parseFloat(height)))- ((float)5* (Float.parseFloat(age)))- 161;
                 if (workout.equals("None (little or no exercise)"))
                     bmr=bmr*(float)1.2;
