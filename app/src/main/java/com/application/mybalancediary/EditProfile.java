@@ -37,6 +37,7 @@ public class EditProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_edit_profile2);
         final EditText mFullName = findViewById(R.id.fullName);
         final EditText mHeight = findViewById(R.id.heightInput);

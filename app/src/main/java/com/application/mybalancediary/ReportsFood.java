@@ -28,6 +28,7 @@ public class ReportsFood extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // getSupportActionBar().hide();
         setContentView(R.layout.activity_reports_food);
 
         setupViewpager(findViewById(R.id.viewpager));

@@ -24,6 +24,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_change_password);
         final EditText email = findViewById(R.id.current_email);
         final EditText current_password = findViewById(R.id.current_password);

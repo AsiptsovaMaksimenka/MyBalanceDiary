@@ -49,7 +49,6 @@ public class MacrosHistory extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.activity_macros_history, container, false);
-
         graph = root.findViewById(R.id.graph);
         graph.setBackgroundColor(Color.WHITE);
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");

@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         for (String provider : AuthUI.SUPPORTED_PROVIDERS) {
             Log.v(this.getClass().getName(), provider);
         }

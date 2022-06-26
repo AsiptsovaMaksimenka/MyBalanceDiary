@@ -24,6 +24,7 @@ public class DeleteUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_user);
+        getSupportActionBar().hide();
         final EditText email = findViewById(R.id.email);
         final EditText password = findViewById(R.id.pass);
         Button submit = findViewById(R.id.submit);
